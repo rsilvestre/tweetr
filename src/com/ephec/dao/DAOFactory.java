@@ -72,7 +72,7 @@ public class DAOFactory {
      */
     Connection getConnection() throws SQLException {
 
-        return DriverManager.getConnection(url, userName, password);
+        return DriverManager.getConnection(this.url, this.userName, this.password);
     }
 
     /**

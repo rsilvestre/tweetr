@@ -20,44 +20,44 @@ import com.ephec.forms.SendTweetForm;
  */
 @WebServlet("/SendReTweet")
 public class SendReTweet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String HOMEPAGE = "/EphecTweetr/HomePage";
-	public static final String RETWEET = "reTweet";
-	public static final String FORM = "form";
+    private static final long serialVersionUID = 1L;
 
-	private DAOITweet daoITweet;
-       
+    public static final String CONF_DAO_FACTORY = "daofactory";
+    public static final String HOMEPAGE = "/EphecTweetr/HomePage";
+    public static final String RETWEET = "reTweet";
+    public static final String FORM = "form";
+
+    private DAOITweet daoITweet;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public SendReTweet() {
         super();
-        
+
     }
 
-	public void init() throws ServletException {
-		this.daoITweet = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getTweetDao();
-	}
+    public void init() throws ServletException {
+        this.daoITweet = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getTweetDao();
+    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		/**Préparation de l'objet formulaire*/
-		SendTweetForm form = new SendTweetForm(daoITweet);
-		
-		/**Appel au traitement et à la validation de la requête, et récupération du bean en résultant*/
-		ReTweet reTweet = form.sendReTweet(request);
-		
-		/**Stockage du formulaire et du bean dans l'objet request*/
-		request.setAttribute(RETWEET, reTweet);
-		request.setAttribute(FORM, form);
-		response.sendRedirect(HOMEPAGE);
-		//this.getServletContext().getRequestDispatcher(HOMEPAGE).forward(request, response);	
-	}
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        /**Préparation de l'objet formulaire*/
+        SendTweetForm form = new SendTweetForm(daoITweet);
+
+        /**Appel au traitement et à la validation de la requête, et récupération du bean en résultant*/
+        ReTweet reTweet = form.sendReTweet(request);
+
+        /**Stockage du formulaire et du bean dans l'objet request*/
+        request.setAttribute(RETWEET, reTweet);
+        request.setAttribute(FORM, form);
+        response.sendRedirect(HOMEPAGE);
+        //this.getServletContext().getRequestDispatcher(HOMEPAGE).forward(request, response);
+    }
 
 }

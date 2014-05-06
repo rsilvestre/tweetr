@@ -21,23 +21,23 @@ import com.ephec.servlets.accounts.HomePage;
 
 @WebServlet("/FollowUnFollow")
 public class FollowUnFollow extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    
+    private static final long serialVersionUID = 1L;
 
-	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String FOLLOWUNFOLLOW = "/WEB-INF/followUnfollow.jsp";
-	public static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
-	
-	public static final String USERNOTFOLLOWINGLIST = "usernotfollowinglist";
-	public static final String USERFOLLOWINGLIST = "userfollowinglist";
-	
-	private static final String KEYWORD = "keyword";
-	public static final String KEYWORD_SESSION = "keywordSession";
-	
 
-	private DAOIUser daoIUser;
-	private DAOIFollow daoIFollow;
-	
+    public static final String CONF_DAO_FACTORY = "daofactory";
+    public static final String FOLLOWUNFOLLOW = "/WEB-INF/followUnfollow.jsp";
+    public static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
+
+    public static final String USERNOTFOLLOWINGLIST = "usernotfollowinglist";
+    public static final String USERFOLLOWINGLIST = "userfollowinglist";
+
+    private static final String KEYWORD = "keyword";
+    public static final String KEYWORD_SESSION = "keywordSession";
+
+
+    private DAOIUser daoIUser;
+    private DAOIFollow daoIFollow;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -45,40 +45,38 @@ public class FollowUnFollow extends HttpServlet {
         super();
     }
 
-	public void init() throws ServletException {
-		this.daoIUser = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUserDao();
-		this.daoIFollow = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getFollowDao();
-		
-	}
+    public void init() throws ServletException {
+        this.daoIUser = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUserDao();
+        this.daoIFollow = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getFollowDao();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
+    }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session = request.getSession();
-		String keyword = request.getParameter(KEYWORD);
-		FollowUnfollowForm form = new FollowUnfollowForm(daoIUser,daoIFollow);		
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    }
 
-		if(keyword != null){
-			session.setAttribute(KEYWORD_SESSION, keyword);
-		}
-		else
-		{
-			form.createFollow(request);
-			form.deleteFollow(request);
-		}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		List<User> userNotFollowingList= new ArrayList<>();
-		List<User> userFollowingList = new ArrayList<>();
-		
-		userNotFollowingList = form.searchNotFollowingByAnyNameLike(request);
-		userFollowingList = form.searchFollowingByAnyNameLike(request);
-		
-		/**Stockage du formulaire et du bean dans l'objet request*/
-		request.setAttribute(USERNOTFOLLOWINGLIST, userNotFollowingList);
-		request.setAttribute(USERFOLLOWINGLIST, userFollowingList);
-		
-		this.getServletContext().getRequestDispatcher(FOLLOWUNFOLLOW).forward(request, response);
-	}
+        HttpSession session = request.getSession();
+        String keyword = request.getParameter(KEYWORD);
+        FollowUnfollowForm form = new FollowUnfollowForm(daoIUser, daoIFollow);
+
+        if (keyword != null) {
+            session.setAttribute(KEYWORD_SESSION, keyword);
+        } else {
+            form.createFollow(request);
+            form.deleteFollow(request);
+        }
+
+        List<User> userNotFollowingList = new ArrayList<>();
+        List<User> userFollowingList = new ArrayList<>();
+
+        userNotFollowingList = form.searchNotFollowingByAnyNameLike(request);
+        userFollowingList = form.searchFollowingByAnyNameLike(request);
+
+        /**Stockage du formulaire et du bean dans l'objet request*/
+        request.setAttribute(USERNOTFOLLOWINGLIST, userNotFollowingList);
+        request.setAttribute(USERFOLLOWINGLIST, userFollowingList);
+
+        this.getServletContext().getRequestDispatcher(FOLLOWUNFOLLOW).forward(request, response);
+    }
 }

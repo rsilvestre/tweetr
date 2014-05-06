@@ -12,48 +12,47 @@ import com.ephec.utility.UserUtility;
 
 public class LoginForm {
 
-	private static final String USERNAME = "userName";
-	private static final String PASSWORD = "password";
+    private static final String USERNAME = "userName";
+    private static final String PASSWORD = "password";
 
-	private Map<String, String> erreurs = new HashMap<String, String>();
-	
-	private DAOUser daoUser;
-	
-	private String result;
-	
-	public String getResult() {
-		return result;
-	}
-	
-	public LoginForm(DAOIUser daoIUser) {
-		this.daoUser = (DAOUser) daoIUser;
-	}	
+    private Map<String, String> erreurs = new HashMap<String, String>();
 
-	public Map<String, String> getErreurs() {
-		return erreurs;
-	}
+    private DAOUser daoUser;
 
-	public User loginValidation(HttpServletRequest request) {
+    private String result;
 
-		String userName = UserUtility.getFieldValue(request, USERNAME);
-		String password = UserUtility.getFieldValue(request, PASSWORD);
-		password = UserUtility.sha256(password);
-		
-		User user = null;
-		user = daoUser.searchByUserName(userName);
+    public String getResult() {
+        return result;
+    }
 
-		if (user == null) {
-			erreurs.put(USERNAME, "Invalid username.");
-		} else {
-			
-			if (!(user.getPassword().equals(password))) {
+    public LoginForm(DAOIUser daoIUser) {
+        this.daoUser = (DAOUser) daoIUser;
+    }
 
-				erreurs.put(PASSWORD, "Invalid password.");
-			}
-			else result = "Login SuccessFull";
-		}
+    public Map<String, String> getErreurs() {
+        return erreurs;
+    }
 
-		return user;
-	}
-	
+    public User loginValidation(HttpServletRequest request) {
+
+        String userName = UserUtility.getFieldValue(request, USERNAME);
+        String password = UserUtility.getFieldValue(request, PASSWORD);
+        password = UserUtility.sha256(password);
+
+        User user = null;
+        user = daoUser.searchByUserName(userName);
+
+        if (user == null) {
+            erreurs.put(USERNAME, "Invalid username.");
+        } else {
+
+            if (!(user.getPassword().equals(password))) {
+
+                erreurs.put(PASSWORD, "Invalid password.");
+            } else result = "Login SuccessFull";
+        }
+
+        return user;
+    }
+
 }

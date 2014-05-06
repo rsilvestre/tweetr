@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/ModifyAccount")
 public class ModifyAccount extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public static final String MODIFYACCOUNT = "/WEB-INF/modifyAccount.jsp";   
+    public static final String MODIFYACCOUNT = "/WEB-INF/modifyAccount.jsp";
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -23,19 +24,19 @@ public class ModifyAccount extends HttpServlet {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher(MODIFYACCOUNT)
-		.forward(request, response);
-	}
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.getServletContext().getRequestDispatcher(MODIFYACCOUNT)
+                .forward(request, response);
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	}
+    }
 
 }
