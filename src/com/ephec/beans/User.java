@@ -7,11 +7,12 @@ public class User {
 
     private int userId;
     private String userName;
+    private String password;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
-    private String profileImage;
+    private String image;
+    private String updatedAt;
 
     public Integer getUserId() {
         return userId;
@@ -27,6 +28,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -53,20 +62,20 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getImage() {
+        return image;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getProfileImage() {
-        return profileImage;
+    public String getUpdatedAt() {
+        return this.updatedAt;
     }
 
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
+    public void setUpdatedAt(String pUpdatedAt) {
+        this.updatedAt = pUpdatedAt;
     }
 
 }

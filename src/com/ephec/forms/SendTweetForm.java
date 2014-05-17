@@ -1,16 +1,14 @@
 package com.ephec.forms;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.ephec.beans.ReTweet;
 import com.ephec.beans.TweetIn;
-import com.ephec.beans.User;
 import com.ephec.dao.DAOITweet;
 import com.ephec.dao.DAOTweet;
-import com.ephec.utility.UserUtility;
+import com.ephec.utilities.FrameworkSupport;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Create and Send Tweet
@@ -19,7 +17,7 @@ public class SendTweetForm {
 
     private static final String USERID = "userId";
     private static final String TWEETID = "tweetId";
-    private static final String MESSAGE = "message";
+    private static final String BODY = "body";
 
     private String result;
     private Map<String, String> erreurs = new HashMap<String, String>();
@@ -41,21 +39,21 @@ public class SendTweetForm {
 
     public TweetIn createTweet(HttpServletRequest request) {
 
-        int userId = Integer.parseInt(UserUtility.getFieldValue(request, USERID));
-        String message = UserUtility.getFieldValue(request, MESSAGE);
+        int userId = Integer.parseInt(FrameworkSupport.getTrimedValue(request, USERID));
+        String body = FrameworkSupport.getTrimedValue(request, BODY);
 
         TweetIn tweet = new TweetIn();
 
         // Data validation
 
         try {
-            messageValidation(message);
+            bodyValidation(body);
         } catch (Exception e) {
-            setErreur(MESSAGE, e.getMessage());
+            setErreur(BODY, e.getMessage());
         }
 
         tweet.setUserId(userId);
-        tweet.setMessage(message);
+        tweet.setBody(body);
 
         if (erreurs.isEmpty()) {
             daoTweet.createTweet(tweet);
@@ -68,8 +66,8 @@ public class SendTweetForm {
 
     public ReTweet sendReTweet(HttpServletRequest request) {
 
-        int userId = Integer.parseInt(UserUtility.getFieldValue(request, USERID));
-        int tweetId = Integer.parseInt(UserUtility.getFieldValue(request, TWEETID));
+        int userId = Integer.parseInt(FrameworkSupport.getTrimedValue(request, USERID));
+        int tweetId = Integer.parseInt(FrameworkSupport.getTrimedValue(request, TWEETID));
 
         ReTweet reTweet = new ReTweet();
 
@@ -82,20 +80,20 @@ public class SendTweetForm {
 
     }
 
-    private void setErreur(String message2, String message3) {
+    private void setErreur(String body2, String body3) {
         // TODO Auto-generated method stub
-        erreurs.put(message2, message3);
+        erreurs.put(body2, body3);
     }
 
     /**
      * Tweet name validation
      */
-    private void messageValidation(String message) throws Exception {
-        if (message != null && message.trim().length() < 3) {
+    private void bodyValidation(String body) throws Exception {
+        if (body != null && body.trim().length() < 3) {
             throw new Exception("The tweet must contain at least 3 characters.");
         }
 
-        if (message.length() > 140) {
+        if (body.length() > 140) {
             throw new Exception("The tweet is too long.");
         }
     }

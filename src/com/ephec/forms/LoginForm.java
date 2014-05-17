@@ -1,14 +1,14 @@
 package com.ephec.forms;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.ephec.beans.User;
 import com.ephec.dao.DAOIUser;
 import com.ephec.dao.DAOUser;
-import com.ephec.utility.UserUtility;
+import com.ephec.utilities.FrameworkSupport;
+import com.ephec.utilities.UserTools;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginForm {
 
@@ -21,12 +21,12 @@ public class LoginForm {
 
     private String result;
 
-    public String getResult() {
-        return result;
-    }
-
     public LoginForm(DAOIUser daoIUser) {
         this.daoUser = (DAOUser) daoIUser;
+    }
+
+    public String getResult() {
+        return result;
     }
 
     public Map<String, String> getErreurs() {
@@ -34,22 +34,30 @@ public class LoginForm {
     }
 
     public User loginValidation(HttpServletRequest request) {
-
-        String userName = UserUtility.getFieldValue(request, USERNAME);
-        String password = UserUtility.getFieldValue(request, PASSWORD);
-        password = UserUtility.sha256(password);
-
         User user = null;
-        user = daoUser.searchByUserName(userName);
+        Boolean bEmptyFieldError = false;
+        String userName;
+        String password;
+
+        if ((userName = FrameworkSupport.getTrimedValue(request, USERNAME)).isEmpty()) {
+            bEmptyFieldError = true;
+            erreurs.put(USERNAME, "empty username");
+        }
+        if ((password = FrameworkSupport.getTrimedValue(request, PASSWORD)).isEmpty()) {
+            bEmptyFieldError = true;
+            erreurs.put(PASSWORD, "empty password");
+        }
+        if (bEmptyFieldError) {
+            return user;
+        }
+
+        user = daoUser.loginSearch(userName, UserTools.sha256(password));
 
         if (user == null) {
             erreurs.put(USERNAME, "Invalid username.");
+            erreurs.put(PASSWORD, "Invalid password");
         } else {
-
-            if (!(user.getPassword().equals(password))) {
-
-                erreurs.put(PASSWORD, "Invalid password.");
-            } else result = "Login SuccessFull";
+            result = "Login SuccessFull";
         }
 
         return user;

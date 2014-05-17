@@ -1,34 +1,29 @@
 package com.ephec.servlets.accounts;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.ephec.beans.User;
 import com.ephec.dao.DAOFactory;
 import com.ephec.dao.DAOIFile;
 import com.ephec.dao.DAOIUser;
 import com.ephec.forms.ModifyAccountForm;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
 @WebServlet("/ModifyAccountInfo")
 public class ModifyAccountInfo extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-
     public static final String CONF_DAO_FACTORY = "daofactory";
     public static final String MODIFYACCOUNT = "/WEB-INF/modifyAccount.jsp";
-    public static final String HOMEPAGE = "/EphecTweetr/HomePage";
+    public static final String HOMEPAGE = "/HomePage";
     public static final String FILE_FIELD = "fileField";
     public static final String USER = "user";
     public static final String FORM = "form";
     public static final String USER_SESSION = "userSession";
-
+    private static final long serialVersionUID = 1L;
     private DAOIUser daoIUser;
     private DAOIFile daoIFile;
 

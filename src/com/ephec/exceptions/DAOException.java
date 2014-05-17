@@ -5,12 +5,12 @@ public class DAOException extends RuntimeException {
     /*
      * Constructeurs
      */
-    public DAOException(String message) {
-        super(message);
+    public DAOException(String body) {
+        super(body);
     }
 
-    public DAOException(String message, Throwable cause) {
-        super(message, cause);
+    public DAOException(String body, Throwable cause) {
+        super(body, cause);
     }
 
     public DAOException(Throwable cause) {

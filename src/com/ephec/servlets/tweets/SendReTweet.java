@@ -1,32 +1,27 @@
 package com.ephec.servlets.tweets;
 
-import java.io.IOException;
+import com.ephec.beans.ReTweet;
+import com.ephec.dao.DAOFactory;
+import com.ephec.dao.DAOITweet;
+import com.ephec.forms.SendTweetForm;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.ephec.beans.ReTweet;
-import com.ephec.dao.DAOFactory;
-import com.ephec.dao.DAOITweet;
-import com.ephec.forms.SendTweetForm;
+import java.io.IOException;
 
 /**
  * Servlet implementation class ReTweet
  */
 @WebServlet("/SendReTweet")
 public class SendReTweet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
     public static final String CONF_DAO_FACTORY = "daofactory";
-    public static final String HOMEPAGE = "/EphecTweetr/HomePage";
+    public static final String HOMEPAGE = "/HomePage";
     public static final String RETWEET = "reTweet";
     public static final String FORM = "form";
-
+    private static final long serialVersionUID = 1L;
     private DAOITweet daoITweet;
 
     /**

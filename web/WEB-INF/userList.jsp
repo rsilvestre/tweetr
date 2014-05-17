@@ -7,7 +7,7 @@
     <c:forEach var="user" items="${usernotfollowinglist}">
 
         <tr>
-            <td><img src="<c:url value='/Images/${sessionScope.userSession.profileImage}'/>" alt="${user.userId}"
+            <td><img src="<c:url value='/Images/${sessionScope.userSession.image}'/>" alt="${user.userId}"
                      height="60px" width="60px"/></td>
             <td><c:out value="${user.userName}"/></td>
             <td><c:out value="${user.firstName}"/></td>
@@ -23,7 +23,7 @@
     </c:forEach>
     <c:forEach var="user" items="${userfollowinglist}">
         <tr>
-            <td><img src="<c:url value='/Images/${sessionScope.userSession.profileImage}'/>" alt="${user.userId}"
+            <td><img src="<c:url value='/Images/${sessionScope.userSession.image}'/>" alt="${user.userId}"
                      height="60px" width="60px"/></td>
             <td><c:out value="${user.userName}"/></td>
             <td><c:out value="${user.firstName}"/></td>

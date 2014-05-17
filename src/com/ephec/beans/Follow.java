@@ -8,6 +8,7 @@ public class Follow {
     private Integer followingId;
     private Integer followerId;
     private Integer userId;
+    private String updatedAt;
 
     public Integer getFollowingId() {
         return followingId;
@@ -31,6 +32,14 @@ public class Follow {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public void setUpdatedAt(String pUpdatedAt) {
+        this.updatedAt = pUpdatedAt;
     }
 
 }

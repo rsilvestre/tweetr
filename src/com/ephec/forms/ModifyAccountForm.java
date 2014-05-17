@@ -1,24 +1,19 @@
 package com.ephec.forms;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-
 import com.ephec.beans.User;
 import com.ephec.dao.DAOFile;
 import com.ephec.dao.DAOIFile;
 import com.ephec.dao.DAOIUser;
 import com.ephec.dao.DAOUser;
-import com.ephec.utility.UserUtility;
+import com.ephec.utilities.FrameworkSupport;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModifyAccountForm {
     private static final String USERNAME = "userName";
@@ -28,8 +23,8 @@ public class ModifyAccountForm {
     private static final String OLDPASSWORD = "oldPassword";
     private static final String NEWPASSWORD = "newPassword";
     private static final String CONFIRMATION = "confirmation";
-    private static final String PROFILEIMAGE = "profileImage";
-    private static final String PATH = "C:/Users/BadUser/Documents/Workspace/Java/EphecTweetr/WebContent/Images";
+    private static final String IMAGE = "image";
+    private static final String PATH = Thread.currentThread().getContextClassLoader().getResource("/EphecTweetr/WebContent/Images").toString();
 
     private static final String USER_SESSION = "userSession";
 
@@ -48,13 +43,13 @@ public class ModifyAccountForm {
 
     public User modifyAccountInfo(HttpServletRequest request) {
 
-        String userName = UserUtility.getFieldValue(request, USERNAME);
-        String firstName = UserUtility.getFieldValue(request, FIRSTNAME);
-        String lastName = UserUtility.getFieldValue(request, LASTNAME);
-        String email = UserUtility.getFieldValue(request, EMAIL);
-        String oldPassword = UserUtility.getFieldValue(request, OLDPASSWORD);
-        String newPassword = UserUtility.getFieldValue(request, NEWPASSWORD);
-        String confirmation = UserUtility.getFieldValue(request, CONFIRMATION);
+        String userName = FrameworkSupport.getTrimedValue(request, USERNAME);
+        String firstName = FrameworkSupport.getTrimedValue(request, FIRSTNAME);
+        String lastName = FrameworkSupport.getTrimedValue(request, LASTNAME);
+        String email = FrameworkSupport.getTrimedValue(request, EMAIL);
+        String oldPassword = FrameworkSupport.getTrimedValue(request, OLDPASSWORD);
+        String newPassword = FrameworkSupport.getTrimedValue(request, NEWPASSWORD);
+        String confirmation = FrameworkSupport.getTrimedValue(request, CONFIRMATION);
 
         System.out.println(email);
         HttpSession session = request.getSession();
@@ -66,7 +61,7 @@ public class ModifyAccountForm {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
-        user.setProfileImage(oldUser.getProfileImage());
+        user.setImage(oldUser.getImage());
 
         // Data validation
         try {
@@ -134,7 +129,7 @@ public class ModifyAccountForm {
 
     public User modifyAccountImage(HttpServletRequest request) {
 
-        Part part = profileImageValidation(request);
+        Part part = imageValidation(request);
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(USER_SESSION);
 
@@ -142,12 +137,12 @@ public class ModifyAccountForm {
             try {
                 daoFile.writeFile(part, user.getUserId().toString(), PATH);
             } catch (IOException e) {
-                setErreur(PROFILEIMAGE, e.getMessage());
+                setErreur(IMAGE, e.getMessage());
             }
         }
         if (erreurs.isEmpty()) {
             setResult("Your account has been modified successfully.");
-            user.setProfileImage(user.getUserId().toString());
+            user.setImage(user.getUserId().toString());
             daoUser.update(user);
             return user;
 
@@ -227,22 +222,22 @@ public class ModifyAccountForm {
     }
 
     /**
-     * Ajoute un message correspondant au champ spécifié à la map des erreurs.
+     * Ajoute un body correspondant au champ spécifié à la map des erreurs.
      */
-    private void setErreur(String champ, String message) {
-        erreurs.put(champ, message);
+    private void setErreur(String champ, String body) {
+        erreurs.put(champ, body);
     }
 
-    private Part profileImageValidation(HttpServletRequest request) {
+    private Part imageValidation(HttpServletRequest request) {
         try {
-            Part part = request.getPart(PROFILEIMAGE);
+            Part part = request.getPart(IMAGE);
             return part;
         } catch (IllegalStateException e) {
-            setErreur(PROFILEIMAGE, e.getMessage());
+            setErreur(IMAGE, e.getMessage());
         } catch (IOException e) {
-            setErreur(PROFILEIMAGE, e.getMessage());
+            setErreur(IMAGE, e.getMessage());
         } catch (ServletException e) {
-            setErreur(PROFILEIMAGE, e.getMessage());
+            setErreur(IMAGE, e.getMessage());
         }
         return null;
 

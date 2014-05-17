@@ -1,16 +1,16 @@
 package com.ephec.config;
 
+import com.ephec.dao.DAOFactory;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import com.ephec.dao.DAOFactory;
-
 @WebListener
 public class DAOFactoryInit implements ServletContextListener {
 
-    private static final String ATT_DAO_FACTORY = "daofactory";
+    public static final String ATT_DAO_FACTORY = "daofactory";
 
     private DAOFactory daoFactory;
 
@@ -21,7 +21,7 @@ public class DAOFactoryInit implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
-		/* Récupération du ServletContext lors du chargement de l'application */
+        /* Récupération du ServletContext lors du chargement de l'application */
         ServletContext servletContext = event.getServletContext();
 		/* Instanciation de notre DAOFactory */
         this.daoFactory = DAOFactory.getInstance();

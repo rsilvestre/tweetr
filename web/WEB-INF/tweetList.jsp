@@ -7,7 +7,7 @@
         <tr>
             <td width="70%">
                 <img src="<c:url value='/Images/${tweet.uorig}'/>" alt="${tweet.uorig}" height="60px" width="60px"/>
-                <c:out value="${tweet.message}"/>
+                <c:out value="${tweet.body}"/>
                 @<c:out value="${tweet.userName}"/>
                 <c:if test="${tweet.ruid > 0}">retweete par <c:out value="${tweet.par}"/>
                 </c:if>

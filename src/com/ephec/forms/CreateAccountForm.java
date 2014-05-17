@@ -1,16 +1,17 @@
 package com.ephec.forms;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.ephec.beans.User;
 import com.ephec.dao.DAOIUser;
 import com.ephec.dao.DAOUser;
-import com.ephec.utility.UserUtility;
+import com.ephec.utilities.FrameworkSupport;
+import com.ephec.utilities.UserTools;
 
-public final class CreateAccountForm {
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
+
+public final class CreateAccountForm extends ValidationForm {
 
     private static final String USERNAME = "userName";
     private static final String FIRSTNAME = "firstName";
@@ -21,12 +22,14 @@ public final class CreateAccountForm {
     private static final String CONFIRMATION = "confirmation";
 
     private String result;
-    private Map<String, String> erreurs = new HashMap<String, String>();
+    //private Map<String, String> erreurs = new HashMap<String, String>();
+    private AtomicReference<Map<String, String>> erreursRef = new AtomicReference<Map<String, String>>();
     private DAOUser daoUser;
     private User user;
 
     public CreateAccountForm(DAOIUser daoIUser) {
         this.daoUser = (DAOUser) daoIUser;
+        erreursRef.set(new HashMap<String, String>());
     }
 
     public String getResult() {
@@ -34,69 +37,46 @@ public final class CreateAccountForm {
     }
 
     public Map<String, String> getErreurs() {
-        return erreurs;
+        return erreursRef.get();
     }
 
     // Retrieve the data entered by the user
 
     public User createUserAccount(HttpServletRequest request) {
 
-        String userName = UserUtility.getFieldValue(request, USERNAME);
-        String firstName = UserUtility.getFieldValue(request, FIRSTNAME);
-        String lastName = UserUtility.getFieldValue(request, LASTNAME);
-        String email = UserUtility.getFieldValue(request, EMAIL);
-        String mail = UserUtility.getFieldValue(request, MAIL);
-        String password = UserUtility.getFieldValue(request, PASSWORD);
-        String confirmation = UserUtility.getFieldValue(request, CONFIRMATION);
-
         User user = new User();
 
-        try {
-            mailValidation(mail);
 
-        } catch (Exception e) {
-            setErreur(MAIL, e.getMessage());
-            return null;
-        }
+        user.setUserName(validateData(request, erreursRef, USERNAME,
+                (dataKey, erreursRef1) -> {
+                    if (daoUser.searchByUserName(FrameworkSupport.getTrimedValue(request, dataKey)) != null) {
+                        if (daoUser.searchByEmail(FrameworkSupport.getTrimedValue(request, dataKey)) != null) {
+                            Map<String, String> erreurTmp = erreursRef.get();
+                            erreurTmp.put(dataKey, "The user name already exist.");
+                            erreursRef1.set(erreurTmp);
+                        }
+                    }
+                }
+        ));
+        user.setFirstName(validateData(request, erreursRef, FIRSTNAME, null));
+        user.setLastName(validateData(request, erreursRef, LASTNAME, null));
+        user.setEmail(validateData(request, erreursRef, EMAIL,
+                (dataKey, erreursRef1) -> {
+                    if (daoUser.searchByEmail(FrameworkSupport.getTrimedValue(request, dataKey)) != null) {
+                        Map<String, String> erreurTmp = erreursRef.get();
+                        erreurTmp.put(dataKey, "This email is already related to an account.");
+                        erreursRef1.set(erreurTmp);
+                    }
+                }
+        ));
+        validateData(request, erreursRef, PASSWORD,
+                (dataKey, erreursRef1) -> user.setPassword(UserTools.sha256(FrameworkSupport.getTrimedValue(request, dataKey)))
+                , CONFIRMATION);
 
-        // Data validation
-        try {
-            userNameValidation(userName);
-        } catch (Exception e) {
-            setErreur(USERNAME, e.getMessage());
-        }
-        try {
-            firstNameValidation(firstName);
-        } catch (Exception e) {
-            setErreur(FIRSTNAME, e.getMessage());
-        }
-        try {
-            lastNameValidation(lastName);
-        } catch (Exception e) {
-            setErreur(LASTNAME, e.getMessage());
-        }
 
-        try {
-            emailValidation(email);
-        } catch (Exception e) {
-            setErreur(EMAIL, e.getMessage());
-        }
+        user.setImage("0");
 
-        try {
-            passwordValidation(password, confirmation);
-            password = UserUtility.sha256(password);
-        } catch (Exception e) {
-            setErreur(PASSWORD, e.getMessage());
-        }
-
-        user.setUserName(userName);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setProfileImage("0");
-
-        if (erreurs.isEmpty()) {
+        if (erreursRef.get().isEmpty()) {
             result = "Your account has been created successfully.";
             daoUser.create(user);
 
@@ -106,86 +86,6 @@ public final class CreateAccountForm {
 
         return user;
 
-    }
-
-    private void mailValidation(String mail) throws Exception {
-        if (mail != null) {
-            throw new Exception("Fuck u bot!");
-        }
-    }
-
-    /**
-     * Email validation
-     */
-    private void emailValidation(String email) throws Exception {
-        if (email != null && email.trim().length() != 0) {
-            if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
-                throw new Exception("Please enter a valide email.");
-            }
-        } else {
-            throw new Exception("Please enter your email.");
-        }
-
-        user = daoUser.searchByEmail(email);
-
-        if (user != null) {
-            throw new Exception("This email is already related to an account.");
-        }
-    }
-
-    /**
-     * Password validation
-     */
-    private void passwordValidation(String password, String confirmation)
-            throws Exception {
-        if (password != null && password.trim().length() != 0
-                && confirmation != null && confirmation.trim().length() != 0) {
-            if (!password.equals(confirmation)) {
-                throw new Exception("Password doesn't match confirmation.");
-            } else if (password.trim().length() < 3) {
-                throw new Exception(
-                        "Passwords must contain at least 3 characters.");
-            }
-        } else {
-            throw new Exception("Please enter and confirm your password.");
-        }
-    }
-
-    /**
-     * User name validation
-     */
-    private void userNameValidation(String userName) throws Exception {
-        if (userName != null && userName.trim().length() < 3) {
-            throw new Exception(
-                    "The username must contain at least 3 characters.");
-        }
-        user = daoUser.searchByUserName(userName);
-
-        if (user != null) {
-            throw new Exception("The user name already exist.");
-        }
-    }
-
-    private void firstNameValidation(String firstName) throws Exception {
-        if (firstName != null && firstName.trim().length() < 3) {
-            throw new Exception(
-                    "The username must contain at least 3 characters.");
-        }
-    }
-
-    private void lastNameValidation(String lastName) throws Exception {
-        if (lastName != null && lastName.trim().length() < 3) {
-            throw new Exception(
-                    "The username must contain at least 3 characters.");
-        }
-    }
-
-
-    /**
-     * Ajoute un message correspondant au champ spécifié à la map des erreurs.
-     */
-    private void setErreur(String champ, String message) {
-        erreurs.put(champ, message);
     }
 
 }

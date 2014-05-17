@@ -1,19 +1,18 @@
 package com.ephec.forms;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.ephec.beans.User;
 import com.ephec.dao.DAOFollow;
 import com.ephec.dao.DAOIFollow;
 import com.ephec.dao.DAOIUser;
 import com.ephec.dao.DAOUser;
-import com.ephec.utility.UserUtility;
+import com.ephec.utilities.FrameworkSupport;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FollowUnfollowForm {
 
@@ -55,7 +54,7 @@ public class FollowUnfollowForm {
     }
 
     public void createFollow(HttpServletRequest request) {
-        String followingId = UserUtility.getFieldValue(request, "follow");
+        String followingId = FrameworkSupport.getTrimedValue(request, "follow");
 
         if (followingId != null) {
             HttpSession session = request.getSession();
@@ -66,7 +65,7 @@ public class FollowUnfollowForm {
     }
 
     public void deleteFollow(HttpServletRequest request) {
-        String followingId = UserUtility.getFieldValue(request, "stopfollow");
+        String followingId = FrameworkSupport.getTrimedValue(request, "stopfollow");
         if (followingId != null) {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(USER_SESSION);

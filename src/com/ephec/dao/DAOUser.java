@@ -1,5 +1,10 @@
 package com.ephec.dao;
 
+import com.ephec.beans.User;
+import com.ephec.exceptions.DAOException;
+import com.ephec.utilities.EntityMapping;
+import com.ephec.utilities.SqlTools;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,31 +12,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ephec.beans.User;
-import com.ephec.exceptions.DAOException;
-import com.ephec.utility.UserUtility;
-
 public class DAOUser implements DAOIUser {
 
+    private static final String SQL_INSERT = "INSERT INTO user (userName, firstName, lastName, email, password, image, updatedAt) VALUES (?,?,?, ?, ?,?, NOW())";
+    private static final String SQL_LOGIN_USER = "SELECT * FROM User WHERE UserName = ? AND Password = ?";
+    private static final String SQL_SEARCH_USER_BY_USERNAME = "SELECT * FROM User WHERE UserName = ?";
+    private static final String SQL_SEARCH_USER_BY_EMAIL = "SELECT * FROM User WHERE Email = ?";
+    private static final String SQL_SEARCH_FOLLOWING_USER_BY_ANYNAME_LIKE = "SELECT distinct u.userId, u.userName, u.firstName, u.lastName, u.image FROM user as u where (LOWER(u.userName like ?) or LOWER(u.firstName like ?) or LOWER(u.lastName like ?)) and (u.userid in (SELECT f.followingid from follow as f where f.followerid = ?)) and (u.userid <> ?)";
+    private static final String SQL_SEARCH_NOT_FOLLOWING_USER_BY_ANYNAME_LIKE = "SELECT distinct u.userId, u.userName, u.firstName, u.lastName, u.image FROM user as u where (LOWER(u.userName like ?) or LOWER(u.firstName like ?) or LOWER(u.lastName like ?)) and (u.userid not in (SELECT f.followingid from follow as f where f.followerid = ?)) and (u.userid <> ? )";
+    private static final String SQL_UPDATE_USER = "UPDATE user set userName = ?, firstName = ?, lastName = ?, email = ?, password = ?, image = ? where userId = ? ";
+    private final static String SQL_DELETE_USER = "DELETE FROM user where userid = ?";
     private DAOFactory daoFactory;
 
     DAOUser(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
-
-    private static final String SQL_INSERT = "INSERT INTO user (userName, firstName, lastName, email, password, profileImage, timestamp) VALUES (?,?,?, ?, ?,?, NOW())";
-
-    private static final String SQL_SEARCH_USER_BY_USERNAME = "SELECT UserId, userName, firstName, lastName, email, password, profileImage FROM User WHERE UserName = ?";
-
-    private static final String SQL_SEARCH_USER_BY_EMAIL = "SELECT UserId, userName, firstName, lastName, email, password, profileImage FROM User WHERE Email = ?";
-
-    private static final String SQL_SEARCH_FOLLOWING_USER_BY_ANYNAME_LIKE = "SELECT distinct u.userId, u.userName, u.firstName, u.lastName, u.profileimage FROM user as u where (LOWER(u.userName like ?) or LOWER(u.firstName like ?) or LOWER(u.lastName like ?)) and (u.userid in (SELECT f.followingid from follow as f where f.followerid = ?)) and (u.userid <> ?)";
-
-    private static final String SQL_SEARCH_NOT_FOLLOWING_USER_BY_ANYNAME_LIKE = "SELECT distinct u.userId, u.userName, u.firstName, u.lastName, u.profileimage FROM user as u where (LOWER(u.userName like ?) or LOWER(u.firstName like ?) or LOWER(u.lastName like ?)) and (u.userid not in (SELECT f.followingid from follow as f where f.followerid = ?)) and (u.userid <> ? )";
-
-    private static final String SQL_UPDATE_USER = "UPDATE user set userName = ?, firstName = ?, lastName = ?, email = ?, password = ?, profileImage = ? where userId = ? ";
-
-    private final static String SQL_DELETE_USER = "DELETE FROM user where userid = ?";
 
     @Override
     public void create(User user) throws DAOException {
@@ -43,33 +38,35 @@ public class DAOUser implements DAOIUser {
         try {
             // Récupération d'une connexion depuis la Factory
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
-                    connexion, SQL_INSERT, true, user.getUserName(),
-                    user.getFirstName(), user.getLastName(), user.getEmail(),
-                    user.getPassword(), user.getProfileImage());
+            preparedStatement = SqlTools.preparedRequestInitialization(connexion, SQL_INSERT, true,
+                    user.getUserName(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    user.getImage()
+            );
+
             int status = preparedStatement.executeUpdate();
             // Analyse du statut retourné par la requête d'insertion
             if (status == 0) {
-                throw new DAOException(
-                        "Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
+                throw new DAOException("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
             }
             // Récupération de l'id auto-généré par la requête d'insertion
             AutoGeneratedValue = preparedStatement.getGeneratedKeys();
             if (AutoGeneratedValue.next()) {
                 /*
-				 * Puis initialisation de la propriété id du bean Utilisateur
+                 * Puis initialisation de la propriété id du bean Utilisateur
 				 * avec sa valeur
 				 */
                 user.setUserId(AutoGeneratedValue.getInt(1));
             } else {
-                throw new DAOException(
-                        "Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné.");
+                throw new DAOException("Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné.");
             }
         } catch (SQLException e) {
             throw new DAOException(e);
         } finally {
-            DAOClose.silentClose(AutoGeneratedValue,
-                    preparedStatement, connexion);
+            DAOClose.silentClose(AutoGeneratedValue, preparedStatement, connexion);
         }
 
     }
@@ -83,13 +80,13 @@ public class DAOUser implements DAOIUser {
         try {
             // Récupération d'une connexion depuis la Factory
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
-                    connexion, SQL_DELETE_USER, true, userId);
+            preparedStatement = SqlTools.preparedRequestInitialization(connexion, SQL_DELETE_USER, true,
+                    userId
+            );
             int status = preparedStatement.executeUpdate();
             // Analyse du statut retourné par la requête d'insertion
             if (status == 0) {
-                throw new DAOException(
-                        "Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
+                throw new DAOException("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
             }
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -110,17 +107,15 @@ public class DAOUser implements DAOIUser {
         try {
             // Récupération d'une connexion depuis la Factory
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
+            preparedStatement = SqlTools.preparedRequestInitialization(
                     connexion, SQL_UPDATE_USER, false, user.getUserName(),
                     user.getFirstName(), user.getLastName(), user.getEmail(),
-                    user.getPassword(), user.getProfileImage(), user.getUserId());
+                    user.getPassword(), user.getImage(), user.getUserId());
             int status = preparedStatement.executeUpdate();
             // Analyse du statut retourné par la requête d'insertion
             if (status == 0) {
-                throw new DAOException(
-                        "Échec de la modification de l'utilisateur, aucune ligne n'a été modifiée dans la table.");
+                throw new DAOException("Échec de la modification de l'utilisateur, aucune ligne n'a été modifiée dans la table.");
             }
-
         } catch (SQLException e) {
             throw new DAOException(e);
         } finally {
@@ -138,17 +133,44 @@ public class DAOUser implements DAOIUser {
         User user = null;
 
         try {
-			/* Récupération d'une connexion depuis la Factory */
+            /* Récupération d'une connexion depuis la Factory */
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
-                    connexion, SQL_SEARCH_USER_BY_USERNAME, false, userName);
+            preparedStatement = SqlTools.preparedRequestInitialization(connexion, SQL_SEARCH_USER_BY_USERNAME, false, userName);
             resultSet = preparedStatement.executeQuery();
 			/* Parcours de la ligne de données de l'éventuel ResulSet retourné */
             if (resultSet.next()) {
-                user = map(resultSet);
+                EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
+                user = EntityMapping.getMapping(resultSet);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DAOClose.silentClose(resultSet, preparedStatement, connexion);
+        }
+        return user;
+    }
+
+    @Override
+    public User loginSearch(String pUserName, String pPassword) throws DAOException {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        User user = null;
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = SqlTools.preparedRequestInitialization(connexion, SQL_LOGIN_USER, false, pUserName, pPassword);
+            resultSet = preparedStatement.executeQuery();
+			/* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            if (resultSet.next()) {
+                EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
+                user = EntityMapping.getMapping(resultSet);
             }
         } catch (SQLException e) {
             throw new DAOException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             DAOClose.silentClose(resultSet, preparedStatement, connexion);
         }
@@ -165,15 +187,17 @@ public class DAOUser implements DAOIUser {
         try {
 			/* Récupération d'une connexion depuis la Factory */
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
-                    connexion, SQL_SEARCH_USER_BY_EMAIL, false, email);
+            preparedStatement = SqlTools.preparedRequestInitialization(connexion, SQL_SEARCH_USER_BY_EMAIL, false,
+                    email
+            );
             resultSet = preparedStatement.executeQuery();
 			/* Parcours de la ligne de données de l'éventuel ResulSet retourné */
             if (resultSet.next()) {
-                user = map(resultSet);
+                EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
+                user = EntityMapping.getMapping(resultSet);
             }
-        } catch (SQLException e) {
-            throw new DAOException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             DAOClose.silentClose(resultSet, preparedStatement, connexion);
         }
@@ -182,37 +206,8 @@ public class DAOUser implements DAOIUser {
     }
 
 
-    /*
-     * Simple méthode utilitaire permettant de faire la correspondance (le
-     * mapping) entre une ligne issue de la table des utilisateurs (un
-     * ResultSet) et un bean Utilisateur.
-     */
-    private static User map(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setUserId(resultSet.getInt("userId"));
-        user.setUserName(resultSet.getString("userName"));
-        user.setFirstName(resultSet.getString("firstName"));
-        user.setLastName(resultSet.getString("lastName"));
-        user.setEmail(resultSet.getString("email"));
-        user.setPassword(resultSet.getString("password"));
-        user.setProfileImage(resultSet.getString("profileImage"));
-        return user;
-    }
-
-    private static User map2(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setUserId(resultSet.getInt("userId"));
-        user.setUserName(resultSet.getString("userName"));
-        user.setFirstName(resultSet.getString("firstName"));
-        user.setLastName(resultSet.getString("lastName"));
-        user.setProfileImage(resultSet.getString("profileImage"));
-        return user;
-    }
-
-
     @Override
-    public List<User> searchFollowingByAnyNameLike(String keyword, int userId)
-            throws DAOException {
+    public List<User> searchFollowingByAnyNameLike(String keyword, int userId) throws DAOException {
 
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
@@ -224,16 +219,19 @@ public class DAOUser implements DAOIUser {
         try {
 			/* Récupération d'une connexion depuis la Factory */
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
+            preparedStatement = SqlTools.preparedRequestInitialization(
                     connexion, SQL_SEARCH_FOLLOWING_USER_BY_ANYNAME_LIKE, false, sqlKeyword, sqlKeyword, sqlKeyword, userId, userId);
             resultSet = preparedStatement.executeQuery();
 			/* Parcours de la ligne de données de l'éventuel ResulSet retourné */
             while (resultSet.next()) {
-                user = map2(resultSet);
+                EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
+                user = EntityMapping.getMapping(resultSet);
                 userFollowingList.add(user);
             }
         } catch (SQLException e) {
             throw new DAOException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             DAOClose.silentClose(resultSet, preparedStatement, connexion);
         }
@@ -241,8 +239,7 @@ public class DAOUser implements DAOIUser {
     }
 
     @Override
-    public List<User> searchNotFollowingByAnyNameLike(String keyword, int userId)
-            throws DAOException {
+    public List<User> searchNotFollowingByAnyNameLike(String keyword, int userId) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -253,16 +250,19 @@ public class DAOUser implements DAOIUser {
         try {
 				/* Récupération d'une connexion depuis la Factory */
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
+            preparedStatement = SqlTools.preparedRequestInitialization(
                     connexion, SQL_SEARCH_NOT_FOLLOWING_USER_BY_ANYNAME_LIKE, false, sqlKeyword, sqlKeyword, sqlKeyword, userId, userId);
             resultSet = preparedStatement.executeQuery();
 				/* Parcours de la ligne de données de l'éventuel ResulSet retourné */
             while (resultSet.next()) {
-                user = map2(resultSet);
+                EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
+                user = EntityMapping.getMapping(resultSet);
                 userNotFollowingList.add(user);
             }
         } catch (SQLException e) {
             throw new DAOException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             DAOClose.silentClose(resultSet, preparedStatement, connexion);
         }

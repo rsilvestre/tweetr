@@ -1,8 +1,10 @@
 package com.ephec.servlets.subscriptions;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.ephec.beans.User;
+import com.ephec.dao.DAOFactory;
+import com.ephec.dao.DAOIFollow;
+import com.ephec.dao.DAOIUser;
+import com.ephec.forms.FollowUnfollowForm;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,31 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.ephec.beans.User;
-import com.ephec.dao.DAOFactory;
-import com.ephec.dao.DAOIFollow;
-import com.ephec.dao.DAOIUser;
-import com.ephec.forms.FollowUnfollowForm;
-import com.ephec.servlets.accounts.HomePage;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @WebServlet("/FollowUnFollow")
 public class FollowUnFollow extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-
     public static final String CONF_DAO_FACTORY = "daofactory";
     public static final String FOLLOWUNFOLLOW = "/WEB-INF/followUnfollow.jsp";
-    public static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
-
     public static final String USERNOTFOLLOWINGLIST = "usernotfollowinglist";
     public static final String USERFOLLOWINGLIST = "userfollowinglist";
-
-    private static final String KEYWORD = "keyword";
     public static final String KEYWORD_SESSION = "keywordSession";
-
-
+    private static final long serialVersionUID = 1L;
+    private static final String KEYWORD = "keyword";
     private DAOIUser daoIUser;
     private DAOIFollow daoIFollow;
 

@@ -1,25 +1,18 @@
 package com.ephec.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import javax.servlet.http.Part;
+import java.io.*;
 
 public class DAOFile implements DAOIFile {
 
-    private DAOFactory daoFactory;
     private static final int BUFFER_SIZE = 10240; // 10 ko
+    private DAOFactory daoFactory;
 
     public DAOFile() {
     }
 
     public DAOFile(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;
-
-
     }
 
     /*
@@ -31,7 +24,7 @@ public class DAOFile implements DAOIFile {
         BufferedInputStream in = null;
         BufferedOutputStream out = null;
         try {
-			/* Ouvre les flux. */
+            /* Ouvre les flux. */
             in = new BufferedInputStream(part.getInputStream(), BUFFER_SIZE);
             out = new BufferedOutputStream(new FileOutputStream(new File(path
                     + fileName)), BUFFER_SIZE);

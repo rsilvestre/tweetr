@@ -1,28 +1,25 @@
 package com.ephec.dao;
 
+import com.ephec.beans.User;
+import com.ephec.exceptions.DAOException;
+import com.ephec.utilities.SqlTools;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.ephec.beans.User;
-import com.ephec.exceptions.DAOException;
-import com.ephec.utility.UserUtility;
-
 public class DAOFollow implements DAOIFollow {
-
-    private DAOFactory daoFactory;
-
-
-    public DAOFollow(DAOFactory daoFactory) {
-        this.daoFactory = daoFactory;
-    }
 
     private static final String SQL_INSERT = "INSERT INTO follow (followerId, followingId) VALUES (?,?)";
     private static final String SQL_DELETE = "DELETE FROM follow where (followerid = ? and followingid = ?)";
     private static final String SQL_DELTE_FOLLOWING = "DELETE FROM follow where followerid = ?";
     private static final String SQL_DELTE_FOLLOWER = "DELETE FROM follow where followingid = ?";
+    private DAOFactory daoFactory;
 
+    public DAOFollow(DAOFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
 
     @Override
     public void create(User user, String followingId) throws DAOException {
@@ -34,7 +31,7 @@ public class DAOFollow implements DAOIFollow {
         try {
             // Récupération d'une connexion depuis la Factory
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
+            preparedStatement = SqlTools.preparedRequestInitialization(
                     connexion, SQL_INSERT, true, user.getUserId(), followingId);
             int status = preparedStatement.executeUpdate();
             // Analyse du statut retourné par la requête d'insertion
@@ -68,7 +65,7 @@ public class DAOFollow implements DAOIFollow {
         try {
             // Récupération d'une connexion depuis la Factory
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
+            preparedStatement = SqlTools.preparedRequestInitialization(
                     connexion, SQL_DELETE, false, user.getUserId(), followingId);
             int status = preparedStatement.executeUpdate();
             // Analyse du statut retourné par la requête d'insertion
@@ -95,7 +92,7 @@ public class DAOFollow implements DAOIFollow {
         try {
             // Récupération d'une connexion depuis la Factory
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
+            preparedStatement = SqlTools.preparedRequestInitialization(
                     connexion, SQL_DELTE_FOLLOWING, false, userId);
             int status = preparedStatement.executeUpdate();
             // Analyse du statut retourné par la requête d'insertion
@@ -122,7 +119,7 @@ public class DAOFollow implements DAOIFollow {
         try {
             // Récupération d'une connexion depuis la Factory
             connexion = daoFactory.getConnection();
-            preparedStatement = UserUtility.preparedRequestInitialization(
+            preparedStatement = SqlTools.preparedRequestInitialization(
                     connexion, SQL_DELTE_FOLLOWER, false, userId);
             int status = preparedStatement.executeUpdate();
             // Analyse du statut retourné par la requête d'insertion

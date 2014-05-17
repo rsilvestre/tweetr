@@ -12,11 +12,11 @@ public class TweetOut {
 
     private Integer tweetId;
     private String userName;
-    private String message;
+    private String body;
     private int ruid;
     private String par;
     private int uorig;
-    private String timestamp;
+    private String updatedAt;
 
     public Integer getTweetId() {
         return tweetId;
@@ -34,12 +34,12 @@ public class TweetOut {
         this.userName = userName;
     }
 
-    public String getMessage() {
-        return message;
+    public String getBody() {
+        return body;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public int getRuid() {
@@ -66,12 +66,12 @@ public class TweetOut {
         this.uorig = uorig;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getUpdatedAt() {
+        return this.updatedAt;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setUpdatedAt(String pUpdatedAt) {
+        this.updatedAt = pUpdatedAt;
     }
 
 }

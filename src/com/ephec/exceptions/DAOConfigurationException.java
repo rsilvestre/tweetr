@@ -5,12 +5,12 @@ public class DAOConfigurationException extends RuntimeException {
     /*
      * Constructeurs
      */
-    public DAOConfigurationException(String message) {
-        super(message);
+    public DAOConfigurationException(String body) {
+        super(body);
     }
 
-    public DAOConfigurationException(String message, Throwable cause) {
-        super(message, cause);
+    public DAOConfigurationException(String body, Throwable cause) {
+        super(body, cause);
     }
 
     public DAOConfigurationException(Throwable cause) {

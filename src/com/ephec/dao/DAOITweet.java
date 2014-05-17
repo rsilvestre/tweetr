@@ -1,8 +1,11 @@
 package com.ephec.dao;
 
-import java.util.List;
+import com.ephec.beans.ReTweet;
+import com.ephec.beans.TweetIn;
+import com.ephec.beans.TweetOut;
+import com.ephec.beans.User;
 
-import com.ephec.beans.*;
+import java.util.List;
 
 public interface DAOITweet {
     TweetIn createTweet(TweetIn tweet);

@@ -1,17 +1,11 @@
 package com.ephec.filters;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @WebFilter(filterName = "FilterSession", urlPatterns = "/*")
 public class RestrictAccess implements Filter {
@@ -52,11 +46,10 @@ public class RestrictAccess implements Filter {
             System.out.println("session.getAttribute(USER_SESSION) == null: ");
             System.out.println(session.getAttribute(USER_SESSION) == null);
             /* Redirection vers la page publique */
-            //response.sendRedirect(request.getContextPath() + LOGIN);
             request.getRequestDispatcher(LOGIN).forward(request, response);
 
         } else {
-			/* Affichage de la page restreinte */
+            /* Affichage de la page restreinte */
             chain.doFilter(request, response);
         }
 

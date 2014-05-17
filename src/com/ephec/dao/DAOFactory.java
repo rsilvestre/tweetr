@@ -1,14 +1,13 @@
 package com.ephec.dao;
 
-import java.io.FileNotFoundException;
+import com.ephec.exceptions.DAOConfigurationException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
-import com.ephec.exceptions.DAOConfigurationException;
 
 public class DAOFactory {
 
@@ -71,7 +70,6 @@ public class DAOFactory {
      * This method in charge of providing a connection to the DB.
      */
     Connection getConnection() throws SQLException {
-
         return DriverManager.getConnection(this.url, this.userName, this.password);
     }
 

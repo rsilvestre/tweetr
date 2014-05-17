@@ -26,10 +26,10 @@
             Followers
         </p>
 
-        <!--<p><c:out value="${tweet.message}"/></p>  -->
+        <!--<p><c:out value="${tweet.body}"/></p>  -->
 
-        <label for="message"> </label>
-        <textarea id="message" name="message" rows="3" cols="3"></textarea>
+        <label for="mesbody</label>
+        <textarea id=" messagbody="message" rows="3" cols="3"></textarea>
 
     </fieldset>
     <input type="submit" value="Send tweet"/>

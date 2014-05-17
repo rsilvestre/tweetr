@@ -15,37 +15,37 @@ public class ReTweet {
     private Integer reTweetid;
     private Integer tweetId;
     private Integer userId;
-    private String timestamp;
+    private String updatedAt;
 
     public Integer getReTweetid() {
         return reTweetid;
     }
 
-    public void setReTweetid(Integer reTweetid) {
-        this.reTweetid = reTweetid;
+    public void setReTweetid(Integer pReTweetid) {
+        this.reTweetid = pReTweetid;
     }
 
     public Integer getTweetId() {
-        return tweetId;
+        return this.tweetId;
     }
 
-    public void setTweetId(Integer tweetId) {
-        this.tweetId = tweetId;
+    public void setTweetId(Integer pTweetId) {
+        this.tweetId = pTweetId;
     }
 
     public Integer getUserId() {
-        return userId;
+        return this.userId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserId(Integer pUserId) {
+        this.userId = pUserId;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getUpdatedAt() {
+        return this.updatedAt;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setUpdatedAt(String pUpdatedAt) {
+        this.updatedAt = pUpdatedAt;
     }
 }

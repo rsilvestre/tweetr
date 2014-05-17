@@ -1,9 +1,9 @@
 package com.ephec.dao;
 
-import java.util.List;
-
 import com.ephec.beans.User;
 import com.ephec.exceptions.DAOException;
+
+import java.util.List;
 
 public interface DAOIUser {
 
@@ -14,6 +14,8 @@ public interface DAOIUser {
     User searchByUserName(String userName) throws DAOException;
 
     User searchByEmail(String email) throws DAOException;
+
+    User loginSearch(String pUserName, String pPassword);
 
     List<User> searchFollowingByAnyNameLike(String keyword, int userId) throws DAOException;
 

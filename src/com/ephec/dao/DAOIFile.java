@@ -1,8 +1,7 @@
 package com.ephec.dao;
 
-import java.io.IOException;
-
 import javax.servlet.http.Part;
+import java.io.IOException;
 
 public interface DAOIFile {
 

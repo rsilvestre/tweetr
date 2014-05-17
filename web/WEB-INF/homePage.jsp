@@ -13,8 +13,7 @@
 
 
 <div class="container">
-    <div class="page-header">EPHEC - Projet de développement
-        Intranet - Examen Javee
+    <div class="page-header">EPHEC - Projet de développement Intranet - Examen Javee
     </div>
     <div class="row" style="background-color: blue;">
         <div id="frame1" class="span12">
@@ -36,7 +35,7 @@
         </div>
     </div>
     <div>
-        <footer>Copyright Zhor OUKIDA and Mehdi OUELA</footer>
+        <footer>Ephec 2014</footer>
     </div>
 </div>
 </body>

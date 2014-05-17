@@ -51,8 +51,7 @@ public class DAOClose {
     }
 
     /* Fermetures silencieuses du resultset, du statement et de la connexion */
-    public static void silentClose(ResultSet resultSet,
-                                   Statement statement, Connection connexion) {
+    public static void silentClose(ResultSet resultSet, Statement statement, Connection connexion) {
         silentClose(resultSet);
         silentClose(statement);
         silentClose(connexion);

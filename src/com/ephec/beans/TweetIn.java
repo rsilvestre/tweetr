@@ -12,8 +12,8 @@ public class TweetIn {
 
     private Integer twitId;
     private Integer userId;
-    private String message;
-    private String timestamp;
+    private String body;
+    private String updatedAt;
 
     public Integer getTwitId() {
         return twitId;
@@ -31,20 +31,20 @@ public class TweetIn {
         this.userId = userId;
     }
 
-    public String getMessage() {
-        return message;
+    public String getBody() {
+        return body;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getUpdatedAt() {
+        return this.updatedAt;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setUpdatedAt(String pUpdatedAt) {
+        this.updatedAt = pUpdatedAt;
     }
 
 }

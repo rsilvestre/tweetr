@@ -1,13 +1,13 @@
 package com.ephec.forms;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.ephec.beans.TweetOut;
 import com.ephec.beans.User;
 import com.ephec.dao.DAOITweet;
 import com.ephec.dao.DAOTweet;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HomePageForm {
 
