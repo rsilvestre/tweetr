@@ -13,9 +13,9 @@
             <td><c:out value="${user.firstName}"/></td>
             <td><c:out value="${user.lastName}"/></td>
             <td>
-                <form action="FollowUnFollow" method="post"><input type="hidden" name="follow"
-                                                                   value="${user.userId}"/><input type="submit"
-                                                                                                  value="Follow"/>
+                <form action="FollowUnFollow" method="post">
+                    <input type="hidden" name="follow" value="${user.userId}"/>
+                    <input type="submit" value="Follow"/>
                 </form>
             </td>
         </tr>
@@ -29,10 +29,9 @@
             <td><c:out value="${user.firstName}"/></td>
             <td><c:out value="${user.lastName}"/></td>
             <td>
-                <form action="FollowUnFollow" method="post"><input type="hidden" name="stopfollow"
-                                                                   value="${user.userId}"/><input type="submit"
-                                                                                                  id="${user.userId}"
-                                                                                                  value="Stop Follow"/>
+                <form action="FollowUnFollow" method="post">
+                    <input type="hidden" name="stopfollow" value="${user.userId}"/>
+                    <input type="submit" id="${user.userId}" value="Stop Follow"/>
                 </form>
             </td>
         </tr>

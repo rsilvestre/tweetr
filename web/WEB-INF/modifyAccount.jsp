@@ -67,7 +67,8 @@
             </form>
             <form method="post" action="ModifyAccountImage" enctype="multipart/form-data">
                 <h3>Modify Account Info</h3>
-                <img src="<c:url value='/Images/${tweet.uorig}'/>" alt="${tweet.uorig}" height="60px" width="60px"/>
+                <img src="<c:url value='/Images/${sessionScope.userSession.image}'/>"
+                     alt="${sessionScope.userSession.image}" height="60px" width="60px"/>
                 <input type="file" name="image" accept="image/*">
 
 

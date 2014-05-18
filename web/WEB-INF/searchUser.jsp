@@ -6,8 +6,7 @@
 <form method="post" action="FollowUnFollow">
     <fieldset>
         <p>
-            <input type="text" id="keyword" name="keyword"
-                   value=""/>
+            <input type="text" id="keyword" name="keyword" value=""/>
 
         <p>
             <input type="submit" value="Search user"/>

@@ -4,6 +4,6 @@
          id="WebApp_ID" version="3.0">
     <display-name>Tweetr</display-name>
     <listener>
-        <listener-class>com.ephec.config.DAOFactoryInit</listener-class>
+        <listener-class>be.ephec.config.DAOFactoryInit</listener-class>
     </listener>
 </web-app>
