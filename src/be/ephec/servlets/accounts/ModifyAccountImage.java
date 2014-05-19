@@ -30,7 +30,6 @@ public class ModifyAccountImage extends ServletConfig {
     public static final String FILE_FIELD = "fileField";
     public static final String USER = "user";
     public static final String FORM = "form";
-    public static final String USER_SESSION = "userSession";
 
     private DAOIUser daoIUser;
     private DAOIFile daoIFile;

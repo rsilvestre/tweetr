@@ -1,88 +1,143 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="Bootstrap/css/bootstrap.css" rel="stylesheet"
-          type="text/css">
-    <link href="Bootstrap/css/style.css" rel="stylesheet" type="text/css">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Tweetr</title>
-</head>
-<body>
-<div class="container">
-    <div class="page-header">EPHEC - Projet de développement Intranet - Examen Javee</div>
-    <div class="row" style="background-color: blue;">
-        <div id="frame1" class="span12">
-            <h3><a href="HomePage">HOME</a></h3>
-        </div>
-    </div>
-    <div class="row">
-        <div id=frame class="span8">
-            <form method="post" action="ModifyAccountInfo">
-                <fieldset>
-                    <h3>Modify Account Info</h3>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
 
-                    <label for="userName">Username</label>
-                    <input type="text" id="userName" name="userName"
-                           value="<c:out value="${sessionScope.userSession.userName}"/>" size="20" maxlength="20"
-                           required/>
-                    <span class="erreur">${form.erreurs['userName']}</span>
+<t:layout>
+    <jsp:attribute name="header">
+      <h1>Profil</h1>
+    </jsp:attribute>
+    <jsp:attribute name="footer">
+      <p class="muted credit">
+          Ephec 2014, <a href="http://michaelsilvestre.be">Michaël Silvestre</a>.
+      </p>
+    </jsp:attribute>
+    <jsp:body>
+        <div class="col-md-10 block-sector">
+            <form method="post" action="ModifyAccountInfo" class="form-horizontal" role="form">
+                <h3>Modifier vos informations</h3>
 
+                <div class="form-group">
+                    <label for="userName" class="col-md-3 control-label">Nom d'utilisateur</label>
 
-                    <label for="firstName">FirstName </label>
-                    <input type="text" id="firstName" name="firstName"
-                           value="<c:out value="${sessionScope.userSession.firstName}"/>" size="20" maxlength="20"
-                           required/>
-                    <span class="erreur">${form.erreurs['firstName']}</span>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="userName" name="userName"
+                               value="<c:out value="${sessionScope.userSession.userName}"/>" size="20" maxlength="20"
+                               placeholder="Nom d'utilisateur"
+                               required/>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="erreur">${form.erreurs['userName']}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstName" class="col-md-3 control-label">Prénom</label>
 
-                    <label for="lastName">LastName</label>
-                    <input type="text" id="lastName" name="lastName"
-                           value="<c:out value="${sessionScope.userSession.lastName}"/>" size="20" maxlength="20"
-                           required/>
-                    <span class="erreur">${form.erreurs['lastName']}</span>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="firstName" name="firstName"
+                               value="<c:out value="${sessionScope.userSession.firstName}"/>" size="20" maxlength="20"
+                               placeholder="Prénom"
+                               required/>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="erreur">${form.erreurs['firstName']}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="col-md-3 control-label">Nom</label>
 
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email"
-                           value="<c:out value="${sessionScope.userSession.email}"/>" size="60" maxlength="60"
-                           required/>
-                    <span class="erreur">${form.erreurs['email']}</span>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="lastName" name="lastName"
+                               value="<c:out value="${sessionScope.userSession.lastName}"/>" size="20" maxlength="20"
+                               placeholder="Nom"
+                               required/>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="erreur">${form.erreurs['lastName']}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-md-3 control-label">Email</label>
 
-                    <label for="password">Old Password </label>
-                    <input type="password" id="password" name="password" value="<c:out value=""/>" size="20"
-                           maxlength="20"/>
-                    <span class="erreur">${form.erreurs['password']}</span>
+                    <div class="col-md-5">
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="<c:out value="${sessionScope.userSession.email}"/>" size="60" maxlength="60"
+                               placeholder="Email"
+                               required/>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="erreur">${form.erreurs['email']}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="passwordold" class="col-md-3 control-label">Ancien mot de passe</label>
 
-                    <label for="password">New Password </label>
-                    <input type="password" id="password" name="password" value="<c:out value=""/>" size="20"
-                           maxlength="20"/>
-                    <span class="erreur">${form.erreurs['password']}</span>
+                    <div class="col-md-5">
+                        <input type="password" class="form-control" id="passwordold" name="passwordold"
+                               value="<c:out value=""/>" size="20"
+                               placeholder="Ancien mot de passe"
+                               maxlength="20"/>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="erreur">${form.erreurs['password']}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-md-3 control-label">Nouveau mot de passe</label>
 
-                    <label for="confirmation">New Password confirmation</label>
-                    <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20"/>
-                    <span class="erreur">${form.erreurs['confirmation']}</span>
+                    <div class="col-md-5">
+                        <input type="password" class="form-control" id="password" name="password"
+                               value="<c:out value=""/>"
+                               size="20"
+                               placeholder="Nouveau mot de passe"
+                               maxlength="20"/>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="erreur">${form.erreurs['password']}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmation" class="col-md-3 control-label">Confirmation Mot de passe</label>
 
-                    <input type="submit" value="Modify Account"/>
-                </fieldset>
+                    <div class="col-md-5">
+                        <input type="password" class="form-control" id="confirmation" name="confirmation" value=""
+                               size="20"
+                               placeholder="Confirmation Mot de passe"
+                               maxlength="20"/>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="erreur">${form.erreurs['confirmation']}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Modification"/>
+                    </div>
+                </div>
             </form>
-            <form method="post" action="ModifyAccountImage" enctype="multipart/form-data">
-                <h3>Modify Account Info</h3>
-                <img src="<c:url value='/Images/${sessionScope.userSession.image}'/>"
-                     alt="${sessionScope.userSession.image}" height="60px" width="60px"/>
-                <input type="file" name="image" accept="image/*">
+            <form method="post" action="ModifyAccountImage" enctype="multipart/form-data" class="form-horizontal"
+                  role="form">
+                <h3>Modifier votre photos de profil</h3>
 
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <img src="<c:url value='/Images/${sessionScope.userSession.image}'/>"
+                             alt="${sessionScope.userSession.image}" width="80px"/>
+                    </div>
 
-                <input type="submit" value="Modify Account"/>
+                    <div class="col-md-4">
+                        <input type="file" class="form-control" name="image" accept="image/*">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Modification!"/>
+                    </div>
+                </div>
 
             </form>
 
-            <h5><a href="DeleteAccount">Delete Account</a></h5>
+            <p><a href="DeleteAccount">Supprimer votre profil</a></p>
 
         </div>
-    </div>
-    <div>
-        <footer>Copyright Zhor OUKIDA and Mehdi OUELA</footer>
-    </div>
-</div>
-</body>
-</html>
+    </jsp:body>
+</t:layout>

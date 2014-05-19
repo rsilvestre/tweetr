@@ -16,14 +16,8 @@ public class LoginForm extends ValidationForm {
 
     private DAOUser daoUser;
 
-    private String result;
-
     public LoginForm(DAOIUser daoIUser) {
         this.daoUser = (DAOUser) daoIUser;
-    }
-
-    public String getResult() {
-        return result;
     }
 
 
@@ -32,6 +26,9 @@ public class LoginForm extends ValidationForm {
         Boolean bEmptyFieldError = false;
         String userName;
         String password;
+        if (null != (user = (User) request.getSession().getAttribute(USER_SESSION))) {
+            return user;
+        }
 
         if ((userName = FrameworkSupport.getTrimedValue(request, USERNAME)).isEmpty()) {
             bEmptyFieldError = true;
@@ -50,8 +47,6 @@ public class LoginForm extends ValidationForm {
         if (user == null) {
             setErreur(USERNAME, "Invalid username.");
             setErreur(PASSWORD, "Invalid password");
-        } else {
-            result = "Login SuccessFull";
         }
 
         return user;

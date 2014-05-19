@@ -1,5 +1,6 @@
 package be.ephec.dao;
 
+import be.ephec.beans.Dashboard;
 import be.ephec.beans.User;
 import be.ephec.exceptions.DAOException;
 
@@ -17,9 +18,13 @@ public interface DAOIUser {
 
     User loginSearch(String pUserName, String pPassword);
 
+    User searchById(int userId);
+
     List<User> searchFollowingByAnyNameLike(String keyword, int userId) throws DAOException;
 
     List<User> searchNotFollowingByAnyNameLike(String keyword, int userId) throws DAOException;
 
     void delete(int userId) throws DAOException;
+
+    public Dashboard getDashboard(User user);
 }

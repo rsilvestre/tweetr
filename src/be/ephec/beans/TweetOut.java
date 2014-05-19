@@ -16,6 +16,7 @@ public class TweetOut {
     private int ruid;
     private String par;
     private int uorig;
+    private String uorigImage;
     private String updatedAt;
 
     public Integer getTweetId() {
@@ -64,6 +65,14 @@ public class TweetOut {
 
     public void setUorig(int uorig) {
         this.uorig = uorig;
+    }
+
+    public String getUorigImage() {
+        return uorigImage;
+    }
+
+    public void setUorigImage(String uorigImage) {
+        this.uorigImage = uorigImage;
     }
 
     public String getUpdatedAt() {

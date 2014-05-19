@@ -26,8 +26,6 @@ public class ModifyAccountForm extends ValidationForm {
     private static final String IMAGE = "image";
     private static final String PATH = Thread.currentThread().getContextClassLoader().getResource("../../Images").getPath();
 
-    private static final String USER_SESSION = "userSession";
-
     private String result;
     private DAOUser daoUser;
     private DAOFile daoFile;

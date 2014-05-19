@@ -11,6 +11,8 @@ import java.util.Map;
  * Created by michaelsilvestre on 17/05/14.
  */
 public abstract class ValidationForm {
+    public static final String USER_SESSION = "userSession";
+
     private Map<String, String> erreurs = new HashMap<>();
 
     public ValidationForm() {

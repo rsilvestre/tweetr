@@ -12,29 +12,23 @@ import java.io.IOException;
 /**
  * Servlet implementation class SignOut
  */
-@WebServlet("/SignOut")
-public class Logoff extends ServletConfig {
+@WebServlet("/Logout")
+public class Logout extends ServletConfig {
+    public static final String HOME = "/WEB-INF/home.jsp";
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Logoff() {
+    public Logout() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
+        request.getSession().setAttribute(USER_SESSION, null);
+        this.getServletContext().getRequestDispatcher(HOME).forward(request, response);
     }
 
 }

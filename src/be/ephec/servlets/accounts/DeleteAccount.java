@@ -21,7 +21,6 @@ import java.io.IOException;
 public class DeleteAccount extends ServletConfig {
 
     public static final String LOGIN = "/WEB-INF/Login.jsp";
-    public static final String USER_SESSION = "userSession";
     private DAOIUser daoIUser;
     private DAOITweet daoITweet;
     private DAOIFollow daoIFollow;

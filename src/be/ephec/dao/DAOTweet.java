@@ -19,8 +19,9 @@ import java.util.List;
 public class DAOTweet implements DAOITweet {
 
     private static final String SQL_INSERTTWEETIN = "INSERT INTO tweet (UserId, Body, UpdatedAt) VALUES (?,?, NOW())";
-    private static final String SQL_SELECTTWEETOUT = "select  sel.tid as tweetId, sel.tm as body, sel. ruid as ruid, sel.par, sel.uorig, u.userName as userName, sel.rstamp " +
-            " from ( SELECT  t.tweetId as tid, t.body as tm, r.UserId as ruid, u.username as par, t.UserId as uorig, r.UpdatedAt as rstamp " +
+    private static final String SQL_SELECTTWEETOUT = "select  sel.tid as tweetId, sel.tm as body, sel. ruid as ruid, sel.par, " +
+            "sel.uorig, u.userName as userName, u.image as uorigImage, sel.updatedAt " +
+            " from ( SELECT  t.tweetId as tid, t.body as tm, r.UserId as ruid, u.username as par, t.UserId as uorig, r.UpdatedAt as updatedAt " +
             " FROM tweet as t " +
             " right join retweet as r " +
             " on r.TweetId = t.TweetId and r.UserId in (select f.followingid from follow as f  where f.followerid = ?) " +
@@ -28,17 +29,17 @@ public class DAOTweet implements DAOITweet {
             " on r.UserId = u.UserId " +
             " WHERE ((t.userid) in (select f.followingid from follow as f  where f.followerid = ?)) " +
             " union " +
-            " SELECT  t.tweetId as tid, t.body  as tm, -1, null,t.UserId as uorig, t.UpdatedAt as rstamp " +
+            " SELECT  t.tweetId as tid, t.body  as tm, -1, null,t.UserId as uorig, t.UpdatedAt as updatedAt " +
             " FROM tweet as t " +
             " WHERE ((t.userid) in (select f.followingid from follow as f  where f.followerid = ?)) and (t.TweetId) not in (select r.TweetId from retweet as r  where r.TweetId=t.TweetId) " +
             " union " +
-            " SELECT  t.tweetId as tid, t.body  as tm, 0, null,t.UserId as uorig, t.UpdatedAt as rstamp " +
+            " SELECT  t.tweetId as tid, t.body  as tm, 0, null,t.UserId as uorig, t.UpdatedAt as updatedAt " +
             " FROM tweet as t " +
             " WHERE ((t.userid) in (select f.followingid from follow as f  where f.followerid = ?)) and (t.TweetId) in (select r.TweetId from retweet as r  where r.TweetId=t.TweetId)) " +
             " as sel " +
             " left join user as u " +
             " on sel.uorig = u.UserId " +
-            " order by rstamp desc " +
+            " order by updatedAt desc " +
             " limit 25";
     private static final String SQL_INSERTRETWEET = "INSERT INTO retweet(TweetId, UserId, UpdatedAt) VALUES (?,?,NOW())";
     private final String SQL_DELETE_RETWEET = "DELETE FROM retweet where userid = ?";

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class DeleteAccountForm extends ValidationForm {
-    private final String USER_SESSION = "userSession";
     private DAOUser daoUser;
     private DAOTweet daoTweet;
     private DAOFollow daoFollow;

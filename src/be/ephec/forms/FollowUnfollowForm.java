@@ -14,7 +14,6 @@ import java.util.List;
 
 public class FollowUnfollowForm extends ValidationForm {
     private static final String KEYWORD_SESSION = "keywordSession";
-    private static final String USER_SESSION = "userSession";
 
     private DAOUser daoUser;
     private DAOFollow daoFollow;

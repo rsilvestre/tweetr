@@ -23,7 +23,6 @@ public class CreateAccount extends ServletConfig {
     public static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
     public static final String USER = "user";
     public static final String FORM = "form";
-    public static final String USER_SESSION = "userSession";
 
     private DAOIUser daoIUser;
 

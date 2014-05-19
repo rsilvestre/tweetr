@@ -22,12 +22,12 @@ public class EntityMapping<T> {
         int columns = md.getColumnCount();
         T objT = t.newInstance();
         for (int i = 1; i <= columns; ++i) {
-            String columnName = md.getColumnName(i);
+            String columnName = md.getColumnLabel(i);
             try {
                 String methodName = "set" + Character.toUpperCase(columnName.charAt(0)) + columnName.substring(1);
                 String FieldName = Character.toLowerCase(columnName.charAt(0)) + columnName.substring(1);
                 Field field = objT.getClass().getDeclaredField(FieldName);
-                if (field.getType() == int.class) {
+                if (field.getType() == int.class || field.getType() == Integer.class) {
                     objT.getClass().getDeclaredMethod(methodName, field.getType()).invoke(objT, pRelSet.getInt(columnName));
                 } else if (field.getType() == String.class) {
                     objT.getClass().getDeclaredMethod(methodName, field.getType()).invoke(objT, pRelSet.getString(columnName));

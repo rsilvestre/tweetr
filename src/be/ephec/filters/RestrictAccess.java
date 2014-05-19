@@ -10,6 +10,7 @@ import java.io.IOException;
 @WebFilter(filterName = "FilterSession", urlPatterns = "/*")
 public class RestrictAccess implements Filter {
 
+    public static final String HOME = "/Home";
     public static final String LOGIN = "/Login";
     public static final String USER_SESSION = "userSession";
 
@@ -27,7 +28,7 @@ public class RestrictAccess implements Filter {
 		/* Non-filtrage des ressources statiques */
         String chemin = request.getRequestURI().substring(
                 request.getContextPath().length());
-        if (chemin.startsWith("/Bootstrap/css")) {
+        if (chemin.startsWith("/assets/css") || chemin.startsWith("/assets/js")) {
             chain.doFilter(request, response);
             return;
         }
@@ -40,14 +41,19 @@ public class RestrictAccess implements Filter {
          * l'utilisateur n'est pas connecté.
          */
         if (session.getAttribute(USER_SESSION) == null
+                && !"/Home".equals(request.getRequestURI().substring(request.getContextPath().length()))
                 && !"/Login".equals(request.getRequestURI().substring(request.getContextPath().length()))
-                && !"/CreateAccount".equals(request.getRequestURI().substring(request.getContextPath().length()))) {
+                && !"/CreateAccount".equals(request.getRequestURI().substring(request.getContextPath().length()))
+                ) {
 
             System.out.println("session.getAttribute(USER_SESSION) == null: ");
             System.out.println(session.getAttribute(USER_SESSION) == null);
             /* Redirection vers la page publique */
-            request.getRequestDispatcher(LOGIN).forward(request, response);
-
+            if (!"/Home".equals(request.getRequestURI().substring(request.getContextPath().length()))) {
+                request.getRequestDispatcher(HOME).forward(request, response);
+            } else {
+                request.getRequestDispatcher(LOGIN).forward(request, response);
+            }
         } else {
             /* Affichage de la page restreinte */
             chain.doFilter(request, response);
