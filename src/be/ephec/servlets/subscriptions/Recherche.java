@@ -4,7 +4,7 @@ import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOIUser;
-import be.ephec.forms.FollowUnfollowForm;
+import be.ephec.forms.RechercheForm;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -14,16 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-
-@WebServlet("/FollowUnFollow")
-public class FollowUnFollow extends ServletConfig {
-    public static final String FOLLOWUNFOLLOW = "/WEB-INF/followUnfollow.jsp";
-    public static final String USERNOTFOLLOWINGLIST = "usernotfollowinglist";
-    public static final String USERFOLLOWINGLIST = "userfollowinglist";
-    public static final String KEYWORD_SESSION = "keywordSession";
+@WebServlet("/Recherche")
+public class Recherche extends ServletConfig {
+    private static final String RECHERCHE = "/WEB-INF/recherche.jsp";
+    private static final String USERNOTFOLLOWINGLIST = "usernotfollowinglist";
+    private static final String USERFOLLOWINGLIST = "userfollowinglist";
+    private static final String KEYWORD_SESSION = "keywordSession";
+    private static final String DASHBOARD = "dashboard";
     private static final String KEYWORD = "keyword";
     private DAOIUser daoIUser;
     private DAOIFollow daoIFollow;
@@ -31,7 +30,7 @@ public class FollowUnFollow extends ServletConfig {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FollowUnFollow() {
+    public Recherche() {
         super();
     }
 
@@ -47,7 +46,7 @@ public class FollowUnFollow extends ServletConfig {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String keyword = request.getParameter(KEYWORD);
-        FollowUnfollowForm form = new FollowUnfollowForm(daoIUser, daoIFollow);
+        RechercheForm form = new RechercheForm(daoIUser, daoIFollow);
 
         if (keyword != null) {
             session.setAttribute(KEYWORD_SESSION, keyword);
@@ -56,16 +55,14 @@ public class FollowUnFollow extends ServletConfig {
             form.deleteFollow(request);
         }
 
-        List<User> userNotFollowingList = new ArrayList<>();
-        List<User> userFollowingList = new ArrayList<>();
-
-        userNotFollowingList = form.searchNotFollowingByAnyNameLike(request);
-        userFollowingList = form.searchFollowingByAnyNameLike(request);
+        List<User> userNotFollowingList = form.searchNotFollowingByAnyNameLike(request);
+        List<User> userFollowingList = form.searchFollowingByAnyNameLike(request);
 
         /**Stockage du formulaire et du bean dans l'objet request*/
+        request.setAttribute(DASHBOARD, form.getDashboardParams((User) request.getSession().getAttribute(USER_SESSION)));
         request.setAttribute(USERNOTFOLLOWINGLIST, userNotFollowingList);
         request.setAttribute(USERFOLLOWINGLIST, userFollowingList);
 
-        this.getServletContext().getRequestDispatcher(FOLLOWUNFOLLOW).forward(request, response);
+        this.getServletContext().getRequestDispatcher(RECHERCHE).forward(request, response);
     }
 }

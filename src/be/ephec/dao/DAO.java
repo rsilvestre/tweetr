@@ -26,7 +26,7 @@ public abstract class DAO {
 
     public void executeUpdate(String SQL, Boolean returnGeneratedKeys, updateCallback next, Object... objects) throws SQLException {
         int status = executePreparedStatement(SQL, returnGeneratedKeys, objects).executeUpdate();
-        resultSet = preparedStatement.getGeneratedKeys();
+        resultSet = this.preparedStatement.getGeneratedKeys();
         next.doJob(status, resultSet);
     }
 
@@ -52,8 +52,8 @@ public abstract class DAO {
     }
 
     private PreparedStatement executePreparedStatement(String SQL, Boolean returnGeneratedKeys, Object... objects) throws SQLException {
-        preparedStatement = SqlTools.preparedRequestInitialization(getConnection(), SQL, returnGeneratedKeys, objects);
-        return preparedStatement;
+        this.preparedStatement = SqlTools.preparedRequestInitialization(getConnection(), SQL, returnGeneratedKeys, objects);
+        return this.preparedStatement;
     }
 
     protected Connection getConnection() throws SQLException {

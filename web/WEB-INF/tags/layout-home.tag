@@ -34,37 +34,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/HomePage">Home</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profil <b
-                                class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<c:url value="/ShowAccount"/>">Afficher</a></li>
-                            <li><a href="<c:url value="/ModifyAccount"/>">Modifier</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="#">Link</a></li>
                 </ul>
-                <form method="post" action="Recherche" class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="keyword" name="keyword"
-                               placeholder="Rechercher utilisateur">
-                    </div>
-                    <button type="submit" class="btn btn-default">Rechercher</button>
-                </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <c:if test="${sessionScope.userSession == null}">
-                            <a href="/Login">Connexion</a>
-                        </c:if>
-
-                        <c:if test="${sessionScope.userSession != null}">
-                            <a href="/Logout">Déconnection</a>
-                        </c:if>
-                    </li>
+                    <li><a href="/CreateAccount">Nouvel utilisateur</a></li>
+                    <li><a href="/Login">Connexion</a></li>
                     <li><a href="/About">A propos</a></li>
                 </ul>
             </div>

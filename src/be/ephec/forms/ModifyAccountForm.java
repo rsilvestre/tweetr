@@ -20,8 +20,8 @@ public class ModifyAccountForm extends ValidationForm {
     private static final String FIRSTNAME = "firstName";
     private static final String LASTNAME = "lastName";
     private static final String EMAIL = "email";
-    private static final String OLDPASSWORD = "oldPassword";
-    private static final String NEWPASSWORD = "newPassword";
+    private static final String OLDPASSWORD = "oldpassword";
+    private static final String NEWPASSWORD = "password";
     private static final String CONFIRMATION = "confirmation";
     private static final String IMAGE = "image";
     private static final String PATH = Thread.currentThread().getContextClassLoader().getResource("../../Images").getPath();
@@ -39,9 +39,6 @@ public class ModifyAccountForm extends ValidationForm {
     }
 
     public User modifyAccountInfo(HttpServletRequest request) {
-
-        String oldPassword = FrameworkSupport.getTrimedValue(request, OLDPASSWORD);
-
         User oldUser = (User) request.getSession().getAttribute(USER_SESSION);
         User user = new User();
 
@@ -49,7 +46,8 @@ public class ModifyAccountForm extends ValidationForm {
 
         user.setUserName(validateData(request, USERNAME,
                 (dataKey, erreursRef1) -> {
-                    if (daoUser.searchByUserName(FrameworkSupport.getTrimedValue(request, dataKey)) != null) {
+                    String newUsername = FrameworkSupport.getTrimedValue(request, dataKey);
+                    if (!oldUser.getUserName().equals(newUsername) && daoUser.searchByUserName(newUsername) != null) {
                         erreursRef1.put(dataKey, "The user name already exist.");
                     }
                 }
@@ -58,19 +56,22 @@ public class ModifyAccountForm extends ValidationForm {
         user.setLastName(validateData(request, LASTNAME, null));
         user.setEmail(validateData(request, EMAIL,
                 (dataKey, erreursRef1) -> {
-                    if (daoUser.searchByEmail(FrameworkSupport.getTrimedValue(request, dataKey)) != null) {
-                        erreursRef1.put(OLDPASSWORD, "This email is already related to an account.");
+                    String oldEmail = FrameworkSupport.getTrimedValue(request, dataKey);
+                    if (!oldUser.getEmail().equals(oldEmail) && daoUser.searchByEmail(oldEmail) != null) {
+                        erreursRef1.put(EMAIL, "This email is already related to an account.");
                     }
                 }
         ));
+
+        String oldPassword = FrameworkSupport.getTrimedValue(request, OLDPASSWORD);
+
         if (oldPassword.isEmpty()) {
-            user.setPassword(oldPassword);
+            user.setPassword(oldUser.getPassword());
         } else {
             validateData(request, NEWPASSWORD,
                     (dataKey, erreursRef1) -> {
-                        if (!oldUser.getPassword().equals(oldPassword)) {
+                        if (!oldUser.getPassword().equals(UserTools.sha256(oldPassword))) {
                             erreursRef1.put(OLDPASSWORD, "Invalid password.");
-                            return;
                         }
                         user.setPassword(UserTools.sha256(FrameworkSupport.getTrimedValue(request, dataKey)));
                     }

@@ -7,6 +7,10 @@ html, body {
     /* The html and body elements cannot have any padding or margin. */
 }
 
+div {
+    display: block;
+}
+
 /* Wrapper for page content to push down footer */
 #wrap {
     min-height: 100%;
@@ -28,16 +32,20 @@ html, body {
 }
 
 .block-sector {
-    border: 1px solid #9c5858;
     border-radius: 5px;
-    padding: 20px;
-    margin-right: 10px;
 }
 
 .block-sector-left {
+    margin-right: 10px;
+    border: 1px solid #9c5858;
+    width: 248px;
+    float: left;
 }
 
 .block-sector-body {
+    border: 1px solid #9c5858;
+    padding: 20px;
+    margin-right: 10px;
     margin-bottom: 10px;
 }
 
@@ -55,4 +63,120 @@ html, body {
 
 .follow-space {
     margin-bottom: 8px;
+}
+
+div.dashboard-userfields {
+    width: 132px;
+    position: absolute;
+    top: 101px;
+    left: 96px;
+}
+
+div.dashboard-stats {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+ul.dashboard-statslist {
+    text-align: left;
+    list-style-type: disc;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 20px;
+    line-height: 16px;
+}
+
+li.dashboard-stat {
+    box-sizing: border-box;
+    border-bottom: 0 solid #66757f;
+    line-height: 1;
+    transition: all .15s ease-in-out;
+    overflow: hidden;
+    vertical-align: bottom;
+
+}
+
+a.dashboard-head {
+    display: block !important;
+    background-color: #FF3300 !important;
+    background-size: 100%;
+    border-bottom: 1px solid #e1e8ed;
+    height: 95px;
+    border-radius: 4px 4px 0 0;
+    background-position: 0 50%;
+    width: 248px;
+    padding: 0 1px;
+    margin-left: -1px;
+    margin-top: -1px;
+}
+
+span.dashboard-statlabel {
+    color: #8c9ca9;
+    font-size: 11px;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    transition: color .15s ease-in-out;
+    overflow: hidden;
+}
+
+span.dashboard-statvalue {
+    display: block;
+    font-size: 18px;
+    padding-top: 3px;
+    font-weight: 500;
+    transition: color .15s ease-in-out;
+}
+
+a.dashboard-avatar {
+    background-color: #fff;
+    border-radius: 6px;
+    margin: -30px 0 0 8px;
+    padding: 3px;
+    vertical-align: bottom;
+    display: inline-block !important;
+    max-width: 100%;
+}
+
+img.dashboard-avatarimage {
+    border-radius: 5px;
+    height: 70px;
+    width: 70px;
+    text-decoration: underline;
+}
+
+a.dashboard-statlink {
+    color: #FF3300 !important;
+    padding: 0 5px;
+    text-align: center !important;
+    text-decoration: none !important;
+}
+
+div.dashboard-tweet-box {
+    border: 1px solid;
+    padding: 12px;
+    width: 248px;
+    margin-left: -1px;
+    margin-bottom: -1px;
+    padding: 10px 12px;
+    background-color: #f5f8fa;
+    border-radius: 0 0 5px 5px;
+    border-color: #FFCCBF !important;
+}
+
+.Grid {
+    display: block;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.Grid-cell {
+    moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 14px;
 }

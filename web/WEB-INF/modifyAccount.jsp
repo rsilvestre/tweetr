@@ -69,16 +69,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="passwordold" class="col-md-3 control-label">Ancien mot de passe</label>
+                    <label for="oldpassword" class="col-md-3 control-label">Ancien mot de passe</label>
 
                     <div class="col-md-5">
-                        <input type="password" class="form-control" id="passwordold" name="passwordold"
+                        <input type="password" class="form-control" id="oldpassword" name="oldpassword"
                                value="<c:out value=""/>" size="20"
                                placeholder="Ancien mot de passe"
                                maxlength="20"/>
                     </div>
                     <div class="col-md-3">
-                        <span class="erreur">${form.erreurs['password']}</span>
+                        <span class="erreur">${form.erreurs['oldpassword']}</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -110,7 +110,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-4">
-                        <input type="submit" class="btn btn-primary" value="Modification"/>
+                        <input type="submit" class="btn btn-primary" value="Modifier"/>
                     </div>
                 </div>
             </form>
@@ -120,8 +120,15 @@
 
                 <div class="form-group">
                     <div class="col-md-3">
-                        <img src="<c:url value='/Images/${sessionScope.userSession.image}'/>"
-                             alt="${sessionScope.userSession.image}" width="80px"/>
+                        <c:if test="${sessionScope.userSession.image != '' && sessionScope.userSession.image != '0'}">
+                            <img src="<c:url value='/Images/${sessionScope.userSession.image}'/>"
+                                 alt="${sessionScope.userSession.userId}" width="80px"/>
+                        </c:if>
+                        <c:if test="${sessionScope.userSession.image == '' || sessionScope.userSession.image == '0'}">
+                            <img src="<c:url value='/assets/images/no-profile-image.jpg'/>"
+                                 alt="${sessionScope.userSession.userId}"
+                                 width="80px"/>
+                        </c:if>
                     </div>
 
                     <div class="col-md-4">
@@ -130,7 +137,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-4">
-                        <input type="submit" class="btn btn-primary" value="Modification!"/>
+                        <input type="submit" class="btn btn-primary" value="Modifier!"/>
                     </div>
                 </div>
 

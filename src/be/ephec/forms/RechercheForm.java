@@ -1,5 +1,6 @@
 package be.ephec.forms;
 
+import be.ephec.beans.Dashboard;
 import be.ephec.beans.User;
 import be.ephec.dao.DAOFollow;
 import be.ephec.dao.DAOIFollow;
@@ -9,16 +10,15 @@ import be.ephec.utilities.FrameworkSupport;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
-public class FollowUnfollowForm extends ValidationForm {
+public class RechercheForm extends ValidationForm {
     private static final String KEYWORD_SESSION = "keywordSession";
 
     private DAOUser daoUser;
     private DAOFollow daoFollow;
 
-    public FollowUnfollowForm(DAOIUser daoIUser, DAOIFollow daoIFollow) {
+    public RechercheForm(DAOIUser daoIUser, DAOIFollow daoIFollow) {
         this.daoUser = (DAOUser) daoIUser;
         this.daoFollow = (DAOFollow) daoIFollow;
     }
@@ -27,20 +27,14 @@ public class FollowUnfollowForm extends ValidationForm {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(USER_SESSION);
         String keyword = (String) session.getAttribute(KEYWORD_SESSION);
-        List<User> userFollowingList = new ArrayList<User>();
-        userFollowingList = daoUser.searchFollowingByAnyNameLike(keyword, user.getUserId());
-
-        return userFollowingList;
+        return daoUser.searchFollowingByAnyNameLike(keyword, user.getUserId());
     }
 
     public List<User> searchNotFollowingByAnyNameLike(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(USER_SESSION);
         String keyword = (String) session.getAttribute(KEYWORD_SESSION);
-        List<User> userNotFollowingList = new ArrayList<User>();
-        userNotFollowingList = daoUser.searchNotFollowingByAnyNameLike(keyword, user.getUserId());
-
-        return userNotFollowingList;
+        return daoUser.searchNotFollowingByAnyNameLike(keyword, user.getUserId());
     }
 
     public void createFollow(HttpServletRequest request) {
@@ -50,7 +44,6 @@ public class FollowUnfollowForm extends ValidationForm {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(USER_SESSION);
             daoFollow.create(user, followingId);
-
         }
     }
 
@@ -64,4 +57,8 @@ public class FollowUnfollowForm extends ValidationForm {
     }
 
 
+    public Object getDashboardParams(User user) {
+        Dashboard dashboard = daoUser.getDashboard(user);
+        return dashboard;
+    }
 }

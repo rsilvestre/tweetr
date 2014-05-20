@@ -1,4 +1,4 @@
-package be.ephec.servlets.accounts;
+package be.ephec.servlets.home;
 
 import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;

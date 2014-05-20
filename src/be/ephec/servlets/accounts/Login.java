@@ -18,7 +18,7 @@ import java.io.IOException;
 @WebServlet("/Login")
 public class Login extends ServletConfig {
     public static final String LOGIN = "/WEB-INF/login.jsp";
-    public static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
+    public static final String HOMEPAGE = "/HomePage";
     public static final String USER = "user";
     public static final String FORM = "form";
     public static final String USERNAME = "username";
@@ -81,8 +81,8 @@ public class Login extends ServletConfig {
                 cookie.setPath(request.getContextPath());
                 response.addCookie(cookie);
             }
-            //response.sendRedirect(HOMEPAGE);
-            this.getServletContext().getRequestDispatcher(HOMEPAGE).forward(request, response);
+            response.sendRedirect(HOMEPAGE);
+            //this.getServletContext().getRequestDispatcher(HOMEPAGE).forward(request, response);
         } else {
             session.setAttribute(USER_SESSION, null);
             //response.sendRedirect(LOGIN);

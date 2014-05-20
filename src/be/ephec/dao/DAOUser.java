@@ -30,9 +30,9 @@ public class DAOUser extends DAO implements DAOIUser {
     private static final String SQL_UPDATE_USER = "UPDATE user set userName = ?, firstName = ?, lastName = ?, email = ?, password = ?, image = ? where userId = ? ";
     private final static String SQL_DELETE_USER = "DELETE FROM user where userid = ?";
     private final static String DASHBOARD_USER = "select sum(Dashboard.tweetNum) as tweetNumber, sum(Dashboard.followerNum) as followerNumber, sum(Dashboard.followingNum) as followingNumber from " +
-            "(select 1 as id, 0 as followingNum, count(*) as followerNum, 0 as tweetNum from Follow where FollowerId = ? " +
+            "(select 1 as id, count(*) as followingNum, 0 as followerNum, 0 as tweetNum from Follow where FollowerId = ? " +
             "union " +
-            "select 1 as id, count(*) as followerNum, 0 as followerNumb, 0 as tweetNum from Follow where FollowingId = ? " +
+            "select 1 as id, 0 as followerNum, count(*) as followerNumb, 0 as tweetNum from Follow where FollowingId = ? " +
             "union " +
             "select 1 as id, 0 as followerNum, 0 as followerNum, count(*) as tweetNum from Tweet where UserId = ?) as Dashboard " +
             "group by id";
@@ -85,7 +85,7 @@ public class DAOUser extends DAO implements DAOIUser {
     public void update(User user) throws DAOException {
 
         try {
-            this.executeUpdate(SQL_UPDATE_USER, false, (status, result) -> {
+            this.executeUpdate(SQL_UPDATE_USER, true, (status, result) -> {
                         if (status == 0) {
                             throw new DAOException("Échec de la modification de l'utilisateur, aucune ligne n'a été modifiée dans la table.");
                         }

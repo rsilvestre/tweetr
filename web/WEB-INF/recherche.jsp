@@ -4,7 +4,7 @@
 
 <t:layout>
     <jsp:attribute name="header">
-      <h1>Follower</h1>
+      <h1>Recherche</h1>
     </jsp:attribute>
     <jsp:attribute name="footer">
       <p class="muted credit">
@@ -15,14 +15,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="block-sector block-sector-left col-md-3">
+                    <div class="block-sector block-sector-left">
                         <jsp:include page="partial/sendTweet.jsp"/>
                     </div>
                     <div class="col-md-8">
-                        <div class="block-sector block-sector-body">
-                            <jsp:include page="partial/searchUser.jsp"/>
-                        </div>
-
                         <div class="block-sector block-sector-body">
                             <jsp:include page="partial/userList.jsp"/>
                         </div>

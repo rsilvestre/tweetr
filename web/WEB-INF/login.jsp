@@ -6,7 +6,7 @@
     <c:if test="${cookieVal.key == 'username'}"> <c:set var="usernameCookie" value="${cookieVal.value.value}"/> </c:if>
 </c:forEach>
 
-<t:layout>
+<t:layout-home>
     <jsp:attribute name="header">
       <h1>Connection à Tweetr</h1>
     </jsp:attribute>
@@ -57,4 +57,4 @@
             </div>
         </div>
     </jsp:body>
-</t:layout>
+</t:layout-home>

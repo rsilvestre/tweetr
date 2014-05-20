@@ -21,7 +21,7 @@
                         <a href="/ShowAccount?id=<c:out value="${user.userId}"/>">@<c:out value="${user.userName}"/></a>
                     </div>
                     <div class="col-md-2 center-middle-btn">
-                        <form action="FollowUnFollow" method="post">
+                        <form action="Recherche" method="post">
                             <input type="hidden" name="follow" value="${user.userId}"/>
                             <input type="submit" class="btn btn-primary" value="Follow"/>
                         </form>
@@ -48,7 +48,7 @@
                         <a href="/ShowAccount?id=<c:out value="${user.userId}"/>">@<c:out value="${user.userName}"/></a>
                     </div>
                     <div class="col-md-2 center-middle-btn">
-                        <form action="FollowUnFollow" method="post">
+                        <form action="Recherche" method="post">
                             <input type="hidden" name="stopfollow" value="${user.userId}"/>
                             <input type="submit" class="btn btn-primary" id="${user.userId}" value="Stop Follow"/>
                         </form>

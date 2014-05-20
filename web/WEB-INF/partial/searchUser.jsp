@@ -3,7 +3,7 @@
 
 <h2>Rechercher un utilisateur</h2>
 
-<form method="post" action="FollowUnFollow" class="form-inline" role="form">
+<form method="post" action="Recherche" class="form-inline" role="form">
     <div class="form-group">
         <input type="text" class="form-control" id="keyword" name="keyword" value=""
                placeholder="Nom d'utilisateur"/>
