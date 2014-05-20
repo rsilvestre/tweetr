@@ -19,7 +19,7 @@
                         <c:out value="${tweet.body}"/>
                     </div>
                     <div class="col-md-2 center-middle-txt">
-                        <a href="/ShowAccount?id=<c:out value="${tweet.uorig}"/>">@<c:out
+                        <a href="<c:url value="/ShowAccount?id=${tweet.uorig}"/>">@<c:out
                                 value="${tweet.userName}"/></a>
                     </div>
                     <c:if test="${tweet.ruid > 0}">

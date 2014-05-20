@@ -17,11 +17,11 @@ import java.io.IOException;
 
 @WebServlet("/Login")
 public class Login extends ServletConfig {
-    public static final String LOGIN = "/WEB-INF/login.jsp";
-    public static final String HOMEPAGE = "/HomePage";
-    public static final String USER = "user";
-    public static final String FORM = "form";
-    public static final String USERNAME = "username";
+    private static final String LOGIN = "/WEB-INF/login.jsp";
+    private static final String HOMEPAGE = "/HomePage";
+    private static final String USER = "user";
+    private static final String FORM = "form";
+    private static final String USERNAME = "username";
 
     private DAOIUser daoIUser;
 
@@ -63,10 +63,10 @@ public class Login extends ServletConfig {
 
             if (cookies != null) {
 
-                for (int i = 0; i < cookies.length; i++) {
-                    if (cookies[i].getName().equals(USERNAME)) {
+                for (Cookie cooky : cookies) {
+                    if (cooky.getName().equals(USERNAME)) {
 
-                        cookie = cookies[i];
+                        cookie = cooky;
                         if (!(cookie.getValue().equals(user.getUserName()))) {
                             cookie.setValue(user.getUserName());
                             response.addCookie(cookie);

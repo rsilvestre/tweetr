@@ -16,11 +16,10 @@ import java.io.IOException;
 
 @WebServlet("/ModifyAccountInfo")
 public class ModifyAccountInfo extends ServletConfig {
-    public static final String MODIFYACCOUNT = "/WEB-INF/modifyAccount.jsp";
-    public static final String HOMEPAGE = "/HomePage";
-    public static final String FILE_FIELD = "fileField";
-    public static final String USER = "user";
-    public static final String FORM = "form";
+    private static final String MODIFYACCOUNT = "/WEB-INF/modifyAccount.jsp";
+    private static final String HOMEPAGE = "/HomePage";
+    private static final String USER = "user";
+    private static final String FORM = "form";
 
     private DAOIUser daoIUser;
     private DAOIFile daoIFile;

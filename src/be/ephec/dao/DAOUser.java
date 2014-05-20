@@ -174,7 +174,7 @@ public class DAOUser extends DAO implements DAOIUser {
 
     @Override
     public List<User> searchFollowingByAnyNameLike(String keyword, int userId) throws DAOException {
-        List<User> userFollowingList = new ArrayList<User>();
+        List<User> userFollowingList = new ArrayList<>();
 
         try {
             String sqlKeyword = "%" + keyword + "%";

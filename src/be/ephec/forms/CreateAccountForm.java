@@ -17,23 +17,16 @@ public final class CreateAccountForm extends ValidationForm {
     private static final String PASSWORD = "password";
     private static final String CONFIRMATION = "confirmation";
 
-    private String result;
-    private DAOUser daoUser;
-    private User user;
+    private final DAOUser daoUser;
 
     public CreateAccountForm(DAOIUser daoIUser) {
         super();
         this.daoUser = (DAOUser) daoIUser;
     }
 
-    public String getResult() {
-        return result;
-    }
-
     // Retrieve the data entered by the user
 
     public User createUserAccount(HttpServletRequest request) {
-
         User user = new User();
 
         user.setUserName(validateData(request, USERNAME,
@@ -56,19 +49,16 @@ public final class CreateAccountForm extends ValidationForm {
                 (dataKey, erreursRef1) -> user.setPassword(UserTools.sha256(FrameworkSupport.getTrimedValue(request, dataKey)))
                 , CONFIRMATION);
 
-
         user.setImage("0");
 
         if (getErreurs().isEmpty()) {
-            result = "Your account has been created successfully.";
+            setResult("Your account has been created successfully.");
             daoUser.create(user);
-
         } else {
-            result = "Your account has not been created, please verify the entered information...";
+            setResult("Your account has not been created, please verify the entered information...");
         }
 
         return user;
-
     }
 
 }

@@ -1,6 +1,5 @@
 package be.ephec.forms;
 
-import be.ephec.beans.Dashboard;
 import be.ephec.beans.User;
 import be.ephec.dao.DAOFollow;
 import be.ephec.dao.DAOIFollow;
@@ -15,8 +14,8 @@ import java.util.List;
 public class RechercheForm extends ValidationForm {
     private static final String KEYWORD_SESSION = "keywordSession";
 
-    private DAOUser daoUser;
-    private DAOFollow daoFollow;
+    private final DAOUser daoUser;
+    private final DAOFollow daoFollow;
 
     public RechercheForm(DAOIUser daoIUser, DAOIFollow daoIFollow) {
         this.daoUser = (DAOUser) daoIUser;
@@ -56,9 +55,7 @@ public class RechercheForm extends ValidationForm {
         }
     }
 
-
     public Object getDashboardParams(User user) {
-        Dashboard dashboard = daoUser.getDashboard(user);
-        return dashboard;
+        return daoUser.getDashboard(user);
     }
 }

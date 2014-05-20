@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet("/ShowAccount")
 public class ShowAccount extends ServletConfig {
-    public static final String SHOWACCOUNT = "/WEB-INF/showAccount.jsp";
+    private static final String SHOWACCOUNT = "/WEB-INF/showAccount.jsp";
 
     private DAOIUser daoIUser;
 
@@ -28,7 +28,7 @@ public class ShowAccount extends ServletConfig {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId;
-        User user = null;
+        User user;
         if ((userId = request.getParameter("id")) == null || (user = daoIUser.searchById(Integer.parseInt(userId))) == null) {
             user = (User) request.getSession().getAttribute(USER_SESSION);
         }

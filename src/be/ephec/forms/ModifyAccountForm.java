@@ -26,9 +26,8 @@ public class ModifyAccountForm extends ValidationForm {
     private static final String IMAGE = "image";
     private static final String PATH = Thread.currentThread().getContextClassLoader().getResource("../../Images").getPath();
 
-    private String result;
-    private DAOUser daoUser;
-    private DAOFile daoFile;
+    private final DAOUser daoUser;
+    private final DAOFile daoFile;
 
 
     public ModifyAccountForm(DAOIUser daoIUser, DAOIFile daoIFile) {
@@ -122,24 +121,11 @@ public class ModifyAccountForm extends ValidationForm {
 
     private Part imageValidation(HttpServletRequest request) {
         try {
-            Part part = request.getPart(IMAGE);
-            return part;
-        } catch (IllegalStateException e) {
-            setErreur(IMAGE, e.getMessage());
-        } catch (IOException e) {
-            setErreur(IMAGE, e.getMessage());
-        } catch (ServletException e) {
+            return request.getPart(IMAGE);
+        } catch (IllegalStateException | IOException | ServletException e) {
             setErreur(IMAGE, e.getMessage());
         }
         return null;
 
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
     }
 }

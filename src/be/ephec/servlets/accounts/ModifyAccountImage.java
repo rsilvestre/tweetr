@@ -25,11 +25,9 @@ import java.io.IOException;
         maxRequestSize = 1024 * 1024 * 15, // 15 MB
         location = "/tmp")
 public class ModifyAccountImage extends ServletConfig {
-    public static final String MODIFYACCOUNT = "/WEB-INF/modifyAccount.jsp";
-    public static final String HOMEPAGE = "HomePage";
-    public static final String FILE_FIELD = "fileField";
-    public static final String USER = "user";
-    public static final String FORM = "form";
+    private static final String MODIFYACCOUNT = "/WEB-INF/modifyAccount.jsp";
+    private static final String HOMEPAGE = "HomePage";
+    private static final String FORM = "form";
 
     private DAOIUser daoIUser;
     private DAOIFile daoIFile;

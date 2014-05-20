@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/ModifyAccount")
 public class ModifyAccount extends ServletConfig {
 
-    public static final String MODIFYACCOUNT = "/WEB-INF/modifyAccount.jsp";
+    private static final String MODIFYACCOUNT = "/WEB-INF/modifyAccount.jsp";
 
     /**
      * @see HttpServlet#HttpServlet()

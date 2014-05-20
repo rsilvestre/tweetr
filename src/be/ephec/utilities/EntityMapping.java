@@ -10,7 +10,7 @@ import java.sql.ResultSet;
  * Created by michaelsilvestre on 17/05/14.
  */
 public class EntityMapping<T> {
-    private Class<T> t;
+    private final Class<T> t;
 
     public EntityMapping(Class<T> pT) {
         t = pT;

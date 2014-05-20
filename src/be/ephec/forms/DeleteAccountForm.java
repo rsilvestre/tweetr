@@ -4,13 +4,11 @@ import be.ephec.beans.User;
 import be.ephec.dao.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public class DeleteAccountForm extends ValidationForm {
-    private DAOUser daoUser;
-    private DAOTweet daoTweet;
-    private DAOFollow daoFollow;
-    private User user;
+    private final DAOUser daoUser;
+    private final DAOTweet daoTweet;
+    private final DAOFollow daoFollow;
 
     public DeleteAccountForm(DAOIUser daoIUser, DAOIFollow daoIFollow, DAOITweet daoITweet) {
         super();
@@ -21,16 +19,13 @@ public class DeleteAccountForm extends ValidationForm {
 
 
     public void deleteAccount(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        user = (User) session.getAttribute(USER_SESSION);
-        int userId = user.getUserId();
+        int userId = ((User) request.getSession().getAttribute(USER_SESSION)).getUserId();
 
         daoTweet.deleteReTweet(userId);
         daoTweet.deleteTweet(userId);
         daoFollow.deleteUserFollower(userId);
         daoFollow.deleteUserFollowing(userId);
         daoUser.delete(userId);
-
     }
 
 

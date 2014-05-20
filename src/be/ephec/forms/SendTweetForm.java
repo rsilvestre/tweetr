@@ -17,15 +17,10 @@ public class SendTweetForm extends ValidationForm {
     private static final String TWEETID = "tweetId";
     private static final String BODY = "body";
 
-    private String result;
-    private DAOTweet daoTweet;
+    private final DAOTweet daoTweet;
 
     public SendTweetForm(DAOITweet daoITweet) {
         this.daoTweet = (DAOTweet) daoITweet;
-    }
-
-    public String getResult() {
-        return result;
     }
 
     // Retrieve the data entered by the user
@@ -50,9 +45,9 @@ public class SendTweetForm extends ValidationForm {
 
         if (getErreurs().isEmpty()) {
             daoTweet.createTweet(tweet);
-            result = " Your tweet has  been sent ";
+            setResult(" Your tweet has  been sent ");
         } else {
-            result = "Your tweet has Not  been sent";
+            setResult("Your tweet has Not  been sent");
         }
         return tweet;
     }
@@ -81,7 +76,7 @@ public class SendTweetForm extends ValidationForm {
             throw new Exception("The tweet must contain at least 3 characters.");
         }
 
-        if (body.length() > 140) {
+        if ((body != null ? body.length() : 0) > 140) {
             throw new Exception("The tweet is too long.");
         }
     }

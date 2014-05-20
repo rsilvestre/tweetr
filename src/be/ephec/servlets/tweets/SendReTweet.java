@@ -18,9 +18,9 @@ import java.io.IOException;
  */
 @WebServlet("/SendReTweet")
 public class SendReTweet extends ServletConfig {
-    public static final String HOMEPAGE = "/HomePage";
-    public static final String RETWEET = "reTweet";
-    public static final String FORM = "form";
+    private static final String HOMEPAGE = "/HomePage";
+    private static final String RETWEET = "reTweet";
+    private static final String FORM = "form";
     private DAOITweet daoITweet;
 
     /**

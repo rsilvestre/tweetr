@@ -6,10 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
-    <script src="assets/js/jquery-2.1.1.js"></script>
-    <script src="assets/js/bootstrap.js"></script>
+    <link href="<c:url value="/assets/css/bootstrap.css"/>" rel="stylesheet" type="text/css">
+    <link href="<c:url value="/assets/css/style.css"/>" rel="stylesheet" type="text/css">
+    <script src="<c:url value="/assets/js/jquery-2.1.1.js"/>"></script>
+    <script src="<c:url value="/assets/js/bootstrap.js"/>"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Tweetr</title>
 </head>
@@ -27,13 +27,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/HomePage">Tweetr</a>
+                <a class="navbar-brand" href="<c:url value="/HomePage"/>">Tweetr</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/HomePage">Home</a></li>
+                    <li class="active"><a href="<c:url value="/HomePage"/>">Home</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profil <b
                                 class="caret"></b></a>
@@ -58,14 +58,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <c:if test="${sessionScope.userSession == null}">
-                            <a href="/Login">Connexion</a>
+                            <a href="<c:url value="/Login"/>">Connexion</a>
                         </c:if>
 
                         <c:if test="${sessionScope.userSession != null}">
-                            <a href="/Logout">Déconnection</a>
+                            <a href="<c:url value="/Logout"/>">Déconnection</a>
                         </c:if>
                     </li>
-                    <li><a href="/About">A propos</a></li>
+                    <li><a href="<c:url value="/About"/>">A propos</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

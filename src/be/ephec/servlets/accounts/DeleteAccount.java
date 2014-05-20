@@ -20,7 +20,7 @@ import java.io.IOException;
 @WebServlet("/DeleteAccount")
 public class DeleteAccount extends ServletConfig {
 
-    public static final String LOGIN = "/WEB-INF/Login.jsp";
+    private static final String LOGIN = "/WEB-INF/Login.jsp";
     private DAOIUser daoIUser;
     private DAOITweet daoITweet;
     private DAOIFollow daoIFollow;

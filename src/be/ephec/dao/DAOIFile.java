@@ -5,6 +5,5 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public interface DAOIFile {
-
     void writeFile(Part part, String fileName, String path) throws IOException, URISyntaxException;
 }

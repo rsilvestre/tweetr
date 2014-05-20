@@ -14,7 +14,7 @@ public class LoginForm extends ValidationForm {
     private static final String PASSWORD = "password";
 
 
-    private DAOUser daoUser;
+    private final DAOUser daoUser;
 
     public LoginForm(DAOIUser daoIUser) {
         this.daoUser = (DAOUser) daoIUser;
@@ -22,7 +22,7 @@ public class LoginForm extends ValidationForm {
 
 
     public User loginValidation(HttpServletRequest request) {
-        User user = null;
+        User user;
         Boolean bEmptyFieldError = false;
         String userName;
         String password;
@@ -39,7 +39,7 @@ public class LoginForm extends ValidationForm {
             setErreur(PASSWORD, "empty password");
         }
         if (bEmptyFieldError) {
-            return user;
+            return null;
         }
 
         user = daoUser.loginSearch(userName, UserTools.sha256(password));

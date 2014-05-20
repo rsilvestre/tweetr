@@ -39,8 +39,8 @@ public class DAOTweet extends DAO implements DAOITweet {
             " order by updatedAt desc " +
             " limit 25";
     private static final String SQL_INSERTRETWEET = "INSERT INTO retweet(TweetId, UserId, UpdatedAt) VALUES (?,?,NOW())";
-    private final String SQL_DELETE_RETWEET = "DELETE FROM retweet where userid = ?";
-    private final String SQL_DELETE_TWEET = "DELETE FROM tweet where userid = ?";
+    private static final String SQL_DELETE_RETWEET = "DELETE FROM retweet where userid = ?";
+    private static final String SQL_DELETE_TWEET = "DELETE FROM tweet where userid = ?";
 
     DAOTweet(DAOFactory daoFactory) {
         super(daoFactory);
@@ -96,7 +96,7 @@ public class DAOTweet extends DAO implements DAOITweet {
 
     @Override
     public List<TweetOut> getTweetOutList(User user) {
-        List<TweetOut> tweetsOut = new ArrayList<TweetOut>();
+        List<TweetOut> tweetsOut = new ArrayList<>();
         try {
             ResultSet resultSet = this.executeQuery(SQL_SELECTTWEETOUT, false, user.getUserId(), user.getUserId(), user.getUserId(), user.getUserId());
             while (resultSet.next()) {

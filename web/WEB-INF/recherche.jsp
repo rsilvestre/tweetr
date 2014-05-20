@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="block-sector block-sector-left">
-                        <jsp:include page="partial/sendTweet.jsp"/>
+                        <jsp:include page="partial/dashboard.jsp"/>
                     </div>
                     <div class="col-md-8">
                         <div class="block-sector block-sector-body">

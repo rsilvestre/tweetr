@@ -17,9 +17,9 @@ public class DAOFactory {
     private static final String PROPERTY_USERNAME = "userName";
     private static final String PROPERTY_PASSWORD = "password";
 
-    private String url;
-    private String userName;
-    private String password;
+    private final String url;
+    private final String userName;
+    private final String password;
 
     DAOFactory(String url, String userName, String password) {
         this.url = url;
@@ -62,8 +62,7 @@ public class DAOFactory {
                     "Le driver est introuvable dans le classpath.", e);
         }
 
-        DAOFactory instance = new DAOFactory(url, userName, password);
-        return instance;
+        return new DAOFactory(url, userName, password);
     }
 
     /**

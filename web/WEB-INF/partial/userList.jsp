@@ -18,7 +18,7 @@
                         </c:if>
                     </div>
                     <div class="col-md-3 center-middle-txt">
-                        <a href="/ShowAccount?id=<c:out value="${user.userId}"/>">@<c:out value="${user.userName}"/></a>
+                        <a href="<c:url value="/ShowAccount?id=${user.userId}"/>">@<c:out value="${user.userName}"/></a>
                     </div>
                     <div class="col-md-2 center-middle-btn">
                         <form action="Recherche" method="post">
@@ -45,7 +45,7 @@
                         </c:if>
                     </div>
                     <div class="col-md-3 center-middle-txt">
-                        <a href="/ShowAccount?id=<c:out value="${user.userId}"/>">@<c:out value="${user.userName}"/></a>
+                        <a href="<c:url value="/ShowAccount?id=${user.userId}"/>">@<c:out value="${user.userName}"/></a>
                     </div>
                     <div class="col-md-2 center-middle-btn">
                         <form action="Recherche" method="post">

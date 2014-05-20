@@ -12,8 +12,8 @@ import java.util.List;
 
 public class HomePageForm extends ValidationForm {
 
-    private DAOTweet daoTweet;
-    private DAOUser daoUser;
+    private final DAOTweet daoTweet;
+    private final DAOUser daoUser;
 
     public HomePageForm(DAOITweet daoITweet, DAOIUser daoIUser) {
         this.daoTweet = (DAOTweet) daoITweet;
@@ -21,12 +21,10 @@ public class HomePageForm extends ValidationForm {
     }
 
     public List<TweetOut> getTweetOutList(User user) {
-        List<TweetOut> tweetsOut = daoTweet.getTweetOutList(user);
-        return tweetsOut;
+        return daoTweet.getTweetOutList(user);
     }
 
     public Dashboard getDashboardParams(User user) {
-        Dashboard dashboard = daoUser.getDashboard(user);
-        return dashboard;
+        return daoUser.getDashboard(user);
     }
 }

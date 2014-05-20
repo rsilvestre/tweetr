@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 @WebServlet("/Logout")
 public class Logout extends ServletConfig {
-    public static final String HOME = "/WEB-INF/home.jsp";
+    private static final String HOME = "/WEB-INF/home.jsp";
 
     /**
      * @see HttpServlet#HttpServlet()

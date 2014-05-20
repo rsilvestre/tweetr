@@ -19,10 +19,10 @@ import java.io.IOException;
  */
 @WebServlet("/CreateAccount")
 public class CreateAccount extends ServletConfig {
-    public static final String CREATEACCOUNT = "/WEB-INF/createAccount.jsp";
-    public static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
-    public static final String USER = "user";
-    public static final String FORM = "form";
+    private static final String CREATEACCOUNT = "/WEB-INF/createAccount.jsp";
+    private static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
+    private static final String USER = "user";
+    private static final String FORM = "form";
 
     private DAOIUser daoIUser;
 

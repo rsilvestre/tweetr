@@ -19,10 +19,10 @@ import java.io.IOException;
  */
 @WebServlet("/SendTweet")
 public class SendTweet extends ServletConfig {
-    public static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
+    private static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
     //public static final String HOMEPAGE = "/HomePage";
-    public static final String TWEET = "tweet";
-    public static final String FORM = "form";
+    private static final String TWEET = "tweet";
+    private static final String FORM = "form";
 
     private DAOITweet daoITweet;
 

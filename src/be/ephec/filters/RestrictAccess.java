@@ -10,9 +10,9 @@ import java.io.IOException;
 @WebFilter(filterName = "FilterSession", urlPatterns = "/*")
 public class RestrictAccess implements Filter {
 
-    public static final String HOME = "/Home";
-    public static final String LOGIN = "/Login";
-    public static final String USER_SESSION = "userSession";
+    private static final String HOME = "/Home";
+    private static final String LOGIN = "/Login";
+    private static final String USER_SESSION = "userSession";
 
     public void init(FilterConfig config) throws ServletException {
 
@@ -42,6 +42,7 @@ public class RestrictAccess implements Filter {
          */
         if (session.getAttribute(USER_SESSION) == null
                 && !"/Home".equals(request.getRequestURI().substring(request.getContextPath().length()))
+                && !"/About".equals(request.getRequestURI().substring(request.getContextPath().length()))
                 && !"/Login".equals(request.getRequestURI().substring(request.getContextPath().length()))
                 && !"/CreateAccount".equals(request.getRequestURI().substring(request.getContextPath().length()))
                 ) {
@@ -50,6 +51,8 @@ public class RestrictAccess implements Filter {
             System.out.println(session.getAttribute(USER_SESSION) == null);
             /* Redirection vers la page publique */
             if (!"/Home".equals(request.getRequestURI().substring(request.getContextPath().length()))) {
+                request.getRequestDispatcher(HOME).forward(request, response);
+            } else if (!"/About".equals(request.getRequestURI().substring(request.getContextPath().length()))) {
                 request.getRequestDispatcher(HOME).forward(request, response);
             } else {
                 request.getRequestDispatcher(LOGIN).forward(request, response);

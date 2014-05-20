@@ -11,10 +11,10 @@ import java.sql.SQLException;
  * Created by michaelsilvestre on 19/05/14.
  */
 public abstract class DAO {
+    private final DAOFactory daoFactory;
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
-    private DAOFactory daoFactory;
 
     public DAO(DAOFactory daoFactory) {
         this.daoFactory = daoFactory;

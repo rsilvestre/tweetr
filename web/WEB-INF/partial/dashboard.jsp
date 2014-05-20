@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="dashboard">
-    <a class="dashboard-head" href="/ShowAccount"> </a>
+    <a class="dashboard-head" href="<c:url value="/ShowAccount"/>"> </a>
 
     <div class="dashboard-content">
-        <a class="dashboard-avatar" href="/ShowAccount">
-            <c:if test="${sessionScope.userSession.image != '' && sessionScope.userSession.image != '0'}">
+        <a class="dashboard-avatar" href="<c:url value="/ShowAccount"/>">
+        <c:if test="${sessionScope.userSession.image != '' && sessionScope.userSession.image != '0'}">
                 <img class="dashboard-avatarimage" src="<c:url value='/Images/${sessionScope.userSession.image}'/>"
                      alt="${sessionScope.userSession.userId}" width="60px"/>
             </c:if>
@@ -17,13 +17,13 @@
 
         <div class="dashboard-userfields">
             <div class="dashboard-name">
-                <a href="/ShowAccount">
-                    <c:out value="${sessionScope.userSession.firstName}"/>
+                <a href="<c:url value="/ShowAccount"/>">
+                <c:out value="${sessionScope.userSession.firstName}"/>
                     <c:out value="${sessionScope.userSession.lastName}"/>
                 </a>
             </div>
             <span class="dashboard-screenname">
-                <a href="/ShowAccount">@<c:out value="${sessionScope.userSession.userName}"/></a>
+                <a href="<c:url value="/ShowAccount"/>">@<c:out value="${sessionScope.userSession.userName}"/></a>
             </span>
         </div>
         <div class="dashboard-stats">
@@ -62,9 +62,6 @@
                 </li>
             </ul>
         </div>
-
-
-        <!--<p><c:out value="${tweet.body}"/></p> -->
 
         <div class="dashboard-tweet-box">
             <form method="post" action="SendTweet" class="form-horizontal" role="form">

@@ -11,9 +11,10 @@ import java.util.Map;
  * Created by michaelsilvestre on 17/05/14.
  */
 public abstract class ValidationForm {
-    public static final String USER_SESSION = "userSession";
 
-    private Map<String, String> erreurs = new HashMap<>();
+    public static final String USER_SESSION = "userSession";
+    private final Map<String, String> erreurs = new HashMap<>();
+    private String result;
 
     public ValidationForm() {
     }
@@ -45,6 +46,14 @@ public abstract class ValidationForm {
 
     public Map<String, String> getErreurs() {
         return erreurs;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    protected void setResult(String result) {
+        this.result = result;
     }
 
     public interface extraCallback {
