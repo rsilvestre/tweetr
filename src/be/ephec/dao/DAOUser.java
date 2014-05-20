@@ -45,7 +45,7 @@ public class DAOUser extends DAO implements DAOIUser {
     public void create(User user) throws DAOException {
 
         try {
-            executeUpdate(SQL_INSERT, true, (status, result) -> {
+            executeUpdate(SQL_INSERT, (status, result) -> {
                         if (status == 0) {
                             throw new DAOException("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
                         }
@@ -69,7 +69,7 @@ public class DAOUser extends DAO implements DAOIUser {
     public void delete(int userId) throws DAOException {
 
         try {
-            this.executeUpdate(SQL_DELETE_USER, true, (status, result) -> {
+            this.executeUpdate(SQL_DELETE_USER, (status, result) -> {
                 if (status == 0) {
                     throw new DAOException("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
                 }
@@ -85,7 +85,7 @@ public class DAOUser extends DAO implements DAOIUser {
     public void update(User user) throws DAOException {
 
         try {
-            this.executeUpdate(SQL_UPDATE_USER, true, (status, result) -> {
+            this.executeUpdate(SQL_UPDATE_USER, (status, result) -> {
                         if (status == 0) {
                             throw new DAOException("Échec de la modification de l'utilisateur, aucune ligne n'a été modifiée dans la table.");
                         }
@@ -181,8 +181,7 @@ public class DAOUser extends DAO implements DAOIUser {
             ResultSet resultSet = this.executeQuery(SQL_SEARCH_FOLLOWING_USER_BY_ANYNAME_LIKE, false, sqlKeyword, sqlKeyword, sqlKeyword, userId, userId);
             while (resultSet.next()) {
                 EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
-                User user = EntityMapping.getMapping(resultSet);
-                userFollowingList.add(user);
+                userFollowingList.add(EntityMapping.getMapping(resultSet));
             }
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -203,8 +202,7 @@ public class DAOUser extends DAO implements DAOIUser {
             ResultSet resultSet = this.executeQuery(SQL_SEARCH_NOT_FOLLOWING_USER_BY_ANYNAME_LIKE, false, sqlKeyword, sqlKeyword, sqlKeyword, userId, userId);
             while (resultSet.next()) {
                 EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
-                User user = EntityMapping.getMapping(resultSet);
-                userNotFollowingList.add(user);
+                userNotFollowingList.add(EntityMapping.getMapping(resultSet));
             }
         } catch (SQLException e) {
             throw new DAOException(e);
@@ -216,7 +214,6 @@ public class DAOUser extends DAO implements DAOIUser {
 
         return userNotFollowingList;
     }
-
 
     public Dashboard getDashboard(User user) {
         Dashboard dashboard = null;

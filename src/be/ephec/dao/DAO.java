@@ -24,8 +24,8 @@ public abstract class DAO {
         return this.daoFactory;
     }
 
-    public void executeUpdate(String SQL, Boolean returnGeneratedKeys, updateCallback next, Object... objects) throws SQLException {
-        int status = executePreparedStatement(SQL, returnGeneratedKeys, objects).executeUpdate();
+    public void executeUpdate(String SQL, updateCallback next, Object... objects) throws SQLException {
+        int status = executePreparedStatement(SQL, true, objects).executeUpdate();
         resultSet = this.preparedStatement.getGeneratedKeys();
         next.doJob(status, resultSet);
     }

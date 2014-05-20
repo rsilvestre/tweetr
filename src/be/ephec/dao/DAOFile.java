@@ -5,16 +5,12 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class DAOFile implements DAOIFile {
+public class DAOFile extends DAO implements DAOIFile {
 
     private static final int BUFFER_SIZE = 10240; // 10 ko
-    private DAOFactory daoFactory;
-
-    public DAOFile() {
-    }
 
     public DAOFile(DAOFactory daoFactory) {
-        this.daoFactory = daoFactory;
+        super(daoFactory);
     }
 
     /*
