@@ -30,6 +30,12 @@ public abstract class DAO {
         next.doJob(status, resultSet);
     }
 
+    public int executeUpdate(String SQL, Object... objects) throws SQLException {
+        int status = executePreparedStatement(SQL, true, objects).executeUpdate();
+        resultSet = this.preparedStatement.getGeneratedKeys();
+        return status;
+    }
+
     public void executeQuery(String SQL, Boolean returnGeneratedKeys, queryCallback next, Object... objects) throws SQLException {
         resultSet = executePreparedStatement(SQL, returnGeneratedKeys, objects).executeQuery();
         next.doJob(resultSet);
@@ -54,6 +60,10 @@ public abstract class DAO {
     private PreparedStatement executePreparedStatement(String SQL, Boolean returnGeneratedKeys, Object... objects) throws SQLException {
         this.preparedStatement = SqlTools.preparedRequestInitialization(getConnection(), SQL, returnGeneratedKeys, objects);
         return this.preparedStatement;
+    }
+
+    protected ResultSet getResultSet() {
+        return this.resultSet;
     }
 
     protected Connection getConnection() throws SQLException {

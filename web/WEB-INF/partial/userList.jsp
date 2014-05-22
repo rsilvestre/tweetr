@@ -2,6 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<c:if test="${param.id != null && param.id == dashboard.user.userId}">
+    <c:set var="idparam" scope="request" value="?id=${dashboard.user.userId}"/>
+</c:if>
+
 <div class="content-main">
     <jsp:include page="_content-title.jsp"/>
     <div class="content-stream">
