@@ -20,6 +20,8 @@ public class RestrictAccess implements Filter {
     public void doFilter(ServletRequest req, ServletResponse res,
                          FilterChain chain) throws IOException, ServletException {
 
+        req.setCharacterEncoding("UTF-8");
+
 		/* Cast des objets request et response */
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;

@@ -14,17 +14,13 @@ public class DAOFactoryInit implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent event) {
-        /* Rien à réaliser lors de la fermeture de l'application... */
+
     }
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
-        /* Récupération du ServletContext lors du chargement de l'application */
         ServletContext servletContext = event.getServletContext();
-		/* Instanciation de notre DAOFactory */
-        DAOFactory daoFactory = DAOFactory.getInstance();
-        /* Enregistrement dans un attribut ayant pour portée toute l'application */
-        servletContext.setAttribute(ATT_DAO_FACTORY, daoFactory);
+        servletContext.setAttribute(ATT_DAO_FACTORY, DAOFactory.getInstance());
     }
 
 

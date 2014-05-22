@@ -14,29 +14,17 @@ public class DAOFactory {
     private static final String PROPERTIES_FILE = "/be/ephec/dao/dao.properties";
     private static final String PROPERTY_URL = "url";
     private static final String PROPERTY_DRIVER = "driver";
-    private static final String PROPERTY_USERNAME = "userName";
-    private static final String PROPERTY_PASSWORD = "password";
 
     private final String url;
-    private final String userName;
-    private final String password;
+    private Properties properties;
 
-    DAOFactory(String url, String userName, String password) {
+    public DAOFactory(String url, Properties properties) {
         this.url = url;
-        this.userName = userName;
-        this.password = password;
+        this.properties = properties;
     }
 
-    /**
-     * This method is in charge of retrieving the DB connection information,
-     * loading the JDBC driver and returning an instance of the Factory.
-     */
     public static DAOFactory getInstance() throws DAOConfigurationException {
         Properties properties = new Properties();
-        String url;
-        String driver;
-        String userName;
-        String password;
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream propertiesFile = classLoader.getResourceAsStream(PROPERTIES_FILE);
@@ -47,56 +35,37 @@ public class DAOFactory {
 
         try {
             properties.load(propertiesFile);
-            url = properties.getProperty(PROPERTY_URL);
-            driver = properties.getProperty(PROPERTY_DRIVER);
-            userName = properties.getProperty(PROPERTY_USERNAME);
-            password = properties.getProperty(PROPERTY_PASSWORD);
         } catch (IOException e) {
             throw new DAOConfigurationException("Unable to load the properties file" + PROPERTIES_FILE, e);
         }
 
         try {
-            Class.forName(driver);
+            Class.forName(properties.getProperty(PROPERTY_DRIVER));
         } catch (ClassNotFoundException e) {
             throw new DAOConfigurationException(
                     "Le driver est introuvable dans le classpath.", e);
         }
 
-        return new DAOFactory(url, userName, password);
+        return new DAOFactory(properties.getProperty(PROPERTY_URL), properties);
     }
 
-    /**
-     * This method in charge of providing a connection to the DB.
-     */
     Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(this.url, this.userName, this.password);
+        return DriverManager.getConnection(this.url, this.properties);
     }
 
-    /**
-     * Méthodes de récupération de l'implémentation des différents DAO
-     * (only one for the moment)
-     */
     public DAOIUser getUserDao() {
-
         return new DAOUser(this);
     }
 
-    /**
-     * Méthodes de récupération de l'implémentation des différents DAO
-     * (only one for the moment)
-     */
     public DAOITweet getTweetDao() {
-
         return new DAOTweet(this);
     }
 
     public DAOFollow getFollowDao() {
-
         return new DAOFollow(this);
     }
 
     public DAOFile getFileDao() {
-
         return new DAOFile(this);
     }
 }
