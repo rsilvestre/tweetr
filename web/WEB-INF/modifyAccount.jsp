@@ -12,7 +12,7 @@
       </p>
     </jsp:attribute>
     <jsp:body>
-        <div class="col-md-10 block-sector">
+        <div class="col-md-10 block-sector block-surround">
             <form method="post" action="ModifyAccountInfo" class="form-horizontal" role="form">
                 <h3>Modifier vos informations</h3>
 

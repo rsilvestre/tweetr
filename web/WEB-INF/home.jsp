@@ -12,7 +12,7 @@
       </p>
     </jsp:attribute>
     <jsp:body>
-        <div class="row">
+        <div class="row block-sector block-surround">
             <div class="col-md-12">
                 Bienvenu sur Tweetr
             </div>

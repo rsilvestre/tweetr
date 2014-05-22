@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 @WebServlet("/Logout")
 public class Logout extends ServletConfig {
-    private static final String HOME = "/WEB-INF/home.jsp";
+    private static final String HOME = "/Home";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,7 +28,7 @@ public class Logout extends ServletConfig {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute(USER_SESSION, null);
-        this.getServletContext().getRequestDispatcher(HOME).forward(request, response);
+        response.sendRedirect(HOME);
     }
 
 }

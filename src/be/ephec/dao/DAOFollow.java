@@ -2,8 +2,12 @@ package be.ephec.dao;
 
 import be.ephec.beans.User;
 import be.ephec.exceptions.DAOException;
+import be.ephec.utilities.EntityMapping;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAOFollow extends DAO implements DAOIFollow {
 
@@ -11,6 +15,13 @@ public class DAOFollow extends DAO implements DAOIFollow {
     private static final String SQL_DELETE = "DELETE FROM follow where (followerid = ? and followingid = ?)";
     private static final String SQL_DELTE_FOLLOWING = "DELETE FROM follow where followerid = ?";
     private static final String SQL_DELTE_FOLLOWER = "DELETE FROM follow where followingid = ?";
+    private static final String SELECT_FOLLOWING_USER_BY_FOLLOWER = "select u.*, 1 as follower from User as u left join Follow as f on u.UserId = f.FollowingId where f.FollowerId = ?";
+    private static final String SELECT_FOLLOWER_USER_BY_FOLLOWING = "select * from (select result.userId, result.userName, result.firstName, result.lastName, result.email, result.password, result.image, result.updatedAt, if(sum(result.follower) = 1 and sum(result.following) = 1, 1, 0) as follower " +
+            "from (select u.*, 1 as follower, 0 as following from User as u left join Follow as f on u.UserId = f.FollowerId where f.FollowingId = ? " +
+            "union " +
+            "select u.*, 0 as follower, 1 as following from User as u left join Follow as f on u.UserId = f.FollowingId where f.FollowerId = ?) as result " +
+            "group by result.Email) as final " +
+            "where final.userId in (select u.userId from User as u left join Follow as f on u.UserId = f.FollowerId where f.FollowingId = ?)";
 
     public DAOFollow(DAOFactory daoFactory) {
         super(daoFactory);
@@ -76,5 +87,43 @@ public class DAOFollow extends DAO implements DAOIFollow {
         } catch (SQLException e) {
             throw new DAOException(e);
         }
+    }
+
+    @Override
+    public List<User> getFollowerByUser(User user) {
+        List<User> lstUser = new ArrayList<>();
+        try {
+            ResultSet resultSet = this.executeQuery(SELECT_FOLLOWER_USER_BY_FOLLOWING, false, user.getUserId(), user.getUserId(), user.getUserId());
+            while (resultSet.next()) {
+                EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
+                try {
+                    lstUser.add(EntityMapping.getMapping(resultSet));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return lstUser;
+    }
+
+    @Override
+    public List<User> getFollowingByUser(User user) {
+        List<User> lstUser = new ArrayList<>();
+        try {
+            ResultSet resultSet = this.executeQuery(SELECT_FOLLOWING_USER_BY_FOLLOWER, false, user.getUserId());
+            while (resultSet.next()) {
+                EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
+                try {
+                    lstUser.add(EntityMapping.getMapping(resultSet));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return lstUser;
     }
 }

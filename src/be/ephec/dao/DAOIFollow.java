@@ -3,6 +3,8 @@ package be.ephec.dao;
 import be.ephec.beans.User;
 import be.ephec.exceptions.DAOException;
 
+import java.util.List;
+
 public interface DAOIFollow {
 
     void create(User user, String followingId) throws DAOException;
@@ -12,4 +14,8 @@ public interface DAOIFollow {
     void deleteUserFollowing(int userId) throws DAOException;
 
     void deleteUserFollower(int userId) throws DAOException;
+
+    List<User> getFollowerByUser(User user);
+
+    List<User> getFollowingByUser(User user);
 }

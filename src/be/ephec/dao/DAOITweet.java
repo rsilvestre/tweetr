@@ -17,4 +17,6 @@ public interface DAOITweet {
     void deleteTweet(int userId);
 
     void deleteReTweet(int userId);
+
+    List<TweetOut> getLstTweetOutByUser(User user);
 }

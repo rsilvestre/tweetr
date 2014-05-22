@@ -13,6 +13,7 @@ public class User {
     private String email;
     private String image;
     private String updatedAt;
+    private String follower;
 
     public Integer getUserId() {
         return userId;
@@ -78,4 +79,11 @@ public class User {
         this.updatedAt = pUpdatedAt;
     }
 
+    public String getFollower() {
+        return follower;
+    }
+
+    public void setFollower(String follower) {
+        this.follower = follower;
+    }
 }

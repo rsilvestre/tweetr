@@ -7,6 +7,7 @@ public class Dashboard {
     private int tweetNumber;
     private int followerNumber;
     private int followingNumber;
+    private User user;
 
 
     public int getFollowingNumber() {
@@ -31,5 +32,13 @@ public class Dashboard {
 
     public void setTweetNumber(int tweetNumber) {
         this.tweetNumber = tweetNumber;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

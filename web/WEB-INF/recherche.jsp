@@ -4,7 +4,6 @@
 
 <t:layout>
     <jsp:attribute name="header">
-      <h1>Recherche</h1>
     </jsp:attribute>
     <jsp:attribute name="footer">
       <p class="muted credit">
@@ -12,19 +11,12 @@
       </p>
     </jsp:attribute>
     <jsp:body>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="block-sector block-sector-left">
-                        <jsp:include page="partial/dashboard.jsp"/>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="block-sector block-sector-body">
-                            <jsp:include page="partial/userList.jsp"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="block-sector block-sector-left">
+            <jsp:include page="partial/dashboard.jsp"/>
+        </div>
+        <div class="block-sector block-sector-body">
+            <c:set var="content_title" scope="request" value="Recherche"/>
+            <jsp:include page="partial/userList.jsp"/>
         </div>
     </jsp:body>
 </t:layout>

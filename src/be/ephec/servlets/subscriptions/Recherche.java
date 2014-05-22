@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/Recherche")
 public class Recherche extends ServletConfig {
@@ -24,6 +23,8 @@ public class Recherche extends ServletConfig {
     private static final String KEYWORD_SESSION = "keywordSession";
     private static final String DASHBOARD = "dashboard";
     private static final String KEYWORD = "keyword";
+    private static final String RESPONSE_KEY = "response";
+    private static final String RESPONSE_VALUE = "Recherche";
     private DAOIUser daoIUser;
     private DAOIFollow daoIFollow;
 
@@ -55,13 +56,11 @@ public class Recherche extends ServletConfig {
             form.deleteFollow(request);
         }
 
-        List<User> userNotFollowingList = form.searchNotFollowingByAnyNameLike(request);
-        List<User> userFollowingList = form.searchFollowingByAnyNameLike(request);
-
         /**Stockage du formulaire et du bean dans l'objet request*/
+        request.setAttribute(RESPONSE_KEY, RESPONSE_VALUE);
         request.setAttribute(DASHBOARD, form.getDashboardParams((User) request.getSession().getAttribute(USER_SESSION)));
-        request.setAttribute(USERNOTFOLLOWINGLIST, userNotFollowingList);
-        request.setAttribute(USERFOLLOWINGLIST, userFollowingList);
+        request.setAttribute(USERNOTFOLLOWINGLIST, form.searchNotFollowingByAnyNameLike(request));
+        request.setAttribute(USERFOLLOWINGLIST, form.searchFollowingByAnyNameLike(request));
 
         this.getServletContext().getRequestDispatcher(RECHERCHE).forward(request, response);
     }

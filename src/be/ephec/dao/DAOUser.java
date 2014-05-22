@@ -17,12 +17,12 @@ public class DAOUser extends DAO implements DAOIUser {
     private static final String SQL_SEARCH_USER_BY_USERNAME = "SELECT * FROM User WHERE UserName = ?";
     private static final String SQL_SEARCH_USER_BY_EMAIL = "SELECT * FROM User WHERE Email = ?";
     private static final String SQL_SEARCH_USER_BY_ID = "SELECT * FROM User WHERE UserId = ?";
-    private static final String SQL_SEARCH_FOLLOWING_USER_BY_ANYNAME_LIKE = "SELECT distinct u.userId, u.userName, u.firstName, u.lastName, u.image " +
+    private static final String SQL_SEARCH_FOLLOWING_USER_BY_ANYNAME_LIKE = "SELECT distinct u.userId, u.userName, u.firstName, u.lastName, u.image, 1 as follower " +
             "FROM user as u " +
             "where (LOWER(u.userName like ?) or LOWER(u.firstName like ?) " +
             "or LOWER(u.lastName like ?)) " +
             "and (u.userid in (SELECT f.followingid from follow as f where f.followerid = ?)) and (u.userid <> ?)";
-    private static final String SQL_SEARCH_NOT_FOLLOWING_USER_BY_ANYNAME_LIKE = "SELECT distinct u.userId, u.userName, u.firstName, u.lastName, u.image " +
+    private static final String SQL_SEARCH_NOT_FOLLOWING_USER_BY_ANYNAME_LIKE = "SELECT distinct u.userId, u.userName, u.firstName, u.lastName, u.image, 0 as follower " +
             "FROM user as u " +
             "where (LOWER(u.userName like ?) or LOWER(u.firstName like ?) " +
             "or LOWER(u.lastName like ?)) " +
@@ -223,6 +223,7 @@ public class DAOUser extends DAO implements DAOIUser {
             if (resultSet.next()) {
                 EntityMapping<Dashboard> EntityMapping = new EntityMapping<>(Dashboard.class);
                 dashboard = EntityMapping.getMapping(resultSet);
+                dashboard.setUser(user);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

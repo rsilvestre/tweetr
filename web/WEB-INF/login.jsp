@@ -16,7 +16,7 @@
       </p>
     </jsp:attribute>
     <jsp:body>
-        <div class="row">
+        <div class="row block-sector block-surround">
             <div class="col-md-12">
 
                 <h3>Création d'un nouveau compte</h3>

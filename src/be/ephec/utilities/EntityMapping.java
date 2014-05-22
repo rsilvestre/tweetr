@@ -6,16 +6,12 @@ import com.mysql.jdbc.ResultSetMetaData;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 
-/**
- * Created by michaelsilvestre on 17/05/14.
- */
 public class EntityMapping<T> {
     private final Class<T> t;
 
     public EntityMapping(Class<T> pT) {
         t = pT;
     }
-
 
     public T getMapping(ResultSet pRelSet) throws Exception {
         ResultSetMetaData md = (ResultSetMetaData) pRelSet.getMetaData();

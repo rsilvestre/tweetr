@@ -16,31 +16,11 @@ import java.util.List;
 public class DAOTweet extends DAO implements DAOITweet {
 
     private static final String SQL_INSERTTWEETIN = "INSERT INTO tweet (UserId, Body, UpdatedAt) VALUES (?,?, NOW())";
-    private static final String SQL_SELECTTWEETOUT = "select  sel.tid as tweetId, sel.tm as body, sel. ruid as ruid, sel.par, " +
-            "sel.uorig, u.userName as userName, u.image as uorigImage, sel.updatedAt " +
-            " from ( SELECT  t.tweetId as tid, t.body as tm, r.UserId as ruid, u.username as par, t.UserId as uorig, r.UpdatedAt as updatedAt " +
-            " FROM tweet as t " +
-            " right join retweet as r " +
-            " on r.TweetId = t.TweetId and r.UserId in (select f.followingid from follow as f  where f.followerid = ?) " +
-            " left join user as u " +
-            " on r.UserId = u.UserId " +
-            " WHERE ((t.userid) in (select f.followingid from follow as f  where f.followerid = ?)) " +
-            " union " +
-            " SELECT  t.tweetId as tid, t.body  as tm, -1, null,t.UserId as uorig, t.UpdatedAt as updatedAt " +
-            " FROM tweet as t " +
-            " WHERE ((t.userid) in (select f.followingid from follow as f  where f.followerid = ?)) and (t.TweetId) not in (select r.TweetId from retweet as r  where r.TweetId=t.TweetId) " +
-            " union " +
-            " SELECT  t.tweetId as tid, t.body  as tm, 0, null,t.UserId as uorig, t.UpdatedAt as updatedAt " +
-            " FROM tweet as t " +
-            " WHERE ((t.userid) in (select f.followingid from follow as f  where f.followerid = ?)) and (t.TweetId) in (select r.TweetId from retweet as r  where r.TweetId=t.TweetId)) " +
-            " as sel " +
-            " left join user as u " +
-            " on sel.uorig = u.UserId " +
-            " order by updatedAt desc " +
-            " limit 25";
+    private static final String SQL_SELECTTWEETOUT = "select sel.tid as tweetId, sel.tm as body, sel.ruid as ruid, sel.par, sel.uorig, uo.userName as userName, ui.image as uorigImage, sel.rstamp as updatedAt from (SELECT t.tweetId as tid, t.body as tm, r.UserId as ruid, u.username as par, t.UserId as uorig, r.UpdatedAt as rstamp FROM tweet as t right join retweet as r ON r.TweetId = t.TweetId and r.UserId in (select f.followingid from follow as f where f.followerid = ?) left join user as u ON r.UserId = u.UserId WHERE ((t.userid) in (select f.followingid from follow as f where f.followerid = ?)) union SELECT t.tweetId as tid, t.body as tm, - 1, null, t.UserId as uorig, t.UpdatedAt as rstamp FROM tweet as t WHERE ((t.userid) in (select f.followingid from follow as f where f.followerid = ?)) and (t.TweetId) not in (select r.TweetId from retweet as r where r.TweetId = t.TweetId) union SELECT t.tweetId as tid, t.body as tm, 0, null, t.UserId as uorig, t.UpdatedAt as rstamp FROM tweet as t WHERE ((t.userid) in (select f.followingid from follow as f where f.followerid = ?)) and (t.TweetId) in (select r.TweetId from retweet as r where r.TweetId = t.TweetId) union SELECT t.tweetId as tid, t.body as tm, -1, null, t.UserId as uorig, t.UpdatedAt as rstamp FROM tweet as t left join user as u ON t.UserId = u.UserId WHERE t.UserId = ? union select t.tweetId as tid, t.body as tm, r.UserId, u.UserName, t.UserId as uorig, r.UpdatedAt as rstamp from Tweet as t left join Retweet as r ON t.TweetId = r.TweetId left join User as u ON u.UserId = r.UserId where r.UserId = ? ) as sel left join user as ui ON if(sel.ruid>0,sel.ruid,sel.uorig) = ui.UserId left join user as uo ON sel.uorig = uo.UserId order by rstamp desc limit 25;";
     private static final String SQL_INSERTRETWEET = "INSERT INTO retweet(TweetId, UserId, UpdatedAt) VALUES (?,?,NOW())";
     private static final String SQL_DELETE_RETWEET = "DELETE FROM retweet where userid = ?";
     private static final String SQL_DELETE_TWEET = "DELETE FROM tweet where userid = ?";
+    private static final String SELECT_TWEET_FROM_USER = "select tweetId, body, -1 as ruid, -1 as par, '' as uorig, u.userName as userName, u.image as uorigImage, t.updatedAt FROM Tweet as t LEFT JOIN User  as u on u.UserId = t.UserId where t.UserId = ?";
 
     DAOTweet(DAOFactory daoFactory) {
         super(daoFactory);
@@ -95,10 +75,29 @@ public class DAOTweet extends DAO implements DAOITweet {
     }
 
     @Override
+    public List<TweetOut> getLstTweetOutByUser(User user) {
+        List<TweetOut> lstTweetOut = new ArrayList<>();
+        try {
+            ResultSet resultSet = this.executeQuery(SELECT_TWEET_FROM_USER, false, user.getUserId());
+            while (resultSet.next()) {
+                EntityMapping<TweetOut> EntityMapping = new EntityMapping<>(TweetOut.class);
+                try {
+                    lstTweetOut.add(EntityMapping.getMapping(resultSet));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return lstTweetOut;
+    }
+
+    @Override
     public List<TweetOut> getTweetOutList(User user) {
         List<TweetOut> tweetsOut = new ArrayList<>();
         try {
-            ResultSet resultSet = this.executeQuery(SQL_SELECTTWEETOUT, false, user.getUserId(), user.getUserId(), user.getUserId(), user.getUserId());
+            ResultSet resultSet = this.executeQuery(SQL_SELECTTWEETOUT, false, user.getUserId(), user.getUserId(), user.getUserId(), user.getUserId(), user.getUserId(), user.getUserId());
             while (resultSet.next()) {
                 EntityMapping<TweetOut> EntityMapping = new EntityMapping<>(TweetOut.class);
                 tweetsOut.add(EntityMapping.getMapping(resultSet));

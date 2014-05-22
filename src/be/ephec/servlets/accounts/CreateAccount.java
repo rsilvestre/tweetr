@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -20,24 +19,21 @@ import java.io.IOException;
 @WebServlet("/CreateAccount")
 public class CreateAccount extends ServletConfig {
     private static final String CREATEACCOUNT = "/WEB-INF/createAccount.jsp";
-    private static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
+    private static final String HOMEPAGE = "/HomePage";
     private static final String USER = "user";
     private static final String FORM = "form";
 
     private DAOIUser daoIUser;
-
 
     /**
      * @see HttpServlet#HttpServlet()
      */
     public CreateAccount() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
     public void init() throws ServletException {
-        //Récupération d'une instance de notre DAO Utilisateur
         this.daoIUser = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUserDao();
     }
 
@@ -54,19 +50,16 @@ public class CreateAccount extends ServletConfig {
      * response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        /**Préparation de l'objet formulaire*/
         CreateAccountForm form = new CreateAccountForm(daoIUser);
-
-        /**Appel au traitement et à la validation de la requête, et récupération du bean en résultant*/
         User user = form.createUserAccount(request);
+
         if (user == null) {
             response.sendRedirect(null);
         }
         if (form.getErreurs().isEmpty()) {
-            session.setAttribute(USER_SESSION, user);
+            request.getSession().setAttribute(USER_SESSION, user);
         } else {
-            session.setAttribute(USER_SESSION, null);
+            request.getSession().setAttribute(USER_SESSION, null);
         }
 
         /**Stockage du formulaire et du bean dans l'objet request*/
@@ -74,10 +67,9 @@ public class CreateAccount extends ServletConfig {
         request.setAttribute(FORM, form);
 
         if (form.getErreurs().isEmpty()) {
-            this.getServletContext().getRequestDispatcher(HOMEPAGE).forward(request, response);
+            response.sendRedirect(HOMEPAGE);
         } else {
             this.getServletContext().getRequestDispatcher(CREATEACCOUNT).forward(request, response);
         }
-
     }
 }
