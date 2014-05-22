@@ -73,7 +73,7 @@
             <form method="post" action="SendTweet" class="form-horizontal" role="form">
                 <div class="">
                     <input type="hidden" id="userId" name="userId"
-                           value="<c:out value="${dashboard.user.userId}"/>"/>
+                           value="<c:out value="${sessionScope.userSession.userId}"/>"/>
                     <textarea id="body" name="body" rows="3" cols="34"></textarea>
 
                     <div class="dashboard-send-button">
