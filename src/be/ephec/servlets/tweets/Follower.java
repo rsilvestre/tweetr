@@ -34,9 +34,19 @@ public class Follower extends ServletConfig {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = null;
+        String stringParamId;
+        try {
+            if ((stringParamId = request.getParameter("id")) == null || (user = daoIUser.searchById(Integer.parseInt(stringParamId), (User) request.getSession().getAttribute(USER_SESSION))) == null) {
+                user = (User) request.getSession().getAttribute(USER_SESSION);
+            }
+        } catch (Exception ex) {
+            request.setAttribute(ERROR, ex.getMessage());
+        }
+
         request.setAttribute(RESPONSE_KEY, RESPONSE_VALUE);
-        request.setAttribute(USERFOLLOWINGLIST, daoIFollow.getFollowerByUser((User) request.getSession().getAttribute(USER_SESSION)));
-        request.setAttribute(DASHBOARD, daoIUser.getDashboard((User) request.getSession().getAttribute(USER_SESSION)));
+        request.setAttribute(USERFOLLOWINGLIST, daoIFollow.getFollowerByUser(user, (User) request.getSession().getAttribute(USER_SESSION)));
+        request.setAttribute(DASHBOARD, daoIUser.getDashboard(user));
         this.getServletContext().getRequestDispatcher(FOLLOWER).forward(request, response);
     }
 

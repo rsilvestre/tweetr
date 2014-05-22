@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:if test="${param.id != null && param.id == dashboard.user.userId}">
+    <c:set var="idparam" scope="request" value="?id=${dashboard.user.userId}"/>
+</c:if>
+
 <div class="dashboard">
     <a class="dashboard-head" href="<c:url value="/ShowAccount?id=${dashboard.user.userId}"/>"> </a>
 
@@ -30,7 +35,7 @@
         <div class="dashboard-stats">
             <ul class="dashboard-statslist Grid">
                 <li class="dashboard-stat Grid-cell">
-                    <a class="dashboard-statlink" href="/Tweet">
+                    <a class="dashboard-statlink" href="<c:out value="/Tweet${idparam}"/>">
                         <span class="dashboard-statlabel">
                             Tweets
                         </span>
@@ -41,7 +46,7 @@
                 </li>
 
                 <li class="dashboard-stat Grid-cell">
-                    <a class="dashboard-statlink" href="/Following">
+                    <a class="dashboard-statlink" href="<c:out value="/Following${idparam}"/>">
                         <span class="dashboard-statlabel">
                             Following
                         </span>
@@ -52,7 +57,7 @@
                 </li>
 
                 <li class="dashboard-stat Grid-cell">
-                    <a class="dashboard-statlink" href="/Follower">
+                    <a class="dashboard-statlink" href="<c:out value="/Follower${idparam}"/>">
                         <span class="dashboard-statlabel">
                             Followers
                         </span>
@@ -71,8 +76,11 @@
                            value="<c:out value="${dashboard.user.userId}"/>"/>
                     <textarea id="body" name="body" rows="3" cols="34"></textarea>
 
-                    <div class="">
+                    <div class="dashboard-send-button">
                         <input type="submit" class="btn btn-primary" value="Send tweet"/>
+                    </div>
+                    <div class="dashboard-word-counter">
+                        <span id="word-counter">140</span> Caractères
                     </div>
                 </div>
 

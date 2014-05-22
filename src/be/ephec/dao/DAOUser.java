@@ -17,6 +17,7 @@ public class DAOUser extends DAO implements DAOIUser {
     private static final String SQL_SEARCH_USER_BY_USERNAME = "SELECT * FROM User WHERE UserName = ?";
     private static final String SQL_SEARCH_USER_BY_EMAIL = "SELECT * FROM User WHERE Email = ?";
     private static final String SQL_SEARCH_USER_BY_ID = "SELECT * FROM User WHERE UserId = ?";
+    private static final String SQL_SEARCH_USER_BY_ID_AND_CURRENT_USER = "select result.userId, result.userName, result.firstName, result.lastName, result.email, result.password, result.image, result.updatedAt, if (sum(result.follower)>0,1,0) as follower from (select *, 0 as follower from user as u where u.userId = ? union select u.*, 1 as follower from user as u left join Follow f on u.userID = f.FollowingId where u.userid = ? and f.FollowerId = ?) as result group by userId;";
     private static final String SQL_SEARCH_FOLLOWING_USER_BY_ANYNAME_LIKE = "SELECT distinct u.userId, u.userName, u.firstName, u.lastName, u.image, 1 as follower " +
             "FROM user as u " +
             "where (LOWER(u.userName like ?) or LOWER(u.firstName like ?) " +
@@ -93,7 +94,8 @@ public class DAOUser extends DAO implements DAOIUser {
                     },
                     user.getUserName(),
                     user.getFirstName(), user.getLastName(), user.getEmail(),
-                    user.getPassword(), user.getImage(), user.getUserId());
+                    user.getPassword(), user.getImage(), user.getUserId()
+            );
         } catch (SQLException e) {
             throw new DAOException(e);
         }
@@ -140,6 +142,25 @@ public class DAOUser extends DAO implements DAOIUser {
 
         try {
             ResultSet resultSet = this.executeQuery(SQL_SEARCH_USER_BY_ID, false, userId);
+            if (resultSet.next()) {
+                EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
+                user = EntityMapping.getMapping(resultSet);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.CloseConnection();
+        }
+
+        return user;
+    }
+
+    @Override
+    public User searchById(int userId, User currentUser) {
+        User user = null;
+
+        try {
+            ResultSet resultSet = this.executeQuery(SQL_SEARCH_USER_BY_ID_AND_CURRENT_USER, false, userId, userId, currentUser.getUserId());
             if (resultSet.next()) {
                 EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
                 user = EntityMapping.getMapping(resultSet);

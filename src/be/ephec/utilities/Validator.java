@@ -4,7 +4,8 @@ package be.ephec.utilities;
  * Created by michaelsilvestre on 17/05/14.
  */
 public class Validator {
-
+    private static final int TWEET_SIZE_MIN = 3;
+    private static final int TWEET_SIZE_MAX = 140;
 
     public static void mailValidation(String mail) throws Exception {
         if (mail != null) {
@@ -59,6 +60,16 @@ public class Validator {
     public static void lastNameValidation(String lastName) throws Exception {
         if (lastName != null && lastName.trim().length() < 3) {
             throw new Exception("The username must contain at least 3 characters.");
+        }
+    }
+
+    public static void bodyValidation(String body) throws Exception {
+        if (body == null || body.trim().length() < TWEET_SIZE_MIN) {
+            throw new Exception("The tweet must contain at least 3 characters.");
+        }
+
+        if (body.length() > TWEET_SIZE_MAX) {
+            throw new Exception("The tweet is too long.");
         }
     }
 }

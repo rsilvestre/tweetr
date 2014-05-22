@@ -41,11 +41,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="<c:url value="/ShowAccount"/>">Afficher</a></li>
                             <li><a href="<c:url value="/ModifyAccount"/>">Modifier</a></li>
-                            <li><a href="#">Something else here</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
                         </ul>
                     </li>
                 </ul>

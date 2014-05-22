@@ -8,9 +8,6 @@ import be.ephec.utilities.FrameworkSupport;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Create and Send Tweet
- */
 public class SendTweetForm extends ValidationForm {
 
     private static final String USERID = "userId";
@@ -23,25 +20,14 @@ public class SendTweetForm extends ValidationForm {
         this.daoTweet = (DAOTweet) daoITweet;
     }
 
-    // Retrieve the data entered by the user
 
     public TweetIn createTweet(HttpServletRequest request) {
 
         int userId = Integer.parseInt(FrameworkSupport.getTrimedValue(request, USERID));
-        String body = FrameworkSupport.getTrimedValue(request, BODY);
 
         TweetIn tweet = new TweetIn();
-
-        // Data validation
-
-        try {
-            bodyValidation(body);
-        } catch (Exception e) {
-            setErreur(BODY, e.getMessage());
-        }
-
         tweet.setUserId(userId);
-        tweet.setBody(body);
+        tweet.setBody(validateData(request, BODY, null));
 
         if (getErreurs().isEmpty()) {
             daoTweet.createTweet(tweet);
@@ -66,19 +52,6 @@ public class SendTweetForm extends ValidationForm {
 
         return reTweet;
 
-    }
-
-    /**
-     * Tweet name validation
-     */
-    private void bodyValidation(String body) throws Exception {
-        if (body != null && body.trim().length() < 3) {
-            throw new Exception("The tweet must contain at least 3 characters.");
-        }
-
-        if ((body != null ? body.length() : 0) > 140) {
-            throw new Exception("The tweet is too long.");
-        }
     }
 
 

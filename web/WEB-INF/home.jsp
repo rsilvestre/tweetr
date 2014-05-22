@@ -13,9 +13,7 @@
     </jsp:attribute>
     <jsp:body>
         <div class="row block-sector block-surround">
-            <div class="col-md-12">
-                Bienvenu sur Tweetr
-            </div>
+            <div class="home-container"></div>
         </div>
     </jsp:body>
 </t:layout-home>

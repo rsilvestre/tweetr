@@ -26,18 +26,20 @@
                                     value="${user.userName}"/></a>
                         </div>
                         <div class="col-md-2 center-middle-btn">
-                            <c:if test="${user.follower == 1}">
-                                <form action="<c:url value="/${response}"/>" method="post">
-                                    <input type="hidden" name="stopfollow" value="${user.userId}"/>
-                                    <input type="submit" class="btn btn-primary" id="${user.userId}"
-                                           value="Stop Follow"/>
-                                </form>
-                            </c:if>
-                            <c:if test="${user.follower == 0}">
-                                <form action="<c:url value="/${response}"/>" method="post">
-                                    <input type="hidden" name="follow" value="${user.userId}"/>
-                                    <input type="submit" class="btn btn-primary" value="Follow"/>
-                                </form>
+                            <c:if test="${sessionScope.userSession.userId != user.userId}">
+                                <c:if test="${user.follower == 1}">
+                                    <form action="<c:url value="/${response}"/>" method="post">
+                                        <input type="hidden" name="stopfollow" value="${user.userId}"/>
+                                        <input type="submit" class="btn btn-primary" id="${user.userId}"
+                                               value="Stop Follow"/>
+                                    </form>
+                                </c:if>
+                                <c:if test="${user.follower == 0}">
+                                    <form action="<c:url value="/${response}"/>" method="post">
+                                        <input type="hidden" name="follow" value="${user.userId}"/>
+                                        <input type="submit" class="btn btn-primary" value="Follow"/>
+                                    </form>
+                                </c:if>
                             </c:if>
                         </div>
                     </div>

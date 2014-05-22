@@ -15,7 +15,11 @@ public interface DAOIFollow {
 
     void deleteUserFollower(int userId) throws DAOException;
 
-    List<User> getFollowerByUser(User user);
+    List<User> getFollowerByUser(User user1, User user2);
+
+    List<User> getFollowingByUser(User user1, User user2);
 
     List<User> getFollowingByUser(User user);
+
+    List<User> getFollowerByUser(User user);
 }

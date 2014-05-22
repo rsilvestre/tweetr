@@ -37,18 +37,10 @@ public class CreateAccount extends ServletConfig {
         this.daoIUser = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUserDao();
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     * response)
-     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.getServletContext().getRequestDispatcher(CREATEACCOUNT).forward(request, response);
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     * response)
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CreateAccountForm form = new CreateAccountForm(daoIUser);
         User user = form.createUserAccount(request);
@@ -61,10 +53,6 @@ public class CreateAccount extends ServletConfig {
         } else {
             request.getSession().setAttribute(USER_SESSION, null);
         }
-
-        /**Stockage du formulaire et du bean dans l'objet request*/
-        request.setAttribute(USER, user);
-        request.setAttribute(FORM, form);
 
         if (form.getErreurs().isEmpty()) {
             response.sendRedirect(HOMEPAGE);

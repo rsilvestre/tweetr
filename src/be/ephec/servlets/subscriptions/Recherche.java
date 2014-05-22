@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/Recherche")
@@ -45,12 +44,11 @@ public class Recherche extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
         String keyword = request.getParameter(KEYWORD);
         RechercheForm form = new RechercheForm(daoIUser, daoIFollow);
 
         if (keyword != null) {
-            session.setAttribute(KEYWORD_SESSION, keyword);
+            request.getSession().setAttribute(KEYWORD_SESSION, keyword);
         } else {
             form.createFollow(request);
             form.deleteFollow(request);

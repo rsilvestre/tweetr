@@ -30,8 +30,18 @@ public class Tweet extends ServletConfig {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute(TWEETS, daoITweet.getLstTweetOutByUser((User) request.getSession().getAttribute(USER_SESSION)));
-        request.setAttribute(DASHBOARD, daoIUser.getDashboard((User) request.getSession().getAttribute(USER_SESSION)));
+        User user = null;
+        String stringParamId;
+        try {
+            if ((stringParamId = request.getParameter("id")) == null || (user = daoIUser.searchById(Integer.parseInt(stringParamId), (User) request.getSession().getAttribute(USER_SESSION))) == null) {
+                user = (User) request.getSession().getAttribute(USER_SESSION);
+            }
+        } catch (Exception ex) {
+            request.setAttribute(ERROR, ex.getMessage());
+        }
+
+        request.setAttribute(TWEETS, daoITweet.getLstTweetOutByUser(user));
+        request.setAttribute(DASHBOARD, daoIUser.getDashboard(user));
         this.getServletContext().getRequestDispatcher(TWEET).forward(request, response);
     }
 }

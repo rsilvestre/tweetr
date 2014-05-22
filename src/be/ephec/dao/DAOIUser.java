@@ -27,4 +27,6 @@ public interface DAOIUser {
     void delete(int userId) throws DAOException;
 
     public Dashboard getDashboard(User user);
+
+    User searchById(int userId, User currentUser);
 }
