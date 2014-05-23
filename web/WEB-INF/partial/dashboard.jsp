@@ -35,7 +35,7 @@
         <div class="dashboard-stats">
             <ul class="dashboard-statslist Grid">
                 <li class="dashboard-stat Grid-cell">
-                    <a class="dashboard-statlink" href="<c:out value="/Tweet${idparam}"/>">
+                    <a class="dashboard-statlink" href="<c:out value="/TweetMessage${idparam}"/>">
                         <span class="dashboard-statlabel">
                             Tweets
                         </span>
