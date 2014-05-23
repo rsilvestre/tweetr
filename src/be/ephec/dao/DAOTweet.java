@@ -20,7 +20,7 @@ public class DAOTweet extends DAO implements DAOITweet {
     private static final String SQL_INSERTRETWEET = "INSERT INTO retweet(TweetId, UserId, UpdatedAt) VALUES (?,?,NOW())";
     private static final String SQL_DELETE_RETWEET = "DELETE FROM retweet where userid = ?";
     private static final String SQL_DELETE_TWEET = "DELETE FROM tweet where userid = ?";
-    private static final String SELECT_TWEET_FROM_USER = "select tweetId, body, -1 as ruid, -1 as par, '' as uorig, u.userName as userName, u.image as uorigImage, t.updatedAt FROM Tweet as t LEFT JOIN User  as u on u.UserId = t.UserId where t.UserId = ?";
+    private static final String SELECT_TWEET_FROM_USER = "select tweetId, body, -1 as ruid, -1 as par, u.UserId as uorig, u.userName as userName, u.image as uorigImage, t.updatedAt FROM Tweet as t LEFT JOIN User  as u on u.UserId = t.UserId where t.UserId = ? ORDER By t.updatedAt DESC;";
 
     DAOTweet(DAOFactory daoFactory) {
         super(daoFactory);

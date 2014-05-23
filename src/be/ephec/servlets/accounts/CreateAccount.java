@@ -3,6 +3,7 @@ package be.ephec.servlets.accounts;
 import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIUser;
+import be.ephec.filters.RestrictAccess;
 import be.ephec.forms.CreateAccountForm;
 import be.ephec.servlets.ServletConfig;
 
@@ -15,9 +16,6 @@ import java.io.IOException;
 @WebServlet("/CreateAccount")
 public class CreateAccount extends ServletConfig {
     private static final String CREATEACCOUNT = "/WEB-INF/createAccount.jsp";
-    private static final String HOMEPAGE = "/HomePage";
-    private static final String USER = "user";
-    private static final String FORM = "form";
 
     private DAOIUser daoIUser;
 
@@ -48,7 +46,7 @@ public class CreateAccount extends ServletConfig {
         }
 
         if (form.getErreurs().isEmpty()) {
-            response.sendRedirect(HOMEPAGE);
+            response.sendRedirect(RestrictAccess.PageIn.HOMEPAGE.toString());
         } else {
             this.getServletContext().getRequestDispatcher(CREATEACCOUNT).forward(request, response);
         }

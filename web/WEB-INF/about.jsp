@@ -4,14 +4,6 @@
 
 <c:if test="${sessionScope.userSession == null}">
     <t:layout-home>
-    <jsp:attribute name="header">
-      <h1>A propos</h1>
-    </jsp:attribute>
-    <jsp:attribute name="footer">
-      <p class="muted credit">
-          Ephec 2014, <a href="http://michaelsilvestre.be">Michaël Silvestre</a>.
-      </p>
-    </jsp:attribute>
         <jsp:body>
             <jsp:include page="partial/_about.jsp"/>
         </jsp:body>
@@ -19,14 +11,6 @@
 </c:if>
 <c:if test="${sessionScope.userSession != null}">
     <t:layout>
-    <jsp:attribute name="header">
-      <h1>A propos</h1>
-    </jsp:attribute>
-    <jsp:attribute name="footer">
-      <p class="muted credit">
-          Ephec 2014, <a href="http://michaelsilvestre.be">Michaël Silvestre</a>.
-      </p>
-    </jsp:attribute>
         <jsp:body>
             <jsp:include page="partial/_about.jsp"/>
         </jsp:body>

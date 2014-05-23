@@ -4,6 +4,8 @@ import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
+import be.ephec.filters.RestrictAccess;
+import be.ephec.forms.TweetForm;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -14,7 +16,6 @@ import java.io.IOException;
 
 @WebServlet("/Tweet")
 public class Tweet extends ServletConfig {
-    public static final String DASHBOARD = "dashboard";
     private static final String TWEET = "/WEB-INF/tweet.jsp";
     private static final String TWEETS = "tweets";
     private DAOITweet daoITweet;
@@ -43,5 +44,15 @@ public class Tweet extends ServletConfig {
         request.setAttribute(TWEETS, daoITweet.getLstTweetOutByUser(user));
         request.setAttribute(DASHBOARD, daoIUser.getDashboard(user));
         this.getServletContext().getRequestDispatcher(TWEET).forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        TweetForm form = new TweetForm(daoITweet);
+
+        form.createTweet(request);
+        if (!form.getErreurs().isEmpty()) {
+            request.setAttribute(ERROR, form.getErreurs());
+        }
+        response.sendRedirect(RestrictAccess.PageIn.HOMEPAGE.toString());
     }
 }

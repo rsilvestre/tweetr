@@ -1,5 +1,6 @@
 package be.ephec.servlets.accounts;
 
+import be.ephec.filters.RestrictAccess;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -14,7 +15,6 @@ import java.io.IOException;
  */
 @WebServlet("/Logout")
 public class Logout extends ServletConfig {
-    private static final String HOME = "/Home";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,7 +28,7 @@ public class Logout extends ServletConfig {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute(USER_SESSION, null);
-        response.sendRedirect(HOME);
+        response.sendRedirect(RestrictAccess.PageOut.HOME.toString());
     }
 
 }

@@ -1,10 +1,10 @@
-package be.ephec.servlets.tweets;
+package be.ephec.servlets.subscriptions;
 
 import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOIUser;
-import be.ephec.forms.RechercheForm;
+import be.ephec.forms.SearchForm;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -13,18 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/Following")
-public class Following extends ServletConfig {
-    public static final String DASHBOARD = "dashboard";
-    private static final String FOLLOWING = "/WEB-INF/following.jsp";
-    private static final String USERFOLLOWINGLIST = "userfollowinglist";
+@WebServlet("/Follower")
+public class Follower extends ServletConfig {
+    private static final String FOLLOWER = "/WEB-INF/follower.jsp";
+    private static final String USERFOLLOWINGLIST = "userfollowerlist";
     private static final String RESPONSE_KEY = "response";
-    private static final String RESPONSE_VALUE = "Following";
+    private static final String RESPONSE_VALUE = "Follower";
 
     private DAOIFollow daoIFollow;
     private DAOIUser daoIUser;
 
-    public Following() {
+    public Follower() {
         super();
     }
 
@@ -45,13 +44,13 @@ public class Following extends ServletConfig {
         }
 
         request.setAttribute(RESPONSE_KEY, RESPONSE_VALUE);
-        request.setAttribute(USERFOLLOWINGLIST, daoIFollow.getFollowingByUser(user, (User) request.getSession().getAttribute(USER_SESSION)));
+        request.setAttribute(USERFOLLOWINGLIST, daoIFollow.getFollowerByUser(user, (User) request.getSession().getAttribute(USER_SESSION)));
         request.setAttribute(DASHBOARD, daoIUser.getDashboard(user));
-        this.getServletContext().getRequestDispatcher(FOLLOWING).forward(request, response);
+        this.getServletContext().getRequestDispatcher(FOLLOWER).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RechercheForm form = new RechercheForm(daoIUser, daoIFollow);
+        SearchForm form = new SearchForm(daoIUser, daoIFollow);
 
         form.createFollow(request);
         form.deleteFollow(request);
@@ -67,8 +66,8 @@ public class Following extends ServletConfig {
         }
 
         request.setAttribute(RESPONSE_KEY, RESPONSE_VALUE);
-        request.setAttribute(USERFOLLOWINGLIST, daoIFollow.getFollowingByUser(user, (User) request.getSession().getAttribute(USER_SESSION)));
+        request.setAttribute(USERFOLLOWINGLIST, daoIFollow.getFollowerByUser(user, (User) request.getSession().getAttribute(USER_SESSION)));
         request.setAttribute(DASHBOARD, daoIUser.getDashboard(user));
-        this.getServletContext().getRequestDispatcher(FOLLOWING).forward(request, response);
+        this.getServletContext().getRequestDispatcher(FOLLOWER).forward(request, response);
     }
 }

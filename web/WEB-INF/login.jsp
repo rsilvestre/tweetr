@@ -7,14 +7,6 @@
 </c:forEach>
 
 <t:layout-home>
-    <jsp:attribute name="header">
-      <h1>Connection à Tweetr</h1>
-    </jsp:attribute>
-    <jsp:attribute name="footer">
-      <p class="muted credit">
-          Ephec 2014, <a href="http://michaelsilvestre.be">Michaël Silvestre</a>.
-      </p>
-    </jsp:attribute>
     <jsp:body>
         <div class="row block-sector block-surround">
             <div class="col-md-12">

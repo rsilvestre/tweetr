@@ -15,7 +15,7 @@
             <jsp:include page="partial/dashboard.jsp"/>
         </div>
         <div class="block-sector block-sector-body">
-            <c:set var="content_title" scope="request" value="Recherche"/>
+            <c:set var="content_title" scope="request" value="Search"/>
             <jsp:include page="partial/userList.jsp"/>
         </div>
     </jsp:body>

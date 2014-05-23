@@ -1,4 +1,4 @@
-package be.ephec.servlets.home;
+package be.ephec.servlets.staticpage;
 
 import be.ephec.servlets.ServletConfig;
 

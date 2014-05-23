@@ -1,6 +1,4 @@
 <%@ tag description="Overall Page template" pageEncoding="UTF-8" %>
-<%@ attribute name="header" fragment="true" %>
-<%@ attribute name="footer" fragment="true" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -53,7 +51,6 @@
             </p>
         </c:if>
         <div id="pageheader">
-            <jsp:invoke fragment="header"/>
         </div>
         <jsp:doBody/>
     </div>
@@ -61,7 +58,9 @@
 </div>
 <div id="footer">
     <div class="container">
-        <jsp:invoke fragment="footer"/>
+        <p class="muted credit">
+            Ephec 2014, <a href="http://michaelsilvestre.be">Michaël Silvestre</a>.
+        </p>
     </div>
 </div>
 </body>

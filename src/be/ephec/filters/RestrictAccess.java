@@ -91,18 +91,16 @@ public class RestrictAccess implements Filter {
         ABOUT("/About"),
         DELETEACCOUNT("/DeleteAccount"),
         MODIFYACCOUNT("/ModifyAccount"),
-        MODIFYACCOUNTINFO("/ModifyAccountInfo"),
-        MODIFYACCOUNTIMAGE("/ModifyAccountImage"),
+        MODIFYACCOUNTIMAGE("/ModifyImage"),
         SHOWACCOUNT("/ShowAccount"),
         LOGOUT("/Logout"),
         EDITPROFILE("/EditProfile"),
         USER("/User"),
         FOLLOWER("/Follower"),
         FOLLOWING("/Following"),
-        SENDRETWEET("/SendReTweet"),
-        SENDTWEET("/SendTweet"),
+        RETWEET("/Retweet"),
         TWEET("/Tweet"),
-        RECHERCHE("/Recherche");
+        RECHERCHE("/Search");
 
         private String converter;
 

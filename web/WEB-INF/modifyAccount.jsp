@@ -3,9 +3,6 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
 
 <t:layout>
-    <jsp:attribute name="header">
-      <h1>Profil</h1>
-    </jsp:attribute>
     <jsp:attribute name="footer">
       <p class="muted credit">
           Ephec 2014, <a href="http://michaelsilvestre.be">Michaël Silvestre</a>.
@@ -13,7 +10,7 @@
     </jsp:attribute>
     <jsp:body>
         <div class="col-md-10 block-sector block-surround">
-            <form method="post" action="ModifyAccountInfo" class="form-horizontal" role="form">
+            <form method="post" action="ModifyAccount" class="form-horizontal" role="form">
                 <h3>Modifier vos informations</h3>
 
                 <div class="form-group">
@@ -114,7 +111,7 @@
                     </div>
                 </div>
             </form>
-            <form method="post" action="ModifyAccountImage" enctype="multipart/form-data" class="form-horizontal"
+            <form method="post" action="ModifyImage" enctype="multipart/form-data" class="form-horizontal"
                   role="form">
                 <h3>Modifier votre photos de profil</h3>
 

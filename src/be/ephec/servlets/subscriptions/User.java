@@ -1,4 +1,4 @@
-package be.ephec.servlets.home;
+package be.ephec.servlets.subscriptions;
 
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
@@ -17,7 +17,6 @@ public class User extends ServletConfig {
     public static final String HOMEPAGE = "/WEB-INF/user.jsp";
     public static final String FORM = "form";
     public static final String TWEETS = "tweets";
-    public static final String DASHBOARD = "dashboard";
 
     private DAOITweet daoITweet;
     private DAOIUser daoIUser;

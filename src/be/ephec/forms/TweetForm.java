@@ -8,7 +8,7 @@ import be.ephec.utilities.FrameworkSupport;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class SendTweetForm extends ValidationForm {
+public class TweetForm extends ValidationForm {
 
     private static final String USERID = "userId";
     private static final String TWEETID = "tweetId";
@@ -16,7 +16,7 @@ public class SendTweetForm extends ValidationForm {
 
     private final DAOTweet daoTweet;
 
-    public SendTweetForm(DAOITweet daoITweet) {
+    public TweetForm(DAOITweet daoITweet) {
         this.daoTweet = (DAOTweet) daoITweet;
     }
 
@@ -38,7 +38,7 @@ public class SendTweetForm extends ValidationForm {
         return tweet;
     }
 
-    public ReTweet sendReTweet(HttpServletRequest request) {
+    public ReTweet createReTweet(HttpServletRequest request) {
 
         int userId = Integer.parseInt(FrameworkSupport.getTrimedValue(request, USERID));
         int tweetId = Integer.parseInt(FrameworkSupport.getTrimedValue(request, TWEETID));

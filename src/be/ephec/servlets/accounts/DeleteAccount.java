@@ -4,6 +4,7 @@ import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
+import be.ephec.filters.RestrictAccess;
 import be.ephec.forms.DeleteAccountForm;
 import be.ephec.servlets.ServletConfig;
 
@@ -11,13 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/DeleteAccount")
 public class DeleteAccount extends ServletConfig {
 
-    private static final String LOGIN = "/WEB-INF/Login.jsp";
+    private static final String LOGIN = "/WEB-INF/login.jsp";
     private DAOIUser daoIUser;
     private DAOITweet daoITweet;
     private DAOIFollow daoIFollow;
@@ -35,9 +35,7 @@ public class DeleteAccount extends ServletConfig {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DeleteAccountForm form = new DeleteAccountForm(daoIUser, daoIFollow, daoITweet);
         form.deleteAccount(request);
-        HttpSession session = request.getSession();
-        session.setAttribute(USER_SESSION, null);
-        this.getServletContext().getRequestDispatcher(LOGIN).forward(request, response);
+        response.sendRedirect(RestrictAccess.PageIn.LOGOUT.toString());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

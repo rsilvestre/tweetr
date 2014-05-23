@@ -7,7 +7,7 @@ import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
 import be.ephec.forms.HomePageForm;
-import be.ephec.forms.RechercheForm;
+import be.ephec.forms.SearchForm;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -18,8 +18,7 @@ import java.io.IOException;
 
 @WebServlet("/ShowAccount")
 public class ShowAccount extends ServletConfig {
-    public static final String TWEETS = "tweets";
-    public static final String DASHBOARD = "dashboard";
+    private static final String TWEETS = "tweets";
     private static final String SHOWACCOUNT = "/WEB-INF/showAccount.jsp";
     private static final String RESPONSE_KEY = "response";
     private static final String RESPONSE_VALUE = "ShowAccount";
@@ -55,7 +54,7 @@ public class ShowAccount extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RechercheForm formFlow = new RechercheForm(daoIUser, daoIFollow);
+        SearchForm formFlow = new SearchForm(daoIUser, daoIFollow);
 
         formFlow.createFollow(request);
         formFlow.deleteFollow(request);

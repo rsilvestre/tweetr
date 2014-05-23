@@ -3,6 +3,7 @@ package be.ephec.servlets.accounts;
 import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIUser;
+import be.ephec.filters.RestrictAccess;
 import be.ephec.forms.LoginForm;
 import be.ephec.servlets.ServletConfig;
 
@@ -17,7 +18,6 @@ import java.io.IOException;
 @WebServlet("/Login")
 public class Login extends ServletConfig {
     private static final String LOGIN = "/WEB-INF/login.jsp";
-    private static final String HOMEPAGE = "/HomePage";
     private static final String USER = "user";
     private static final String FORM = "form";
     private static final String USERNAME = "username";
@@ -71,7 +71,7 @@ public class Login extends ServletConfig {
                 cookie.setPath(request.getContextPath());
                 response.addCookie(cookie);
             }
-            response.sendRedirect(HOMEPAGE);
+            response.sendRedirect(RestrictAccess.PageIn.HOMEPAGE.toString());
         } else {
             request.getSession().setAttribute(USER_SESSION, null);
             this.getServletContext().getRequestDispatcher(LOGIN).forward(request, response);

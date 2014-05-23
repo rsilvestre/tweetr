@@ -1,6 +1,4 @@
 <%@ tag description="Overall Page template" pageEncoding="UTF-8" %>
-<%@ attribute name="header" fragment="true" %>
-<%@ attribute name="footer" fragment="true" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -45,8 +43,8 @@
                         </ul>
                     </li>
                 </ul>
-                <form method="post" action="Recherche" class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
+                <form method="post" action="/Search" class="navbar-form navbar-left" role="search">
+                <div class="form-group">
                         <input type="text" class="form-control" id="keyword" name="keyword"
                                placeholder="Rechercher utilisateur">
                     </div>
@@ -76,7 +74,6 @@
             </p>
         </c:if>
         <div id="pageheader">
-            <jsp:invoke fragment="header"/>
         </div>
         <jsp:doBody/>
     </div>
@@ -84,7 +81,9 @@
 </div>
 <div id="footer">
     <div class="container">
-        <jsp:invoke fragment="footer"/>
+        <p class="muted credit">
+            Ephec 2014, <a href="http://michaelsilvestre.be">Michaël Silvestre</a>.
+        </p>
     </div>
 </div>
 </body>

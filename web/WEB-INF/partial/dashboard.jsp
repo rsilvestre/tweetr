@@ -70,7 +70,7 @@
         </div>
 
         <div class="dashboard-tweet-box">
-            <form method="post" action="SendTweet" class="form-horizontal" role="form">
+            <form method="post" action="/Tweet" class="form-horizontal" role="form">
                 <div class="">
                     <input type="hidden" id="userId" name="userId"
                            value="<c:out value="${sessionScope.userSession.userId}"/>"/>
