@@ -4,7 +4,7 @@ import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOIUser;
-import be.ephec.forms.SearchForm;
+import be.ephec.forms.SearchAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @WebServlet("/Search")
 public class Search extends ServletConfig {
-    private static final String RECHERCHE = "/WEB-INF/recherche.jsp";
+    private static final String RECHERCHE = "/WEB-INF/search.jsp";
     private static final String USERNOTFOLLOWINGLIST = "usernotfollowinglist";
     private static final String USERFOLLOWINGLIST = "userfollowinglist";
     private static final String KEYWORD_SESSION = "keywordSession";
@@ -44,7 +44,7 @@ public class Search extends ServletConfig {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keyword = request.getParameter(KEYWORD);
-        SearchForm form = new SearchForm(daoIUser, daoIFollow);
+        SearchAction form = new SearchAction(daoIUser, daoIFollow);
 
         if (keyword != null) {
             request.getSession().setAttribute(KEYWORD_SESSION, keyword);

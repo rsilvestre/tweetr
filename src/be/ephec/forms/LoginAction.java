@@ -8,7 +8,7 @@ import be.ephec.utilities.UserTools;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class LoginForm extends ValidationForm {
+public class LoginAction extends ValidationAction {
 
     private static final String USERNAME = "userName";
     private static final String PASSWORD = "password";
@@ -16,7 +16,7 @@ public class LoginForm extends ValidationForm {
 
     private final DAOUser daoUser;
 
-    public LoginForm(DAOIUser daoIUser) {
+    public LoginAction(DAOIUser daoIUser) {
         this.daoUser = (DAOUser) daoIUser;
     }
 

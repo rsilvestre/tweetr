@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class SearchForm extends ValidationForm {
+public class SearchAction extends ValidationAction {
     private static final String KEYWORD_SESSION = "keywordSession";
 
     private final DAOUser daoUser;
     private final DAOFollow daoFollow;
 
-    public SearchForm(DAOIUser daoIUser, DAOIFollow daoIFollow) {
+    public SearchAction(DAOIUser daoIUser, DAOIFollow daoIFollow) {
         this.daoUser = (DAOUser) daoIUser;
         this.daoFollow = (DAOFollow) daoIFollow;
     }

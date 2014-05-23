@@ -4,7 +4,7 @@ import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIUser;
 import be.ephec.filters.RestrictAccess;
-import be.ephec.forms.CreateAccountForm;
+import be.ephec.forms.CreateAccountAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -33,7 +33,7 @@ public class CreateAccount extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CreateAccountForm form = new CreateAccountForm(daoIUser);
+        CreateAccountAction form = new CreateAccountAction(daoIUser);
         User user = form.createUserAccount(request);
 
         if (user == null) {

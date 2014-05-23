@@ -3,7 +3,7 @@ package be.ephec.servlets.subscriptions;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
-import be.ephec.forms.HomePageForm;
+import be.ephec.forms.HomePageAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class User extends ServletConfig {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HomePageForm form = new HomePageForm(daoITweet, daoIUser);
+        HomePageAction form = new HomePageAction(daoITweet, daoIUser);
         be.ephec.beans.User user = null;
         try {
             user = daoIUser.searchById(Integer.parseInt(request.getParameter("id")));

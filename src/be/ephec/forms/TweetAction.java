@@ -8,7 +8,7 @@ import be.ephec.utilities.FrameworkSupport;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class TweetForm extends ValidationForm {
+public class TweetAction extends ValidationAction {
 
     private static final String USERID = "userId";
     private static final String TWEETID = "tweetId";
@@ -16,7 +16,7 @@ public class TweetForm extends ValidationForm {
 
     private final DAOTweet daoTweet;
 
-    public TweetForm(DAOITweet daoITweet) {
+    public TweetAction(DAOITweet daoITweet) {
         this.daoTweet = (DAOTweet) daoITweet;
     }
 

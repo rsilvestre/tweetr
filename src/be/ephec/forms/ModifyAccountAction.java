@@ -15,7 +15,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class ModifyAccountForm extends ValidationForm {
+public class ModifyAccountAction extends ValidationAction {
     private static final String USERNAME = "userName";
     private static final String FIRSTNAME = "firstName";
     private static final String LASTNAME = "lastName";
@@ -30,7 +30,7 @@ public class ModifyAccountForm extends ValidationForm {
     private final DAOFile daoFile;
 
 
-    public ModifyAccountForm(DAOIUser daoIUser, DAOIFile daoIFile) {
+    public ModifyAccountAction(DAOIUser daoIUser, DAOIFile daoIFile) {
         super();
         this.daoUser = (DAOUser) daoIUser;
         this.daoFile = (DAOFile) daoIFile;

@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class ValidationForm {
+public abstract class ValidationAction {
 
     public static final String USER_SESSION = "userSession";
     private final Map<String, String> erreurs = new HashMap<>();
     private String result;
 
-    public ValidationForm() {
+    public ValidationAction() {
     }
 
     public String validateData(HttpServletRequest request, String dataKey, extraCallback next, String... dataKey2) {

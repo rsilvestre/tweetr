@@ -5,7 +5,7 @@ import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFile;
 import be.ephec.dao.DAOIUser;
 import be.ephec.filters.RestrictAccess;
-import be.ephec.forms.ModifyAccountForm;
+import be.ephec.forms.ModifyAccountAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -42,7 +42,7 @@ public class ModifyAccount extends ServletConfig {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        ModifyAccountForm form = new ModifyAccountForm(daoIUser, daoIFile);
+        ModifyAccountAction form = new ModifyAccountAction(daoIUser, daoIFile);
 
         User user = form.modifyAccountInfo(request);
 

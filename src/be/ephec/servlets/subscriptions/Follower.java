@@ -4,7 +4,7 @@ import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOIUser;
-import be.ephec.forms.SearchForm;
+import be.ephec.forms.SearchAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -50,7 +50,7 @@ public class Follower extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SearchForm form = new SearchForm(daoIUser, daoIFollow);
+        SearchAction form = new SearchAction(daoIUser, daoIFollow);
 
         form.createFollow(request);
         form.deleteFollow(request);

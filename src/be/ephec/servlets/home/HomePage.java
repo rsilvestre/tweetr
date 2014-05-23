@@ -4,7 +4,7 @@ import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
-import be.ephec.forms.HomePageForm;
+import be.ephec.forms.HomePageAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -33,9 +33,9 @@ public class HomePage extends ServletConfig {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HomePageForm form = new HomePageForm(daoITweet, daoIUser);
+        HomePageAction form = new HomePageAction(daoITweet, daoIUser);
 
-        request.setAttribute(FORM, form);
+        //request.setAttribute(FORM, form);
 
         if (form.getErreurs().isEmpty()) {
             request.setAttribute(DASHBOARD, form.getDashboardParams((User) request.getSession().getAttribute(USER_SESSION)));

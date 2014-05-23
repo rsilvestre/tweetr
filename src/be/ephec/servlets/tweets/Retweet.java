@@ -4,7 +4,7 @@ import be.ephec.beans.ReTweet;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
 import be.ephec.filters.RestrictAccess;
-import be.ephec.forms.TweetForm;
+import be.ephec.forms.TweetAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -29,7 +29,7 @@ public class Retweet extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TweetForm form = new TweetForm(daoITweet);
+        TweetAction form = new TweetAction(daoITweet);
 
         ReTweet reTweet = form.createReTweet(request);
 

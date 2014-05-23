@@ -8,7 +8,7 @@ import be.ephec.utilities.UserTools;
 
 import javax.servlet.http.HttpServletRequest;
 
-public final class CreateAccountForm extends ValidationForm {
+public final class CreateAccountAction extends ValidationAction {
 
     private static final String USERNAME = "userName";
     private static final String FIRSTNAME = "firstName";
@@ -19,7 +19,7 @@ public final class CreateAccountForm extends ValidationForm {
 
     private final DAOUser daoUser;
 
-    public CreateAccountForm(DAOIUser daoIUser) {
+    public CreateAccountAction(DAOIUser daoIUser) {
         super();
         this.daoUser = (DAOUser) daoIUser;
     }

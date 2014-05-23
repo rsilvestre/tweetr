@@ -4,7 +4,7 @@ import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIUser;
 import be.ephec.filters.RestrictAccess;
-import be.ephec.forms.LoginForm;
+import be.ephec.forms.LoginAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -37,7 +37,7 @@ public class Login extends ServletConfig {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LoginForm form = new LoginForm(daoIUser);
+        LoginAction form = new LoginAction(daoIUser);
 
         User user = form.loginValidation(request);
 

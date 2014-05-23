@@ -6,8 +6,8 @@ import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
-import be.ephec.forms.HomePageForm;
-import be.ephec.forms.SearchForm;
+import be.ephec.forms.HomePageAction;
+import be.ephec.forms.SearchAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -44,7 +44,7 @@ public class ShowAccount extends ServletConfig {
             user = (User) request.getSession().getAttribute(USER_SESSION);
         }
 
-        HomePageForm form = new HomePageForm(daoITweet, daoIUser);
+        HomePageAction form = new HomePageAction(daoITweet, daoIUser);
 
         request.setAttribute("user", user);
         request.setAttribute(RESPONSE_KEY, RESPONSE_VALUE);
@@ -54,7 +54,7 @@ public class ShowAccount extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SearchForm formFlow = new SearchForm(daoIUser, daoIFollow);
+        SearchAction formFlow = new SearchAction(daoIUser, daoIFollow);
 
         formFlow.createFollow(request);
         formFlow.deleteFollow(request);
@@ -65,7 +65,7 @@ public class ShowAccount extends ServletConfig {
             user = (User) request.getSession().getAttribute(USER_SESSION);
         }
 
-        HomePageForm formShowAccount = new HomePageForm(daoITweet, daoIUser);
+        HomePageAction formShowAccount = new HomePageAction(daoITweet, daoIUser);
 
         request.setAttribute("user", user);
         request.setAttribute(RESPONSE_KEY, RESPONSE_VALUE);
