@@ -36,7 +36,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<c:url value="/CreateAccount"/>">Nouvel utilisateur</a></li>
-                    <li><a href="<c:url value="/Login"/>">Connexion</a></li>
+                    <li><a href="<c:url value="/LoginAccount"/>">Connexion</a></li>
                     <li><a href="<c:url value="/About"/>">A propos</a></li>
                 </ul>
             </div>

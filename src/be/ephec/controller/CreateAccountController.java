@@ -1,4 +1,4 @@
-package be.ephec.forms;
+package be.ephec.controller;
 
 import be.ephec.beans.User;
 import be.ephec.dao.DAOIUser;
@@ -8,7 +8,7 @@ import be.ephec.utilities.UserTools;
 
 import javax.servlet.http.HttpServletRequest;
 
-public final class CreateAccountAction extends ValidationAction {
+public final class CreateAccountController extends ValidationController {
 
     private static final String USERNAME = "userName";
     private static final String FIRSTNAME = "firstName";
@@ -19,7 +19,7 @@ public final class CreateAccountAction extends ValidationAction {
 
     private final DAOUser daoUser;
 
-    public CreateAccountAction(DAOIUser daoIUser) {
+    public CreateAccountController(DAOIUser daoIUser) {
         super();
         this.daoUser = (DAOUser) daoIUser;
     }

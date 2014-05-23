@@ -2,12 +2,12 @@ package be.ephec.servlets.accounts;
 
 
 import be.ephec.beans.User;
+import be.ephec.controller.HomePageController;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
-import be.ephec.forms.HomePageAction;
-import be.ephec.forms.SearchAction;
+import be.ephec.filters.RestrictAccess;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class ShowAccount extends ServletConfig {
     }
 
     public void init() throws ServletException {
-        daoIFollow = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getFollowDao();
+        this.daoIFollow = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getFollowDao();
         this.daoITweet = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getTweetDao();
         this.daoIUser = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getUserDao();
     }
@@ -44,7 +44,7 @@ public class ShowAccount extends ServletConfig {
             user = (User) request.getSession().getAttribute(USER_SESSION);
         }
 
-        HomePageAction form = new HomePageAction(daoITweet, daoIUser);
+        HomePageController form = new HomePageController(daoITweet, daoIUser);
 
         request.setAttribute("user", user);
         request.setAttribute(RESPONSE_KEY, RESPONSE_VALUE);
@@ -54,23 +54,12 @@ public class ShowAccount extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SearchAction formFlow = new SearchAction(daoIUser, daoIFollow);
-
-        formFlow.createFollow(request);
-        formFlow.deleteFollow(request);
-
-        String userId;
-        User user;
-        if ((userId = request.getParameter("id")) == null || (user = daoIUser.searchById(Integer.parseInt(userId), (User) request.getSession().getAttribute(USER_SESSION))) == null) {
-            user = (User) request.getSession().getAttribute(USER_SESSION);
+        try {
+            this.DynamicCallController(request, response, this.daoIUser, this.daoITweet, this.daoIFollow);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute(ERROR, e.getMessage());
+            request.getRequestDispatcher(RestrictAccess.PAGE_ERROR).forward(request, response);
         }
-
-        HomePageAction formShowAccount = new HomePageAction(daoITweet, daoIUser);
-
-        request.setAttribute("user", user);
-        request.setAttribute(RESPONSE_KEY, RESPONSE_VALUE);
-        request.setAttribute(DASHBOARD, formShowAccount.getDashboardParams(user));
-        request.setAttribute(TWEETS, formShowAccount.getTweetOutList(user));
-        this.getServletContext().getRequestDispatcher(SHOWACCOUNT).forward(request, response);
     }
 }

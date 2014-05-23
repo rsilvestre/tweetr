@@ -13,13 +13,13 @@ import java.io.IOException;
 /**
  * Servlet implementation class SignOut
  */
-@WebServlet("/Logout")
-public class Logout extends ServletConfig {
+@WebServlet("/LogoutAccount")
+public class LogoutAccount extends ServletConfig {
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Logout() {
+    public LogoutAccount() {
         super();
     }
 

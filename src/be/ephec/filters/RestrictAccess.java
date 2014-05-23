@@ -9,9 +9,9 @@ import java.io.IOException;
 
 @WebFilter(filterName = "FilterSession", urlPatterns = "/*")
 public class RestrictAccess implements Filter {
+    public static final String PAGE_ERROR = "/Error";
     private static final String USER_SESSION = "userSession";
     private static final String ERROR = "error";
-    private static final String PAGE_ERROR = "/Error";
 
     public void init(FilterConfig config) throws ServletException {
 
@@ -87,13 +87,14 @@ public class RestrictAccess implements Filter {
 
     public enum PageIn {
         ROOT("/"),
+        ERROR("/Error"),
         HOMEPAGE("/HomePage"),
         ABOUT("/About"),
         DELETEACCOUNT("/DeleteAccount"),
         MODIFYACCOUNT("/ModifyAccount"),
-        MODIFYACCOUNTIMAGE("/ModifyImage"),
+        MODIFYACCOUNTIMAGE("/ImageAccount"),
         SHOWACCOUNT("/ShowAccount"),
-        LOGOUT("/Logout"),
+        LOGOUT("/LogoutAccount"),
         EDITPROFILE("/EditProfile"),
         USER("/User"),
         FOLLOWER("/Follower"),
@@ -126,10 +127,11 @@ public class RestrictAccess implements Filter {
 
     public enum PageOut {
         ROOT("/"),
+        ERROR("/Error"),
         HOME("/Home"),
         ABOUT("/About"),
         CREATEACCOUNT("/CreateAccount"),
-        LOGIN("/Login");
+        LOGIN("/LoginAccount");
 
         private String converter;
 

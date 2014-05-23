@@ -1,10 +1,10 @@
 package be.ephec.servlets.subscriptions;
 
 import be.ephec.beans.User;
+import be.ephec.controller.SearchController;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOIUser;
-import be.ephec.forms.SearchAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -44,7 +44,7 @@ public class Search extends ServletConfig {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keyword = request.getParameter(KEYWORD);
-        SearchAction form = new SearchAction(daoIUser, daoIFollow);
+        SearchController form = new SearchController(daoIUser, daoIFollow);
 
         if (keyword != null) {
             request.getSession().setAttribute(KEYWORD_SESSION, keyword);

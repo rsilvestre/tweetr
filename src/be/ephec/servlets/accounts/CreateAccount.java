@@ -1,10 +1,8 @@
 package be.ephec.servlets.accounts;
 
-import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIUser;
 import be.ephec.filters.RestrictAccess;
-import be.ephec.forms.CreateAccountAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -33,22 +31,12 @@ public class CreateAccount extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CreateAccountAction form = new CreateAccountAction(daoIUser);
-        User user = form.createUserAccount(request);
-
-        if (user == null) {
-            response.sendRedirect(null);
-        }
-        if (form.getErreurs().isEmpty()) {
-            request.getSession().setAttribute(USER_SESSION, user);
-        } else {
-            request.getSession().setAttribute(USER_SESSION, null);
-        }
-
-        if (form.getErreurs().isEmpty()) {
-            response.sendRedirect(RestrictAccess.PageIn.HOMEPAGE.toString());
-        } else {
-            this.getServletContext().getRequestDispatcher(CREATEACCOUNT).forward(request, response);
+        try {
+            this.DynamicCallController(request, response, this.daoIUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute(ERROR, e.getMessage());
+            request.getRequestDispatcher(RestrictAccess.PAGE_ERROR).forward(request, response);
         }
     }
 }

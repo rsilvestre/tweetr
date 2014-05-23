@@ -1,4 +1,4 @@
-package be.ephec.forms;
+package be.ephec.controller;
 
 import be.ephec.beans.ReTweet;
 import be.ephec.beans.TweetIn;
@@ -8,7 +8,7 @@ import be.ephec.utilities.FrameworkSupport;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class TweetAction extends ValidationAction {
+public class TweetController extends ValidationController {
 
     private static final String USERID = "userId";
     private static final String TWEETID = "tweetId";
@@ -16,7 +16,7 @@ public class TweetAction extends ValidationAction {
 
     private final DAOTweet daoTweet;
 
-    public TweetAction(DAOITweet daoITweet) {
+    public TweetController(DAOITweet daoITweet) {
         this.daoTweet = (DAOTweet) daoITweet;
     }
 

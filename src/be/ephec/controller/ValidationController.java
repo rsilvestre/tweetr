@@ -1,4 +1,4 @@
-package be.ephec.forms;
+package be.ephec.controller;
 
 import be.ephec.utilities.FrameworkSupport;
 import be.ephec.utilities.Validator;
@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class ValidationAction {
+public abstract class ValidationController {
 
     public static final String USER_SESSION = "userSession";
     private final Map<String, String> erreurs = new HashMap<>();
     private String result;
 
-    public ValidationAction() {
+    public ValidationController() {
     }
 
     public String validateData(HttpServletRequest request, String dataKey, extraCallback next, String... dataKey2) {

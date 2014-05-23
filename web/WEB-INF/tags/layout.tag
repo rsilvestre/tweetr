@@ -44,7 +44,7 @@
                     </li>
                 </ul>
                 <form method="post" action="/Search" class="navbar-form navbar-left" role="search">
-                <div class="form-group">
+                    <div class="form-group">
                         <input type="text" class="form-control" id="keyword" name="keyword"
                                placeholder="Rechercher utilisateur">
                     </div>
@@ -53,11 +53,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <c:if test="${sessionScope.userSession == null}">
-                            <a href="<c:url value="/Login"/>">Connexion</a>
+                            <a href="<c:url value="/LoginAccount"/>">Connexion</a>
                         </c:if>
 
                         <c:if test="${sessionScope.userSession != null}">
-                            <a href="<c:url value="/Logout"/>">Déconnection</a>
+                            <a href="<c:url value="/LogoutAccount"/>">Déconnection</a>
                         </c:if>
                     </li>
                     <li><a href="<c:url value="/About"/>">A propos</a></li>

@@ -1,11 +1,11 @@
 package be.ephec.servlets.tweets;
 
 import be.ephec.beans.User;
+import be.ephec.controller.TweetController;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
 import be.ephec.filters.RestrictAccess;
-import be.ephec.forms.TweetAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -47,7 +47,7 @@ public class Tweet extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TweetAction form = new TweetAction(daoITweet);
+        TweetController form = new TweetController(daoITweet);
 
         form.createTweet(request);
         if (!form.getErreurs().isEmpty()) {

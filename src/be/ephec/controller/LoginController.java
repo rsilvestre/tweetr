@@ -1,4 +1,4 @@
-package be.ephec.forms;
+package be.ephec.controller;
 
 import be.ephec.beans.User;
 import be.ephec.dao.DAOIUser;
@@ -8,7 +8,7 @@ import be.ephec.utilities.UserTools;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class LoginAction extends ValidationAction {
+public class LoginController extends ValidationController {
 
     private static final String USERNAME = "userName";
     private static final String PASSWORD = "password";
@@ -16,7 +16,7 @@ public class LoginAction extends ValidationAction {
 
     private final DAOUser daoUser;
 
-    public LoginAction(DAOIUser daoIUser) {
+    public LoginController(DAOIUser daoIUser) {
         this.daoUser = (DAOUser) daoIUser;
     }
 

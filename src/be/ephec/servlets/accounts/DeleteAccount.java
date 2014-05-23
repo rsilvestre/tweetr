@@ -5,7 +5,6 @@ import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
 import be.ephec.filters.RestrictAccess;
-import be.ephec.forms.DeleteAccountAction;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -33,9 +32,13 @@ public class DeleteAccount extends ServletConfig {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        DeleteAccountAction form = new DeleteAccountAction(daoIUser, daoIFollow, daoITweet);
-        form.deleteAccount(request);
-        response.sendRedirect(RestrictAccess.PageIn.LOGOUT.toString());
+        try {
+            this.DynamicCallController(request, response, this.daoIUser, daoIFollow, daoITweet);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute(ERROR, e.getMessage());
+            request.getRequestDispatcher(RestrictAccess.PAGE_ERROR).forward(request, response);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

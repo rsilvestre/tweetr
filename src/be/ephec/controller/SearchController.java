@@ -1,4 +1,4 @@
-package be.ephec.forms;
+package be.ephec.controller;
 
 import be.ephec.beans.User;
 import be.ephec.dao.DAOFollow;
@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class SearchAction extends ValidationAction {
+public class SearchController extends ValidationController {
     private static final String KEYWORD_SESSION = "keywordSession";
 
     private final DAOUser daoUser;
     private final DAOFollow daoFollow;
 
-    public SearchAction(DAOIUser daoIUser, DAOIFollow daoIFollow) {
+    public SearchController(DAOIUser daoIUser, DAOIFollow daoIFollow) {
         this.daoUser = (DAOUser) daoIUser;
         this.daoFollow = (DAOFollow) daoIFollow;
     }

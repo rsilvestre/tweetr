@@ -1,16 +1,16 @@
-package be.ephec.forms;
+package be.ephec.controller;
 
 import be.ephec.beans.User;
 import be.ephec.dao.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class DeleteAccountAction extends ValidationAction {
+public class DeleteAccountController extends ValidationController {
     private final DAOUser daoUser;
     private final DAOTweet daoTweet;
     private final DAOFollow daoFollow;
 
-    public DeleteAccountAction(DAOIUser daoIUser, DAOIFollow daoIFollow, DAOITweet daoITweet) {
+    public DeleteAccountController(DAOIUser daoIUser, DAOIFollow daoIFollow, DAOITweet daoITweet) {
         super();
         this.daoUser = (DAOUser) daoIUser;
         this.daoTweet = (DAOTweet) daoITweet;

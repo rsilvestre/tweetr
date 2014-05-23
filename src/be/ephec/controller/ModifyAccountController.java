@@ -1,4 +1,4 @@
-package be.ephec.forms;
+package be.ephec.controller;
 
 import be.ephec.beans.User;
 import be.ephec.dao.DAOFile;
@@ -15,7 +15,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class ModifyAccountAction extends ValidationAction {
+public class ModifyAccountController extends ValidationController {
     private static final String USERNAME = "userName";
     private static final String FIRSTNAME = "firstName";
     private static final String LASTNAME = "lastName";
@@ -30,7 +30,7 @@ public class ModifyAccountAction extends ValidationAction {
     private final DAOFile daoFile;
 
 
-    public ModifyAccountAction(DAOIUser daoIUser, DAOIFile daoIFile) {
+    public ModifyAccountController(DAOIUser daoIUser, DAOIFile daoIFile) {
         super();
         this.daoUser = (DAOUser) daoIUser;
         this.daoFile = (DAOFile) daoIFile;

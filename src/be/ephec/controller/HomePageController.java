@@ -1,4 +1,4 @@
-package be.ephec.forms;
+package be.ephec.controller;
 
 import be.ephec.beans.Dashboard;
 import be.ephec.beans.TweetOut;
@@ -10,12 +10,12 @@ import be.ephec.dao.DAOUser;
 
 import java.util.List;
 
-public class HomePageAction extends ValidationAction {
+public class HomePageController extends ValidationController {
 
     private final DAOTweet daoTweet;
     private final DAOUser daoUser;
 
-    public HomePageAction(DAOITweet daoITweet, DAOIUser daoIUser) {
+    public HomePageController(DAOITweet daoITweet, DAOIUser daoIUser) {
         this.daoTweet = (DAOTweet) daoITweet;
         this.daoUser = (DAOUser) daoIUser;
     }
