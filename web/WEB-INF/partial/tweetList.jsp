@@ -63,20 +63,18 @@
                                 </p>
 
                                 <div class="content-stream-item-footer">
-                                    <c:if test="${tweet.ruid ne sessionScope.userSession.userId}">
-                                        <c:if test="${tweet.uorig ne sessionScope.userSession.userId}">
-                                            <ul class="tweet-action center-middle-btn">
-                                                <li class="action-retweet-container">
-                                                    <form action="SendReTweet" method="post">
-                                                        <input type="hidden" name="userId"
-                                                               value="${sessionScope.userSession.userId}"/>
-                                                        <input type="hidden" name="tweetId" value="${tweet.tweetId}"/>
-                                                        <input type="submit" class="btn btn-action-retweet"
-                                                               value="Retweeter"/>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        </c:if>
+                                    <c:if test="${tweet.ruid != sessionScope.userSession.userId && tweet.uorig != sessionScope.userSession.userId}">
+                                        <ul class="tweet-action center-middle-btn">
+                                            <li class="action-retweet-container">
+                                                <form action="RetweetMessage" method="post">
+                                                    <input type="hidden" name="userId"
+                                                           value="${sessionScope.userSession.userId}"/>
+                                                    <input type="hidden" name="tweetId" value="${tweet.tweetId}"/>
+                                                    <input type="submit" class="btn btn-action-retweet"
+                                                           value="Retweeter"/>
+                                                </form>
+                                            </li>
+                                        </ul>
                                     </c:if>
                                 </div>
                             </div>

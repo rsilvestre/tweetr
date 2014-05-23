@@ -27,7 +27,6 @@ public class AccountController extends ValidationController {
     private static final String RESPONSE_KEY = "response";
     private static final String RESPONSE_VALUE = "ShowAccount";
     private static final String USER = "user";
-    private static final String FORM = "form";
 
     private static final String PASSWORD = "password";
 
@@ -41,6 +40,7 @@ public class AccountController extends ValidationController {
 
     private static final String IMAGE = "image";
     private static final String PATH = Thread.currentThread().getContextClassLoader().getResource("../../Images").getPath();
+
     private final GenericServlet servlet;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
@@ -105,14 +105,11 @@ public class AccountController extends ValidationController {
     public void Login(Object... objects) throws IOException, ServletException {
         DAOIUser daoIUser = (DAOIUser) objects[0];
 
-        LoginController form = new LoginController(daoIUser);
-
-        User user = form.loginValidation(request);
+        User user = this.loginValidation(daoIUser);
 
         request.setAttribute(USER, user);
-        request.setAttribute(FORM, form);
 
-        if (form.getErreurs().isEmpty()) {
+        if (this.getErreurs().isEmpty()) {
 
             request.getSession().setAttribute(USER_SESSION, user);
 

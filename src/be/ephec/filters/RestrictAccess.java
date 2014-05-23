@@ -50,35 +50,7 @@ public class RestrictAccess implements Filter {
         } else {
             request.setAttribute(ERROR, "La page " + request.getRequestURI().substring(request.getContextPath().length()) + " n'existe pas");
             request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
-            /* Affichage de la page restreinte */
-            //chain.doFilter(request, response);
         }
-        /*
-        if (session.getAttribute(USER_SESSION) == null
-                && !"/Home".equals(request.getRequestURI().substring(request.getContextPath().length()))
-                && !"/About".equals(request.getRequestURI().substring(request.getContextPath().length()))
-                && !"/Login".equals(request.getRequestURI().substring(request.getContextPath().length()))
-                && !"/CreateAccount".equals(request.getRequestURI().substring(request.getContextPath().length()))
-                ) {
-
-            System.out.println("session.getAttribute(USER_SESSION) == null: ");
-            System.out.println(session.getAttribute(USER_SESSION) == null);
-            *//* Redirection vers la page publique *//*
-            if (!"/Home".equals(request.getRequestURI().substring(request.getContextPath().length()))) {
-                request.getRequestDispatcher(HOME).forward(request, response);
-            } else if (!"/About".equals(request.getRequestURI().substring(request.getContextPath().length()))) {
-                request.getRequestDispatcher(HOME).forward(request, response);
-            } else {
-                request.getRequestDispatcher(LOGIN).forward(request, response);
-            }
-        } else if (session.getAttribute(USER_SESSION) != null
-                && "/".equals(request.getRequestURI().substring(request.getContextPath().length()))
-                ) {
-            request.getRequestDispatcher(HOMEPAGE).forward(request, response);
-        } else {
-            *//* Affichage de la page restreinte *//*
-            chain.doFilter(request, response);
-        }*/
 
     }
 
@@ -99,8 +71,8 @@ public class RestrictAccess implements Filter {
         USER("/User"),
         FOLLOWER("/Follower"),
         FOLLOWING("/Following"),
-        RETWEET("/Retweet"),
-        TWEET("/Tweet"),
+        RETWEET("/RetweetMessage"),
+        TWEET("/TweetMessage"),
         RECHERCHE("/Search");
 
         private String converter;

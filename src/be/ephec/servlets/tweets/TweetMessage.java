@@ -1,7 +1,6 @@
 package be.ephec.servlets.tweets;
 
 import be.ephec.beans.User;
-import be.ephec.controller.TweetController;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
@@ -14,14 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/Tweet")
-public class Tweet extends ServletConfig {
+@WebServlet("/TweetMessage")
+public class TweetMessage extends ServletConfig {
     private static final String TWEET = "/WEB-INF/tweet.jsp";
     private static final String TWEETS = "tweets";
     private DAOITweet daoITweet;
     private DAOIUser daoIUser;
 
-    public Tweet() {
+    public TweetMessage() {
         super();
     }
 
@@ -47,12 +46,12 @@ public class Tweet extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        TweetController form = new TweetController(daoITweet);
-
-        form.createTweet(request);
-        if (!form.getErreurs().isEmpty()) {
-            request.setAttribute(ERROR, form.getErreurs());
+        try {
+            this.DynamicCallController(request, response, this.daoITweet);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute(ERROR, e.getMessage());
+            request.getRequestDispatcher(RestrictAccess.PAGE_ERROR).forward(request, response);
         }
-        response.sendRedirect(RestrictAccess.PageIn.HOMEPAGE.toString());
     }
 }
