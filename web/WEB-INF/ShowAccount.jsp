@@ -7,14 +7,6 @@
 </c:if>
 
 <t:layout>
-    <jsp:attribute name="header">
-      <h1>Profil</h1>
-    </jsp:attribute>
-    <jsp:attribute name="footer">
-      <p class="muted credit">
-          Ephec 2014, <a href="http://michaelsilvestre.be">Michaël Silvestre</a>.
-      </p>
-    </jsp:attribute>
     <jsp:body>
         <div class="block-sector block-surround">
             <h3>Affichage de vos données personnelles</h3>
@@ -56,10 +48,10 @@
                     </div>
                 </div>
                 <div class="row">
-                        <c:if test="${sessionScope.userSession.userId != user.userId}">
-                            <label class="col-md-4 control-label">Follow : </label>
+                    <c:if test="${sessionScope.userSession.userId != user.userId}">
+                        <label class="col-md-4 control-label">Follow : </label>
 
-                            <div class="col-md-4 center-middle-btn">
+                        <div class="col-md-4 center-middle-btn">
                             <c:if test="${user.follower == 1}">
                                 <form action="<c:url value="/${response}${idparam}"/>" method="post">
                                     <input type="hidden" name="stopfollow" value="${user.userId}"/>
@@ -73,8 +65,8 @@
                                     <input type="submit" class="btn btn-primary" value="Follow"/>
                                 </form>
                             </c:if>
-                    </div>
-                        </c:if>
+                        </div>
+                    </c:if>
                 </div>
             </div>
             <div class="col-md-4">
