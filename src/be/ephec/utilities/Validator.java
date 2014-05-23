@@ -1,8 +1,5 @@
 package be.ephec.utilities;
 
-/**
- * Created by michaelsilvestre on 17/05/14.
- */
 public class Validator {
     private static final int TWEET_SIZE_MIN = 3;
     private static final int TWEET_SIZE_MAX = 140;
@@ -13,9 +10,6 @@ public class Validator {
         }
     }
 
-    /**
-     * Email validation
-     */
     public static void emailValidation(String email) throws Exception {
 
         if (email != null && email.trim().length() != 0) {
@@ -27,9 +21,6 @@ public class Validator {
         }
     }
 
-    /**
-     * Password validation
-     */
     public static void passwordValidation(String password, String confirmation) throws Exception {
         if (password != null && password.trim().length() != 0 && confirmation != null && confirmation.trim().length() != 0) {
             if (!password.equals(confirmation)) {
@@ -42,9 +33,6 @@ public class Validator {
         }
     }
 
-    /**
-     * User name validation
-     */
     public static void userNameValidation(String userName) throws Exception {
         if (userName != null && userName.trim().length() < 3) {
             throw new Exception("The username must contain at least 3 characters.");

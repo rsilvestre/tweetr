@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -40,23 +39,14 @@ public class Login extends ServletConfig {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LoginForm form = new LoginForm(daoIUser);
 
-        /**
-         * Appel au traitement et à la validation de la requête, et récupération
-         * du bean en résultant
-         */
         User user = form.loginValidation(request);
 
-		/* Récupération de la session depuis la requête */
-        HttpSession session = request.getSession();
-
-        /** Stockage du formulaire et du bean dans l'objet request */
         request.setAttribute(USER, user);
         request.setAttribute(FORM, form);
 
-        System.out.println(form.getErreurs().isEmpty());
         if (form.getErreurs().isEmpty()) {
 
-            session.setAttribute(USER_SESSION, user);
+            request.getSession().setAttribute(USER_SESSION, user);
 
             Cookie cookie = null;
             Cookie[] cookies = request.getCookies();
@@ -82,10 +72,8 @@ public class Login extends ServletConfig {
                 response.addCookie(cookie);
             }
             response.sendRedirect(HOMEPAGE);
-            //this.getServletContext().getRequestDispatcher(HOMEPAGE).forward(request, response);
         } else {
-            session.setAttribute(USER_SESSION, null);
-            //response.sendRedirect(LOGIN);
+            request.getSession().setAttribute(USER_SESSION, null);
             this.getServletContext().getRequestDispatcher(LOGIN).forward(request, response);
         }
     }

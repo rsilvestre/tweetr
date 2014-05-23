@@ -2,9 +2,6 @@ package be.ephec.exceptions;
 
 public class DAOException extends RuntimeException {
 
-    /*
-     * Constructeurs
-     */
     public DAOException(String body) {
         super(body);
     }

@@ -8,14 +8,10 @@ import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class CreateAccount
- */
 @WebServlet("/CreateAccount")
 public class CreateAccount extends ServletConfig {
     private static final String CREATEACCOUNT = "/WEB-INF/createAccount.jsp";
@@ -25,9 +21,6 @@ public class CreateAccount extends ServletConfig {
 
     private DAOIUser daoIUser;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public CreateAccount() {
         super();
     }

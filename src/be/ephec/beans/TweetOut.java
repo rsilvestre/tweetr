@@ -1,14 +1,6 @@
 package be.ephec.beans;
 
-/**
- * Business object: Tweet
- */
 public class TweetOut {
-
-    /**
-     * Add the joda-time-2.1 API to "Web App Librairies"
-     * to manage easely the dates
-     */
 
     private Integer tweetId;
     private String userName;

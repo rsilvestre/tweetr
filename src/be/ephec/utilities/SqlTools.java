@@ -10,10 +10,6 @@ import java.sql.Statement;
  */
 public class SqlTools {
 
-    /*
-     * Initialise la requête préparée basée sur la connexion passée en argument,
-     * avec la requête SQL et les objets donnés.
-     */
     public static PreparedStatement preparedRequestInitialization(Connection connexion, String sql, boolean returnGeneratedKeys, Object... objets) throws SQLException {
         Integer generatedKey = returnGeneratedKeys ? Statement.RETURN_GENERATED_KEYS : Statement.NO_GENERATED_KEYS;
         PreparedStatement preparedStatement = connexion.prepareStatement(sql, generatedKey);

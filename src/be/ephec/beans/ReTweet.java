@@ -1,17 +1,6 @@
 package be.ephec.beans;
 
-/**
- * Business object: RetWit
- */
 public class ReTweet {
-
-    /** Add the joda-time-2.1 API to "Web App Librairies"
-     * to manage easely the dates */
-
-    /**
-     * The attribut "comment" is not necessary because it's not
-     * possible to comment when you retwit.
-     */
     private Integer reTweetid;
     private Integer tweetId;
     private Integer userId;

@@ -12,12 +12,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Servlet implementation class ModifyAccountImage
- */
 @WebServlet("/ModifyAccountImage")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1,  // 1 MB
@@ -47,25 +43,19 @@ public class ModifyAccountImage extends ServletConfig {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        /**Préparation de l'objet formulaire*/
         ModifyAccountForm form = new ModifyAccountForm(daoIUser, daoIFile);
 
-        /**Appel au traitement et à la validation de la requête, et récupération du bean en résultant*/
         User user = form.modifyAccountImage(request);
 
-
         if (form.getErreurs().isEmpty()) {
-            session.setAttribute(USER_SESSION, user);
+            request.getSession().setAttribute(USER_SESSION, user);
         }
 
-        /**Stockage du formulaire et du bean dans l'objet request*/
         //request.setAttribute(USER, user);
         request.setAttribute(FORM, form);
 
         System.out.println(form.getErreurs().containsValue("image"));
         if (form.getErreurs().isEmpty()) {
-            //this.getServletContext().getRequestDispatcher(HOMEPAGE).forward(request, response);
             response.sendRedirect(HOMEPAGE);
         } else {
             this.getServletContext().getRequestDispatcher(MODIFYACCOUNT).forward(request, response);

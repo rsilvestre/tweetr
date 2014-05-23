@@ -13,17 +13,12 @@ public class DAOFile extends DAO implements DAOIFile {
         super(daoFactory);
     }
 
-    /*
-     * Méthode utilitaire qui a pour but d'écrire le fichier passé en paramètre
-     * sur le disque, dans le répertoire donné et avec le nom donné.
-     */
     public void writeFile(Part part, String fileName, String path) throws IOException, URISyntaxException {
-        /* Prépare les flux. */
         URI uri;
         BufferedInputStream in = null;
         BufferedOutputStream out = null;
+
         try {
-            /* Ouvre les flux. */
             uri = new URI(path);
             in = new BufferedInputStream(part.getInputStream(), BUFFER_SIZE);
 

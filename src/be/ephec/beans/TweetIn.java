@@ -1,14 +1,6 @@
 package be.ephec.beans;
 
-/**
- * Business object: Twit
- */
 public class TweetIn {
-
-    /**
-     * Add the joda-time-2.1 API to "Web App Librairies"
-     * to manage easely the dates
-     */
 
     private Integer twitId;
     private Integer userId;

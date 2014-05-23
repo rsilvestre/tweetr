@@ -1,8 +1,5 @@
 package be.ephec.beans;
 
-/**
- * Created by michaelsilvestre on 19/05/14.
- */
 public class Dashboard {
     private int tweetNumber;
     private int followerNumber;

@@ -1,8 +1,5 @@
 package be.ephec.beans;
 
-/**
- * Business object: User
- */
 public class User {
 
     private int userId;

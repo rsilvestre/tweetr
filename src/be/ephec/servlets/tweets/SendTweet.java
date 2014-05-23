@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class SendTwit
- */
 @WebServlet("/SendTweet")
 public class SendTweet extends ServletConfig {
     private static final String HOMEPAGE = "/HomePage";

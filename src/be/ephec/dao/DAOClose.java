@@ -7,7 +7,6 @@ import java.sql.Statement;
 
 public class DAOClose {
 
-    /* Fermeture silencieuse du resultset */
     public static void silentClose(ResultSet resultSet) {
         if (resultSet != null) {
             try {
@@ -18,7 +17,6 @@ public class DAOClose {
         }
     }
 
-    /* Fermeture silencieuse du statement */
     public static void silentClose(Statement statement) {
         if (statement != null) {
             try {
@@ -29,7 +27,6 @@ public class DAOClose {
         }
     }
 
-    /* Fermeture silencieuse de la connexion */
     public static void silentClose(Connection connexion) {
         if (connexion != null) {
             try {
@@ -40,13 +37,11 @@ public class DAOClose {
         }
     }
 
-    /* Fermetures silencieuses du statement et de la connexion */
     public static void silentClose(Statement statement, Connection connexion) {
         silentClose(statement);
         silentClose(connexion);
     }
 
-    /* Fermetures silencieuses du resultset, du statement et de la connexion */
     public static void silentClose(ResultSet resultSet, Statement statement, Connection connexion) {
         silentClose(resultSet);
         silentClose(statement);

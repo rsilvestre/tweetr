@@ -1,8 +1,5 @@
 package be.ephec.beans;
 
-/**
- * Business object: Follow
- */
 public class Follow {
 
     private Integer followingId;

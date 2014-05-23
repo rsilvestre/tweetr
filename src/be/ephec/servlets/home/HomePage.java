@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class HomePage
- */
 @WebServlet("/HomePage")
 public class HomePage extends ServletConfig {
     public static final String HOMEPAGE = "/WEB-INF/homePage.jsp";

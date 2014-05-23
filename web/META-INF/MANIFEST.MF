@@ -1,3 +1,9 @@
 Manifest-Version: 1.0
-Class-Path: 
-
+Ant-Version: Apache Ant 1.6.5
+Created-By: 1.1.0-b03 (Michael Silvestre Inc.)
+Specification-Title: Ephec Tweetr
+Specification-Version: 1.0
+Specification-Vendor: Michael Silvestre, Inc.
+Implementation-Version: 1.0
+Implementation-Vendor: Michael Silvestre, Inc.
+Implementation-Vendor-Id: be.ephec.silvestre.michael

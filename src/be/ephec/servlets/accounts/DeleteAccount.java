@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-/**
- * Servlet implementation class DeleteAccount
- */
 @WebServlet("/DeleteAccount")
 public class DeleteAccount extends ServletConfig {
 

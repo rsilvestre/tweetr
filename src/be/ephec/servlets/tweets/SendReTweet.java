@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Servlet implementation class ReTweet
- */
 @WebServlet("/SendReTweet")
 public class SendReTweet extends ServletConfig {
     private static final String HOMEPAGE = "/HomePage";

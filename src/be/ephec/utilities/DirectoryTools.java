@@ -2,9 +2,6 @@ package be.ephec.utilities;
 
 import javax.servlet.http.Part;
 
-/**
- * Created by michaelsilvestre on 17/05/14.
- */
 public class DirectoryTools {
 
     public static String getFilename(Part part, String field) {

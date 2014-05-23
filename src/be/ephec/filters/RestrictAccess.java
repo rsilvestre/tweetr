@@ -22,11 +22,9 @@ public class RestrictAccess implements Filter {
 
         req.setCharacterEncoding("UTF-8");
 
-		/* Cast des objets request et response */
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-		/* Non-filtrage des ressources statiques */
         String chemin = request.getRequestURI().substring(
                 request.getContextPath().length());
         if (chemin.startsWith("/assets") || chemin.startsWith("/Images")) {
@@ -34,14 +32,8 @@ public class RestrictAccess implements Filter {
             return;
         }
 
-		/* Récupération de la session depuis la requête */
         HttpSession session = request.getSession();
 
-        /**
-         * Si l'objet utilisateur n'existe pas dans la session en cours, alors
-         * l'utilisateur n'est pas connecté.
-         */
-        //PageOut.fromString(request.getRequestURI().substring(request.getContextPath().length()));
         String subRequestURI;
         if (session.getAttribute(USER_SESSION) == null && PageOut.fromString(subRequestURI = request.getRequestURI().substring(request.getContextPath().length())) != null) {
             if (PageOut.ROOT == PageOut.fromString(subRequestURI)) {
