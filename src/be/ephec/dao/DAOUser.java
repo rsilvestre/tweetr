@@ -62,7 +62,8 @@ public class DAOUser extends DAO implements DAOIUser {
             );
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            this.CloseConnection();
+            throw new DAOException(e);
         }
     }
 
@@ -97,6 +98,7 @@ public class DAOUser extends DAO implements DAOIUser {
                     user.getPassword(), user.getImage(), user.getUserId()
             );
         } catch (SQLException e) {
+            this.CloseConnection();
             throw new DAOException(e);
         }
 
@@ -129,7 +131,7 @@ public class DAOUser extends DAO implements DAOIUser {
                 user = EntityMapping.getMapping(resultSet);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             this.CloseConnection();
         }
@@ -137,7 +139,7 @@ public class DAOUser extends DAO implements DAOIUser {
     }
 
     @Override
-    public User searchById(int userId) {
+    public User searchById(int userId) throws DAOException {
         User user = null;
 
         try {
@@ -147,7 +149,7 @@ public class DAOUser extends DAO implements DAOIUser {
                 user = EntityMapping.getMapping(resultSet);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             this.CloseConnection();
         }
@@ -156,7 +158,7 @@ public class DAOUser extends DAO implements DAOIUser {
     }
 
     @Override
-    public User searchById(int userId, User currentUser) {
+    public User searchById(int userId, User currentUser) throws DAOException {
         User user = null;
 
         try {
@@ -166,7 +168,7 @@ public class DAOUser extends DAO implements DAOIUser {
                 user = EntityMapping.getMapping(resultSet);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             this.CloseConnection();
         }
@@ -185,7 +187,7 @@ public class DAOUser extends DAO implements DAOIUser {
                 user = EntityMapping.getMapping(resultSet);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             this.CloseConnection();
         }
@@ -204,10 +206,8 @@ public class DAOUser extends DAO implements DAOIUser {
                 EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
                 userFollowingList.add(EntityMapping.getMapping(resultSet));
             }
-        } catch (SQLException e) {
-            throw new DAOException(e);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             this.CloseConnection();
         }
@@ -225,10 +225,8 @@ public class DAOUser extends DAO implements DAOIUser {
                 EntityMapping<User> EntityMapping = new EntityMapping<>(User.class);
                 userNotFollowingList.add(EntityMapping.getMapping(resultSet));
             }
-        } catch (SQLException e) {
-            throw new DAOException(e);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             this.CloseConnection();
         }
@@ -236,7 +234,7 @@ public class DAOUser extends DAO implements DAOIUser {
         return userNotFollowingList;
     }
 
-    public Dashboard getDashboard(User user) {
+    public Dashboard getDashboard(User user) throws DAOException {
         Dashboard dashboard = null;
 
         try {
@@ -247,7 +245,7 @@ public class DAOUser extends DAO implements DAOIUser {
                 dashboard.setUser(user);
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new DAOException(ex);
         } finally {
             this.CloseConnection();
         }

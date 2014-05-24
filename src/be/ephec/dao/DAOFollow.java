@@ -91,7 +91,7 @@ public class DAOFollow extends DAO implements DAOIFollow {
     }
 
     @Override
-    public List<User> getFollowerByUser(User user2, User user1) {
+    public List<User> getFollowerByUser(User user2, User user1) throws DAOException {
         List<User> lstUser = new ArrayList<>();
         try {
             ResultSet resultSet = this.executeQuery(SELECT_FOLLOWER_USER_BY_FOLLOWING, false, user2.getUserId(), user2.getUserId(), user2.getUserId(), user1.getUserId());
@@ -100,7 +100,7 @@ public class DAOFollow extends DAO implements DAOIFollow {
                 try {
                     lstUser.add(EntityMapping.getMapping(resultSet));
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    throw new DAOException(e);
                 }
             }
         } catch (Exception ex) {
@@ -110,7 +110,7 @@ public class DAOFollow extends DAO implements DAOIFollow {
     }
 
     @Override
-    public List<User> getFollowingByUser(User user2, User user1) {
+    public List<User> getFollowingByUser(User user2, User user1) throws DAOException {
         List<User> lstUser = new ArrayList<>();
         try {
             ResultSet resultSet = this.executeQuery(SELECT_FOLLOWING_USER_BY_FOLLOWER, false, user2.getUserId(), user1.getUserId());
@@ -119,7 +119,7 @@ public class DAOFollow extends DAO implements DAOIFollow {
                 try {
                     lstUser.add(EntityMapping.getMapping(resultSet));
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    throw new DAOException(e);
                 }
             }
         } catch (Exception ex) {

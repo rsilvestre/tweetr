@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:3306
--- Généré le :  Ven 23 Mai 2014 à 01:52
+-- Généré le :  Sam 24 Mai 2014 à 09:55
 -- Version du serveur :  5.5.34
 -- Version de PHP :  5.5.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données :  `Tweetr2`
@@ -34,7 +28,10 @@ CREATE TABLE `Follow` (
   PRIMARY KEY (`FollowId`),
   KEY `followerIndex` (`FollowerId`),
   KEY `followingIndex` (`FollowingId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=76 ;
+)
+  ENGINE =InnoDB
+  DEFAULT CHARSET =utf8
+  AUTO_INCREMENT =100;
 
 --
 -- Contenu de la table `Follow`
@@ -57,7 +54,12 @@ INSERT INTO `Follow` (`FollowId`, `FollowerId`, `FollowingId`, `UpdatedAt`) VALU
 (72, 8, 5, '2014-05-22 23:09:05'),
 (73, 6, 8, '2014-05-22 23:10:30'),
 (74, 3, 1, '2014-05-22 23:49:57'),
-(75, 3, 5, '2014-05-22 23:50:48');
+  (91, 3, 5, '2014-05-23 19:49:56'),
+  (93, 10, 7, '2014-05-23 22:16:38'),
+  (94, 10, 4, '2014-05-23 22:16:39'),
+  (97, 10, 2, '2014-05-23 22:19:21'),
+  (98, 10, 3, '2014-05-23 22:20:06'),
+  (99, 9, 10, '2014-05-23 22:21:38');
 
 -- --------------------------------------------------------
 
@@ -73,7 +75,10 @@ CREATE TABLE `Retweet` (
   PRIMARY KEY (`RetweetId`),
   KEY `TweetIndex` (`TweetId`),
   KEY `UserIndex` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+)
+  ENGINE =InnoDB
+  DEFAULT CHARSET =utf8
+  AUTO_INCREMENT =12;
 
 --
 -- Contenu de la table `Retweet`
@@ -85,7 +90,12 @@ INSERT INTO `Retweet` (`RetweetId`, `TweetId`, `UserId`, `UpdatedAt`) VALUES
 (3, 3, 1, '2014-05-21 13:40:30'),
 (4, 3, 6, '2014-05-21 16:09:16'),
 (5, 7, 8, '2014-05-22 23:08:13'),
-(6, 11, 8, '2014-05-22 23:10:05');
+  (6, 11, 8, '2014-05-22 23:10:05'),
+  (7, 6, 3, '2014-05-23 14:29:53'),
+  (8, 6, 10, '2014-05-23 22:18:27'),
+  (9, 11, 10, '2014-05-23 22:18:38'),
+  (10, 14, 10, '2014-05-23 22:20:22'),
+  (11, 15, 9, '2014-05-23 22:22:09');
 
 -- --------------------------------------------------------
 
@@ -100,7 +110,10 @@ CREATE TABLE `Tweet` (
   `UpdatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`TweetId`),
   KEY `UserIndex` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+)
+  ENGINE =InnoDB
+  DEFAULT CHARSET =utf8
+  AUTO_INCREMENT =18;
 
 --
 -- Contenu de la table `Tweet`
@@ -119,7 +132,11 @@ INSERT INTO `Tweet` (`TweetId`, `UserId`, `Body`, `UpdatedAt`) VALUES
 (10, 8, 'Salut les amis, je suis nouveau sur ce site. Si vous avez des conseils à me donnez, n’hésitez pas', '2014-05-22 23:08:06'),
 (11, 5, 'Qui est donc le petit chat de Divine?', '2014-05-22 23:09:22'),
 (12, 8, '@rsilvestre j’espère que c’est toi le petit chat de divine', '2014-05-22 23:16:49'),
-(13, 3, 'Hello Divine, tu as de beaux yeux tu sais?', '2014-05-22 23:50:20');
+  (13, 3, 'Hello Divine, tu as de beaux yeux tu sais?', '2014-05-22 23:50:20'),
+  (14, 3, 'C’est une belle phrase @michael que tu nous dis là', '2014-05-23 14:30:41'),
+  (15, 10, 'Vrooooomm', '2014-05-23 22:18:17'),
+  (16, 10, 'Zorba le grec', '2014-05-23 22:20:58'),
+  (17, 9, 'Salut Schumi, vivement que tu remontes sur tes skis', '2014-05-23 22:21:56');
 
 -- --------------------------------------------------------
 
@@ -139,7 +156,10 @@ CREATE TABLE `User` (
   PRIMARY KEY (`UserId`),
   UNIQUE KEY `EmailUNIQUE` (`Email`),
   UNIQUE KEY `UserNameUNIQUE` (`UserName`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+)
+  ENGINE =InnoDB
+  DEFAULT CHARSET =utf8
+  AUTO_INCREMENT =11;
 
 --
 -- Contenu de la table `User`
@@ -148,12 +168,18 @@ CREATE TABLE `User` (
 INSERT INTO `User` (`UserId`, `UserName`, `FirstName`, `LastName`, `Email`, `Password`, `Image`, `UpdatedAt`) VALUES
 (1, 'michael', 'michael', 'michael', 'michael@michael.be', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', '0', '2014-05-20 09:26:03'),
 (2, 'rsilvestre', 'michael', 'silvestre', 'willtard@gmail.com', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U2-wallpaper-430278.jpg', '2014-05-22 23:46:55'),
-(3, 'toto', 'toto', 'toto', 'toto@toto.be', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U3-wallpaper-335288.jpg', '2014-05-22 23:49:33'),
-(4, 'celine', 'Céline', 'Zoetardt', 'celine@yahoo.fr', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', '0', '2014-05-22 15:23:40'),
+  (3, 'toto', 'toto', 'toto', 'toto@toto.be', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18',
+   'U3-wallpaper-760272.jpg', '2014-05-23 21:24:25'),
+  (4, 'celine', 'Céline', 'Zoetardt', 'celine@yahoo.fr', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', '0', '2014-05-22 15:23:40'),
 (5, 'divine', 'Céline', 'Zoetardt', 'celine@toto.be', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U5-wallpaper-127191.jpg', '2014-05-22 23:48:30'),
 (6, 'xavier', 'xavier', 'planckaert', 'xavier@toto.be', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U6-4words1024x768.jpg', '2014-05-22 23:45:47'),
 (7, 'Luccas', 'Eric', 'Marc', 'eric@marc.be', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', '0', '2014-05-22 15:32:45'),
-(8, 'maxjlaurent', 'Jean-Laurent', 'Leroy', 'maxjlaurent@hotmail.com', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U8-21280.jpg', '2014-05-22 23:12:24');
+  (8, 'maxjlaurent', 'Jean-Laurent', 'Leroy', 'maxjlaurent@hotmail.com',
+   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U8-21280.jpg', '2014-05-22 23:12:24'),
+  (9, 'celiavrancken', 'Célia', 'Vrancken', 'celiavrancken@gmail.com',
+   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', '0', '2014-05-23 22:13:59'),
+  (10, 'schumi', 'Michael', 'Schumacker', 'schumi@gmail.com',
+   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U10-download.jpeg', '2014-05-23 22:18:06');
 
 --
 -- Contraintes pour les tables exportées
@@ -178,7 +204,3 @@ ALTER TABLE `Retweet`
 --
 ALTER TABLE `Tweet`
   ADD CONSTRAINT `Tweet_User` FOREIGN KEY (`UserId`) REFERENCES `User` (`UserId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
