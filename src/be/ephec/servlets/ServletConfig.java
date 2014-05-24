@@ -29,9 +29,9 @@ public abstract class ServletConfig extends HttpServlet {
         subRequestURI = subRequestURI.substring(1, subRequestURI.length());
         Pattern pat = Pattern.compile("^([A-Z][a-z]+)([A-Z][a-z]+)$");
         Matcher match = pat.matcher(subRequestURI);
-        match.find();
-        String action = match.group(1), controller = match.group(2);
-        if (action.isEmpty() || controller.isEmpty()) {
+        ;
+        String action = "", controller = "";
+        if (match.find() && ((action = match.group(1)).isEmpty() || (controller = match.group(2)).isEmpty())) {
             request.setAttribute(ERROR, "La page " + request.getRequestURI().substring(request.getContextPath().length()) + " n'existe pas");
             request.getRequestDispatcher(RestrictAccess.PageInOut.ERROR.toString()).forward(request, response);
         }

@@ -59,7 +59,7 @@
                                 </div>
 
                                 <p class="tweet-text">
-                                    <c:out value="${tweet.body}"/>
+                                        ${tweet.body}
                                 </p>
 
                                 <div class="content-stream-item-footer">

@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class DAOTweet extends DAO implements DAOITweet {
@@ -79,10 +81,21 @@ public class DAOTweet extends DAO implements DAOITweet {
         List<TweetOut> lstTweetOut = new ArrayList<>();
         try {
             ResultSet resultSet = this.executeQuery(SELECT_TWEET_FROM_USER, false, user.getUserId());
+            Pattern pat = Pattern.compile("@([\\w]+)");
+
             while (resultSet.next()) {
                 EntityMapping<TweetOut> EntityMapping = new EntityMapping<>(TweetOut.class);
                 try {
-                    lstTweetOut.add(EntityMapping.getMapping(resultSet));
+                    TweetOut tmpTweetOut = EntityMapping.getMapping(resultSet);
+                    Matcher match = pat.matcher(tmpTweetOut.getBody());
+
+                    if (match.find()) {
+                        String action = match.group(1);
+                        DAOUser daoUser = new DAOUser(DAOFactory.getInstance());
+                        User user1 = daoUser.searchByUserName(action);
+                        tmpTweetOut.setBody(tmpTweetOut.getBody().replace("@" + action, "<a class=\"\" href=\"/User?id=" + user1.getUserId() + "\"><strong class=\"center-middle-txt\">@" + action + "</strong></a>"));
+                    }
+                    lstTweetOut.add(tmpTweetOut);
                 } catch (Exception e) {
                     throw new DAOException(e);
                 }
@@ -95,19 +108,33 @@ public class DAOTweet extends DAO implements DAOITweet {
 
     @Override
     public List<TweetOut> getTweetOutList(User user) throws DAOException {
-        List<TweetOut> tweetsOut = new ArrayList<>();
+        List<TweetOut> lstTweetOut = new ArrayList<>();
         try {
             ResultSet resultSet = this.executeQuery(SQL_SELECTTWEETOUT, false, user.getUserId(), user.getUserId(), user.getUserId(), user.getUserId(), user.getUserId(), user.getUserId());
+            Pattern pat = Pattern.compile("@([\\w]+)");
             while (resultSet.next()) {
                 EntityMapping<TweetOut> EntityMapping = new EntityMapping<>(TweetOut.class);
-                tweetsOut.add(EntityMapping.getMapping(resultSet));
+                try {
+                    TweetOut tmpTweetOut = EntityMapping.getMapping(resultSet);
+                    Matcher match = pat.matcher(tmpTweetOut.getBody());
+
+                    if (match.find()) {
+                        String action = match.group(1);
+                        DAOUser daoUser = new DAOUser(DAOFactory.getInstance());
+                        User user1 = daoUser.searchByUserName(action);
+                        tmpTweetOut.setBody(tmpTweetOut.getBody().replace("@" + action, "<a class=\"\" href=\"/User?id=" + user1.getUserId() + "\"><strong class=\"center-middle-txt\">@" + action + "</strong></a>"));
+                    }
+                    lstTweetOut.add(tmpTweetOut);
+                } catch (Exception e) {
+                    throw new DAOException(e);
+                }
             }
         } catch (Exception e) {
             throw new DAOException(e);
         } finally {
             this.CloseConnection();
         }
-        return tweetsOut;
+        return lstTweetOut;
     }
 
     @Override
