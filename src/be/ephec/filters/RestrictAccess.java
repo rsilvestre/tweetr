@@ -57,7 +57,7 @@ public class RestrictAccess implements Filter {
     }
 
     public enum PageIn {
-        HOMEPAGE("/HomePage"),
+        HOMEPAGE("/Homepage"),
         DELETEACCOUNT("/DeleteAccount"),
         MODIFYACCOUNT("/ModifyAccount"),
         MODIFYACCOUNTIMAGE("/ImageAccount"),

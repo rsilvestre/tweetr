@@ -2,7 +2,7 @@ package be.ephec.servlets.accounts;
 
 
 import be.ephec.beans.User;
-import be.ephec.controller.HomePageController;
+import be.ephec.controller.HomepageController;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIFollow;
 import be.ephec.dao.DAOITweet;
@@ -44,7 +44,7 @@ public class ShowAccount extends ServletConfig {
             user = (User) request.getSession().getAttribute(USER_SESSION);
         }
 
-        HomePageController form = new HomePageController(daoITweet, daoIUser);
+        HomepageController form = new HomepageController(daoITweet, daoIUser);
 
         request.setAttribute("user", user);
         request.setAttribute(RESPONSE_KEY, RESPONSE_VALUE);

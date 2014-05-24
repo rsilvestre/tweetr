@@ -1,6 +1,6 @@
 package be.ephec.servlets.subscriptions;
 
-import be.ephec.controller.HomePageController;
+import be.ephec.controller.HomepageController;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
@@ -32,7 +32,7 @@ public class User extends ServletConfig {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HomePageController form = new HomePageController(daoITweet, daoIUser);
+        HomepageController form = new HomepageController(daoITweet, daoIUser);
         be.ephec.beans.User user = null;
         try {
             user = daoIUser.searchById(Integer.parseInt(request.getParameter("id")));
