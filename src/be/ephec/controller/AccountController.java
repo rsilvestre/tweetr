@@ -13,7 +13,10 @@ import be.ephec.utilities.UserTools;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -27,6 +30,7 @@ public class AccountController extends ApplicationController {
     private static final String RESPONSE_KEY = "response";
     private static final String RESPONSE_VALUE = "ShowAccount";
     private static final String USER = "user";
+    private static final String FORM = "form";
 
     private static final String PASSWORD = "password";
 
@@ -48,12 +52,10 @@ public class AccountController extends ApplicationController {
     public void ModifyAction(Object... objects) throws ServletException, IOException {
         DAOIUser daoIUser = (DAOIUser) objects[0];
 
-        HttpSession session = this.getRequest().getSession();
-
         User user = this.modifyAccountInfo(daoIUser);
 
         if (this.getErreurs().isEmpty()) {
-            session.setAttribute(USER_SESSION, user);
+            this.getRequest().getSession().setAttribute(USER_SESSION, user);
         }
 
         this.getRequest().setAttribute(USER, user);
@@ -61,6 +63,7 @@ public class AccountController extends ApplicationController {
         if (this.getErreurs().isEmpty()) {
             this.getResponse().sendRedirect(RestrictAccess.PageIn.SHOWACCOUNT.toString());
         } else {
+            this.getRequest().setAttribute(FORM, this);
             this.getServlet().getServletContext().getRequestDispatcher(ModifyAccount.MODIFYACCOUNT).forward(this.getRequest(), this.getResponse());
         }
     }
@@ -81,6 +84,7 @@ public class AccountController extends ApplicationController {
         if (this.getErreurs().isEmpty()) {
             this.getResponse().sendRedirect(RestrictAccess.PageIn.HOMEPAGE.toString());
         } else {
+            this.getRequest().setAttribute(FORM, this);
             this.getServlet().getServletContext().getRequestDispatcher(CREATEACCOUNT).forward(this.getRequest(), this.getResponse());
         }
     }
@@ -129,6 +133,7 @@ public class AccountController extends ApplicationController {
             }
             this.getResponse().sendRedirect(RestrictAccess.PageIn.HOMEPAGE.toString());
         } else {
+            this.getRequest().setAttribute(FORM, this);
             this.getRequest().getSession().setAttribute(USER_SESSION, null);
             this.getServlet().getServletContext().getRequestDispatcher(LOGIN).forward(this.getRequest(), this.getResponse());
         }

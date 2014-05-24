@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +42,9 @@ public abstract class ServletConfig extends HttpServlet {
             Constructor<?> ctor = clazz.getConstructor(GenericServlet.class, HttpServletRequest.class, HttpServletResponse.class);
             Object objectz = ctor.newInstance(this, request, response);
             clazz.getMethod(action + "Action", Object[].class).invoke(objectz, new Object[]{object});
+        } catch (InvocationTargetException ex) {
+            request.setAttribute(ERROR, "Erreur dans le controlleur " + controller + ", d'action " + action + ". Détail : " + ex.getTargetException().getMessage());
+            request.getRequestDispatcher(RestrictAccess.PageInOut.ERROR.toString()).forward(request, response);
         } catch (Exception ex) {
             //throw new Exception();
             request.setAttribute(ERROR, "Pas de controller " + controller + " ou d'action " + action + ". Détail : " + ex.getMessage());

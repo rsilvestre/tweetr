@@ -72,8 +72,8 @@ public class DAOUser extends DAO implements DAOIUser {
 
         try {
             this.executeUpdate(SQL_DELETE_USER, (status, result) -> {
-                if (status == 0) {
-                    throw new DAOException("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
+                if (status < 0) {
+                    throw new DAOException("Échec de la suppression de l'utilisateur, aucune ligne supprimée dans la table.");
                 }
                 this.CloseConnection();
             }, userId);

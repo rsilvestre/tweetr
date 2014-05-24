@@ -1,9 +1,11 @@
 package be.ephec.controller;
 
+import be.ephec.exceptions.ValidatorException;
 import be.ephec.utilities.FrameworkSupport;
 import be.ephec.utilities.Validator;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,8 +33,17 @@ public abstract class ValidationController {
             if (next != null) {
                 next.doJob(dataKey, erreurs);
             }
-        } catch (Exception ex) {
-            erreurs.put(dataKey, ex.getMessage());
+        } catch (ValidatorException e) {
+            erreurs.put(dataKey, e.getMessage());
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+            erreurs.put(dataKey, e.getTargetException().getMessage());
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            erreurs.put(dataKey, e.getMessage());
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            erreurs.put(dataKey, e.getMessage());
         }
         return result;
     }

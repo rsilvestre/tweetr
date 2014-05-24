@@ -51,8 +51,8 @@ public class DAOTweet extends DAO implements DAOITweet {
     public void deleteTweet(int userId) throws DAOException {
         try {
             this.executeUpdate(SQL_DELETE_TWEET, (status, resultSet) -> {
-                if (status == 0) {
-                    throw new DAOException("Échec de la création du Tweet, aucune ligne ajoutée dans la table.");
+                if (status < 0) {
+                    throw new DAOException("Échec de la suppression du Tweet, aucune ligne supprimée dans la table.");
                 }
             }, userId);
         } catch (SQLException e) {
@@ -64,9 +64,9 @@ public class DAOTweet extends DAO implements DAOITweet {
     public void deleteReTweet(int userId) throws DAOException {
         try {
             this.executeUpdate(SQL_DELETE_RETWEET, (status, resultSet) -> {
-                if (status == 0) {
+                if (status < 0) {
                     throw new DAOException(
-                            "Échec de la création du Tweet, aucune ligne ajoutée dans la table.");
+                            "Échec de la suppression du Retweet, aucune ligne supprimée dans la table.");
                 }
             }, userId);
         } catch (SQLException e) {

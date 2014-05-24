@@ -4,9 +4,6 @@ import javax.servlet.GenericServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by michaelsilvestre on 24/05/14.
- */
 public abstract class ApplicationController extends ValidationController {
     private final GenericServlet servlet;
     private final HttpServletRequest request;

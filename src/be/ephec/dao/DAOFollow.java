@@ -62,7 +62,7 @@ public class DAOFollow extends DAO implements DAOIFollow {
     public void deleteUserFollowing(int userId) throws DAOException {
         try {
             int status = this.executeUpdate(SQL_DELTE_FOLLOWING, userId);
-            if (status == 0) {
+            if (status < 0) {
                 throw new DAOException(
                         "Échec de la suppression du follow l'utilisateur, aucune ligne n'a été supprimé de la table.");
             }
@@ -78,7 +78,7 @@ public class DAOFollow extends DAO implements DAOIFollow {
     public void deleteUserFollower(int userId) throws DAOException {
         try {
             int status = this.executeUpdate(SQL_DELTE_FOLLOWER, userId);
-            if (status == 0) {
+            if (status < 0) {
                 throw new DAOException(
                         "Échec de la suppression du follow l'utilisateur, aucune ligne n'a été supprimé de la table.");
             }

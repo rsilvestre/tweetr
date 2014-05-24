@@ -7,9 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by michaelsilvestre on 19/05/14.
- */
 public abstract class DAO {
     private final DAOFactory daoFactory;
     private Connection connection = null;
