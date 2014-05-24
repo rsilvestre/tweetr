@@ -9,7 +9,6 @@ import java.io.IOException;
 
 @WebFilter(filterName = "FilterSession", urlPatterns = "/*")
 public class RestrictAccess implements Filter {
-    public static final String PAGE_ERROR = "/Error";
     private static final String USER_SESSION = "userSession";
     private static final String ERROR = "error";
 
@@ -35,21 +34,21 @@ public class RestrictAccess implements Filter {
         HttpSession session = request.getSession();
 
         String subRequestURI;
-        if (session.getAttribute(USER_SESSION) == null && PageOut.fromString(subRequestURI = request.getRequestURI().substring(request.getContextPath().length())) != null) {
-            if (PageOut.ROOT == PageOut.fromString(subRequestURI)) {
+        if (session.getAttribute(USER_SESSION) == null && PageOut.containString(subRequestURI = request.getRequestURI().substring(request.getContextPath().length()))) {
+            if (PageInOut.ROOT == PageInOut.fromString(subRequestURI)) {
                 request.getRequestDispatcher(PageOut.HOME.toString()).forward(request, response);
             } else {
                 request.getRequestDispatcher(subRequestURI).forward(request, response);
             }
-        } else if (session.getAttribute(USER_SESSION) != null && PageIn.fromString(subRequestURI = request.getRequestURI().substring(request.getContextPath().length())) != null) {
-            if (PageIn.ROOT == PageIn.fromString(subRequestURI)) {
+        } else if (session.getAttribute(USER_SESSION) != null && PageIn.containString(subRequestURI = request.getRequestURI().substring(request.getContextPath().length()))) {
+            if (PageInOut.ROOT == PageInOut.fromString(subRequestURI)) {
                 request.getRequestDispatcher(PageIn.HOMEPAGE.toString()).forward(request, response);
             } else {
                 request.getRequestDispatcher(subRequestURI).forward(request, response);
             }
         } else {
             request.setAttribute(ERROR, "La page " + request.getRequestURI().substring(request.getContextPath().length()) + " n'existe pas");
-            request.getRequestDispatcher(PAGE_ERROR).forward(request, response);
+            request.getRequestDispatcher(PageInOut.ERROR.toString()).forward(request, response);
         }
 
     }
@@ -58,10 +57,7 @@ public class RestrictAccess implements Filter {
     }
 
     public enum PageIn {
-        ROOT("/"),
-        ERROR("/Error"),
         HOMEPAGE("/HomePage"),
-        ABOUT("/About"),
         DELETEACCOUNT("/DeleteAccount"),
         MODIFYACCOUNT("/ModifyAccount"),
         MODIFYACCOUNTIMAGE("/ImageAccount"),
@@ -92,16 +88,24 @@ public class RestrictAccess implements Filter {
             return null;
         }
 
+        public static Boolean containString(String text) {
+            if (text != null) {
+                for (PageIn b : PageIn.values()) {
+                    if (text.equalsIgnoreCase(b.converter)) {
+                        return true;
+                    }
+                }
+            }
+            return PageInOut.containString(text);
+        }
+
         public String toString() {
             return converter;
         }
     }
 
     public enum PageOut {
-        ROOT("/"),
-        ERROR("/Error"),
         HOME("/Home"),
-        ABOUT("/About"),
         CREATEACCOUNT("/CreateAccount"),
         LOGIN("/LoginAccount");
 
@@ -120,6 +124,55 @@ public class RestrictAccess implements Filter {
                 }
             }
             return null;
+        }
+
+        public static Boolean containString(String text) {
+            if (text != null) {
+                for (PageOut b : PageOut.values()) {
+                    if (text.equalsIgnoreCase(b.converter)) {
+                        return true;
+                    }
+                }
+            }
+            return PageInOut.containString(text);
+        }
+
+        public String toString() {
+            return converter;
+        }
+    }
+
+    public enum PageInOut {
+        ROOT("/"),
+        ERROR("/Error"),
+        ABOUT("/About");
+
+        private String converter;
+
+        PageInOut(String c) {
+            this.converter = c;
+        }
+
+        public static PageInOut fromString(String text) {
+            if (text != null) {
+                for (PageInOut b : PageInOut.values()) {
+                    if (text.equalsIgnoreCase(b.converter)) {
+                        return b;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static Boolean containString(String text) {
+            if (text != null) {
+                for (PageInOut b : PageInOut.values()) {
+                    if (text.equalsIgnoreCase(b.converter)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public String toString() {

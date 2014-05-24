@@ -40,7 +40,7 @@ public class ModifyAccount extends ServletConfig {
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute(ERROR, e.getMessage());
-            request.getRequestDispatcher(RestrictAccess.PAGE_ERROR).forward(request, response);
+            request.getRequestDispatcher(RestrictAccess.PageInOut.ERROR.toString()).forward(request, response);
         }
     }
 
