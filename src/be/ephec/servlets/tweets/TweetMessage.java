@@ -4,7 +4,6 @@ import be.ephec.beans.User;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
-import be.ephec.filters.RestrictAccess;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -46,12 +45,6 @@ public class TweetMessage extends ServletConfig {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            this.DynamicCallController(request, response, this.daoITweet);
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute(ERROR, e.getMessage());
-            request.getRequestDispatcher(RestrictAccess.PageInOut.ERROR.toString()).forward(request, response);
-        }
+        this.DynamicCallController(request, response, this.daoITweet);
     }
 }

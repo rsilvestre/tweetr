@@ -1,9 +1,13 @@
 package be.ephec.servlets;
 
+import be.ephec.filters.RestrictAccess;
+
 import javax.servlet.GenericServlet;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,7 +23,7 @@ public abstract class ServletConfig extends HttpServlet {
         super();
     }
 
-    public void DynamicCallController(HttpServletRequest request, HttpServletResponse response, Object... object) throws Exception {
+    public void DynamicCallController(HttpServletRequest request, HttpServletResponse response, Object... object) throws ServletException, IOException {
         String subRequestURI = request.getRequestURI();
         subRequestURI = subRequestURI.substring(1, subRequestURI.length());
         Pattern pat = Pattern.compile("^([A-Z][a-z]+)([A-Z][a-z]+)$");
@@ -27,7 +31,8 @@ public abstract class ServletConfig extends HttpServlet {
         match.find();
         String action = match.group(1), controller = match.group(2);
         if (action.isEmpty() || controller.isEmpty()) {
-            throw new Exception("La page " + request.getRequestURI().substring(request.getContextPath().length()) + " n'existe pas");
+            request.setAttribute(ERROR, "La page " + request.getRequestURI().substring(request.getContextPath().length()) + " n'existe pas");
+            request.getRequestDispatcher(RestrictAccess.PageInOut.ERROR.toString()).forward(request, response);
         }
 
         //Object toto = Thread.currentThread().getContextClassLoader().getResource("../../Images").toString();
@@ -37,7 +42,9 @@ public abstract class ServletConfig extends HttpServlet {
             Object objectz = ctor.newInstance(this, request, response);
             clazz.getMethod(action, Object[].class).invoke(objectz, new Object[]{object});
         } catch (Exception ex) {
-            throw new Exception("Pas de controller " + controller + " ou d'action " + action + ". Détail : " + ex.getMessage());
+            //throw new Exception();
+            request.setAttribute(ERROR, "Pas de controller " + controller + " ou d'action " + action + ". Détail : " + ex.getMessage());
+            request.getRequestDispatcher(RestrictAccess.PageInOut.ERROR.toString()).forward(request, response);
         }
     }
 }

@@ -59,7 +59,7 @@ public class AccountController extends ApplicationController {
         this.getRequest().setAttribute(USER, user);
 
         if (this.getErreurs().isEmpty()) {
-            this.getResponse().sendRedirect(RestrictAccess.PageIn.HOMEPAGE.toString());
+            this.getResponse().sendRedirect(RestrictAccess.PageIn.SHOWACCOUNT.toString());
         } else {
             this.getServlet().getServletContext().getRequestDispatcher(ModifyAccount.MODIFYACCOUNT).forward(this.getRequest(), this.getResponse());
         }

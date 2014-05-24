@@ -2,7 +2,6 @@ package be.ephec.servlets.accounts;
 
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOIUser;
-import be.ephec.filters.RestrictAccess;
 import be.ephec.servlets.ServletConfig;
 
 import javax.servlet.ServletException;
@@ -31,13 +30,6 @@ public class LoginAccount extends ServletConfig {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            this.DynamicCallController(request, response, this.daoIUser);
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute(ERROR, e.getMessage());
-            request.getRequestDispatcher(RestrictAccess.PageInOut.ERROR.toString()).forward(request, response);
-        }
+        this.DynamicCallController(request, response, this.daoIUser);
     }
-
 }
