@@ -2,7 +2,6 @@ package be.ephec.utilities;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 public class FrameworkSupport {
 
     public static String getTrimedValue(HttpServletRequest request, String pParamName) {

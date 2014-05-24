@@ -1,6 +1,5 @@
 package be.ephec.utilities;
 
-
 import com.mysql.jdbc.ResultSetMetaData;
 
 import java.lang.reflect.Field;

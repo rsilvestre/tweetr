@@ -40,7 +40,7 @@ public abstract class ServletConfig extends HttpServlet {
             Class<?> clazz = Class.forName("be.ephec.controller." + controller + "Controller");
             Constructor<?> ctor = clazz.getConstructor(GenericServlet.class, HttpServletRequest.class, HttpServletResponse.class);
             Object objectz = ctor.newInstance(this, request, response);
-            clazz.getMethod(action, Object[].class).invoke(objectz, new Object[]{object});
+            clazz.getMethod(action + "Action", Object[].class).invoke(objectz, new Object[]{object});
         } catch (Exception ex) {
             //throw new Exception();
             request.setAttribute(ERROR, "Pas de controller " + controller + " ou d'action " + action + ". Détail : " + ex.getMessage());

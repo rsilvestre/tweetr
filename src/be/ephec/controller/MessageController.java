@@ -24,7 +24,7 @@ public class MessageController extends ApplicationController {
     }
 
 
-    public void Tweet(Object... objects) throws IOException {
+    public void TweetAction(Object... objects) throws IOException {
         DAOITweet daoITweet = (DAOITweet) objects[0];
 
         this.createTweet(daoITweet);
@@ -34,7 +34,7 @@ public class MessageController extends ApplicationController {
         this.getResponse().sendRedirect(RestrictAccess.PageIn.HOMEPAGE.toString());
     }
 
-    public void Retweet(Object... objects) throws IOException {
+    public void RetweetAction(Object... objects) throws IOException {
         DAOITweet daoITweet = (DAOITweet) objects[0];
 
         ReTweet reTweet = this.createReTweet(daoITweet);

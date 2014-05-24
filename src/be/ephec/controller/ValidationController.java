@@ -9,7 +9,7 @@ import java.util.Map;
 
 public abstract class ValidationController {
 
-    public static final String USER_SESSION = "userSession";
+    protected static final String USER_SESSION = "userSession";
     private final Map<String, String> erreurs = new HashMap<>();
     private String result;
 
@@ -53,7 +53,7 @@ public abstract class ValidationController {
         this.result = result;
     }
 
-    public interface extraCallback {
+    protected interface extraCallback {
         void doJob(String dataKey, Map<String, String> erreurs);
     }
 }

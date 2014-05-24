@@ -45,7 +45,7 @@ public class AccountController extends ApplicationController {
         super(servlet, request, response);
     }
 
-    public void Modify(Object... objects) throws ServletException, IOException {
+    public void ModifyAction(Object... objects) throws ServletException, IOException {
         DAOIUser daoIUser = (DAOIUser) objects[0];
 
         HttpSession session = this.getRequest().getSession();
@@ -65,7 +65,7 @@ public class AccountController extends ApplicationController {
         }
     }
 
-    public void Create(Object... objects) throws IOException, ServletException {
+    public void CreateAction(Object... objects) throws IOException, ServletException {
         DAOIUser daoIUser = (DAOIUser) objects[0];
         User user = this.createUserAccount(daoIUser);
 
@@ -85,7 +85,7 @@ public class AccountController extends ApplicationController {
         }
     }
 
-    public void Delete(Object... objects) throws IOException {
+    public void DeleteAction(Object... objects) throws IOException {
         DAOIUser daoIUser = (DAOIUser) objects[0];
         DAOITweet daoITweet = (DAOITweet) objects[1];
         DAOIFollow daoIFollow = (DAOIFollow) objects[2];
@@ -93,7 +93,7 @@ public class AccountController extends ApplicationController {
         this.getResponse().sendRedirect(RestrictAccess.PageIn.LOGOUT.toString());
     }
 
-    public void Login(Object... objects) throws IOException, ServletException {
+    public void LoginAction(Object... objects) throws IOException, ServletException {
         DAOIUser daoIUser = (DAOIUser) objects[0];
 
         User user = this.loginValidation(daoIUser);
@@ -134,7 +134,7 @@ public class AccountController extends ApplicationController {
         }
     }
 
-    public void Image(Object... objects) throws IOException, ServletException {
+    public void ImageAction(Object... objects) throws IOException, ServletException {
         DAOIUser daoIUser = (DAOIUser) objects[0];
         DAOIFile daoIFile = (DAOIFile) objects[1];
 
@@ -151,7 +151,7 @@ public class AccountController extends ApplicationController {
         }
     }
 
-    public void Show(Object... objects) throws ServletException, IOException {
+    public void ShowAction(Object... objects) throws ServletException, IOException {
         DAOIUser daoIUser = (DAOIUser) objects[0];
         DAOITweet daoITweet = (DAOITweet) objects[1];
         DAOIFollow daoIFollow = (DAOIFollow) objects[2];

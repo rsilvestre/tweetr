@@ -5,9 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * Created by michaelsilvestre on 17/05/14.
- */
 public class SqlTools {
 
     public static PreparedStatement preparedRequestInitialization(Connection connexion, String sql, boolean returnGeneratedKeys, Object... objets) throws SQLException {

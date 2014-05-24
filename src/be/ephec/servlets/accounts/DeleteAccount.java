@@ -34,7 +34,4 @@ public class DeleteAccount extends ServletConfig {
         this.DynamicCallController(request, response, this.daoIUser, daoIFollow, daoITweet);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
-
 }
