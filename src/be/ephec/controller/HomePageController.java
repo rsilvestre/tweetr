@@ -10,12 +10,12 @@ import be.ephec.dao.DAOUser;
 
 import java.util.List;
 
-public class HomePageController extends ValidationController {
+public class HomepageController extends ValidationController {
 
     private final DAOTweet daoTweet;
     private final DAOUser daoUser;
 
-    public HomePageController(DAOITweet daoITweet, DAOIUser daoIUser) {
+    public HomepageController(DAOITweet daoITweet, DAOIUser daoIUser) {
         this.daoTweet = (DAOTweet) daoITweet;
         this.daoUser = (DAOUser) daoIUser;
     }

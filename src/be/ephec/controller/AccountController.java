@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
 public class AccountController extends ApplicationController {
@@ -43,10 +44,16 @@ public class AccountController extends ApplicationController {
     private static final String CONFIRMATION = "confirmation";
 
     private static final String IMAGE = "image";
-    private static final String PATH = Thread.currentThread().getContextClassLoader().getResource("../../Images").getPath();
+    //private static final String PATH = Thread.currentThread().getContextClassLoader().getResource("../../Images").getPath();
+    private static String PATH = "";
 
     public AccountController(GenericServlet servlet, HttpServletRequest request, HttpServletResponse response) {
         super(servlet, request, response);
+        try {
+            PATH = servlet.getServletContext().getResource("/Images").toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void ModifyAction(Object... objects) throws ServletException, IOException {

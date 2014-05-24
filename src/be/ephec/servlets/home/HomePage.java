@@ -1,7 +1,7 @@
 package be.ephec.servlets.home;
 
 import be.ephec.beans.User;
-import be.ephec.controller.HomePageController;
+import be.ephec.controller.HomepageController;
 import be.ephec.dao.DAOFactory;
 import be.ephec.dao.DAOITweet;
 import be.ephec.dao.DAOIUser;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/HomePage")
-public class HomePage extends ServletConfig {
+@WebServlet("/Homepage")
+public class Homepage extends ServletConfig {
     private static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
     private static final String FORM = "form";
     private static final String TWEETS = "tweets";
@@ -23,7 +23,7 @@ public class HomePage extends ServletConfig {
     private DAOIUser daoIUser;
 
 
-    public HomePage() {
+    public Homepage() {
         super();
     }
 
@@ -33,7 +33,7 @@ public class HomePage extends ServletConfig {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HomePageController form = new HomePageController(daoITweet, daoIUser);
+        HomepageController form = new HomepageController(daoITweet, daoIUser);
 
         //request.setAttribute(FORM, form);
 
