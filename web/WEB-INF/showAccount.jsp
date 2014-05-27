@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
-
+<!-- toto -->
 <c:if test="${param.id != null && param.id == user.userId}">
     <c:set var="idparam" scope="request" value="?id=${user.userId}"/>
 </c:if>
