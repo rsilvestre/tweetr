@@ -6,6 +6,7 @@ import be.ephec.beans.TweetOut;
 import be.ephec.beans.User;
 import be.ephec.exceptions.DAOException;
 import be.ephec.utilities.EntityMapping;
+import be.ephec.utilities.EscapeChars;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,7 +94,7 @@ public class DAOTweet extends DAO implements DAOITweet {
                         String action = match.group(1);
                         DAOUser daoUser = new DAOUser(DAOFactory.getInstance());
                         User user1 = daoUser.searchByUserName(action);
-                        tmpTweetOut.setBody(tmpTweetOut.getBody().replace("@" + action, "<a class=\"\" href=\"/User?id=" + user1.getUserId() + "\"><strong class=\"center-middle-txt\">@" + action + "</strong></a>"));
+                        tmpTweetOut.setBody(EscapeChars.forHTML(tmpTweetOut.getBody()).replace("@" + action, "<a class=\"\" href=\"/User?id=" + user1.getUserId() + "\"><strong class=\"center-middle-txt\">@" + action + "</strong></a>"));
                     }
                     lstTweetOut.add(tmpTweetOut);
                 } catch (Exception e) {
@@ -122,7 +123,7 @@ public class DAOTweet extends DAO implements DAOITweet {
                         String action = match.group(1);
                         DAOUser daoUser = new DAOUser(DAOFactory.getInstance());
                         User user1 = daoUser.searchByUserName(action);
-                        tmpTweetOut.setBody(tmpTweetOut.getBody().replace("@" + action, "<a class=\"\" href=\"/User?id=" + user1.getUserId() + "\"><strong class=\"center-middle-txt\">@" + action + "</strong></a>"));
+                        tmpTweetOut.setBody(EscapeChars.forHTML(tmpTweetOut.getBody()).replace("&#064;" + action, "<a class=\"\" href=\"/User?id=" + user1.getUserId() + "\"><strong class=\"center-middle-txt\">&#064;" + action + "</strong></a>"));
                     }
                     lstTweetOut.add(tmpTweetOut);
                 } catch (Exception e) {
