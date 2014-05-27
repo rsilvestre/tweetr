@@ -38,10 +38,7 @@ public abstract class ValidationController {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
             erreurs.put(dataKey, e.getTargetException().getMessage());
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            erreurs.put(dataKey, e.getMessage());
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
             erreurs.put(dataKey, e.getMessage());
         }

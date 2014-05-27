@@ -106,7 +106,8 @@
                     </div>
                 </div>
             </form>
-            <form method="post" action="/ImageAccount" enctype="multipart/form-data" class="form-horizontal"
+            <form method="post" action="<c:url value="/ImageAccount"/>" enctype="multipart/form-data"
+                  class="form-horizontal"
                   role="form">
                 <h3>Modifier votre photos de profil</h3>
 

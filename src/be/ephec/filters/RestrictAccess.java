@@ -71,7 +71,7 @@ public class RestrictAccess implements Filter {
         TWEET("/TweetMessage"),
         RECHERCHE("/Search");
 
-        private String converter;
+        private final String converter;
 
         PageIn(String c) {
             this.converter = c;
@@ -109,7 +109,7 @@ public class RestrictAccess implements Filter {
         CREATEACCOUNT("/CreateAccount"),
         LOGIN("/LoginAccount");
 
-        private String converter;
+        private final String converter;
 
         PageOut(String c) {
             this.converter = c;
@@ -147,7 +147,7 @@ public class RestrictAccess implements Filter {
         ERROR("/Error"),
         ABOUT("/About");
 
-        private String converter;
+        private final String converter;
 
         PageInOut(String c) {
             this.converter = c;

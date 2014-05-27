@@ -15,7 +15,7 @@
 
                 <p><a href="<c:url value="/CreateAccount"/>">Nouveau compte</a></p>
 
-                <form method="post" action="/LoginAccount" class="form-horizontal">
+                <form method="post" action="<c:url value="/LoginAccount"/>" class="form-horizontal">
                     <h3>Connection</h3>
 
                     <div class="form-group">

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <table class="content-error-page" border="0" width="75%">
@@ -446,7 +447,7 @@
 
 <tr>
     <td align="center" colspan="2">
-        Click <a href="/">this link</a> to continue _
+        Click <a href="<c:url value="/"/>">this link</a> to continue _
 
     </td>
 </tr>

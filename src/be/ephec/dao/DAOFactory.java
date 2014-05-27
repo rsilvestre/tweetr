@@ -16,7 +16,7 @@ public class DAOFactory {
     private static final String PROPERTY_DRIVER = "driver";
 
     private final String url;
-    private Properties properties;
+    private final Properties properties;
 
     public DAOFactory(String url, Properties properties) {
         this.url = url;

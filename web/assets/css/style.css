@@ -336,6 +336,11 @@ div.dashboard-send-button {
     display: inline;
 }
 
+.dashboard textarea#body {
+    width: 100%;
+    padding: 4px;
+}
+
 /* @end */
 
 .Grid {

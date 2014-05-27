@@ -43,7 +43,7 @@
                         </ul>
                     </li>
                 </ul>
-                <form method="post" action="/Search" class="navbar-form navbar-left" role="search">
+                <form method="post" action="<c:url value="/Search"/>" class="navbar-form navbar-left" role="search">
                     <div class="form-group">
                         <input type="text" class="form-control" id="keyword" name="keyword"
                                placeholder="Rechercher utilisateur">

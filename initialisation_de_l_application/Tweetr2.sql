@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost:3306
--- Généré le :  Sam 24 Mai 2014 à 09:55
+-- Généré le :  Dim 25 Mai 2014 à 16:01
 -- Version du serveur :  5.5.34
 -- Version de PHP :  5.5.10
 
@@ -13,6 +13,10 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `Tweetr2`
 --
+CREATE DATABASE IF NOT EXISTS `Tweetr2`
+  DEFAULT CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+USE `Tweetr2`;
 
 -- --------------------------------------------------------
 
@@ -20,7 +24,8 @@ SET time_zone = "+00:00";
 -- Structure de la table `Follow`
 --
 
-CREATE TABLE `Follow` (
+DROP TABLE IF EXISTS `Follow`;
+CREATE TABLE IF NOT EXISTS `Follow` (
   `FollowId`    INT(11)   NOT NULL AUTO_INCREMENT,
   `FollowerId`  INT(11)   NOT NULL,
   `FollowingId` INT(11)   NOT NULL,
@@ -31,7 +36,8 @@ CREATE TABLE `Follow` (
 )
   ENGINE =InnoDB
   DEFAULT CHARSET =utf8
-  AUTO_INCREMENT =100;
+  COLLATE utf8_general_ci
+  AUTO_INCREMENT =125;
 
 --
 -- Contenu de la table `Follow`
@@ -45,21 +51,20 @@ INSERT INTO `Follow` (`FollowId`, `FollowerId`, `FollowingId`, `UpdatedAt`) VALU
   (30, 2, 3, '2014-05-21 15:54:33'),
   (31, 6, 2, '2014-05-21 16:08:50'),
   (32, 6, 4, '2014-05-21 16:10:00'),
-  (41, 2, 7, '2014-05-22 20:47:43'),
   (60, 2, 5, '2014-05-22 23:00:46'),
   (65, 2, 1, '2014-05-22 23:01:34'),
   (66, 8, 2, '2014-05-22 23:07:25'),
-  (67, 8, 7, '2014-05-22 23:07:31'),
   (68, 8, 6, '2014-05-22 23:07:32'),
   (72, 8, 5, '2014-05-22 23:09:05'),
   (73, 6, 8, '2014-05-22 23:10:30'),
   (74, 3, 1, '2014-05-22 23:49:57'),
   (91, 3, 5, '2014-05-23 19:49:56'),
-  (93, 10, 7, '2014-05-23 22:16:38'),
   (94, 10, 4, '2014-05-23 22:16:39'),
   (97, 10, 2, '2014-05-23 22:19:21'),
   (98, 10, 3, '2014-05-23 22:20:06'),
-  (99, 9, 10, '2014-05-23 22:21:38');
+  (99, 9, 10, '2014-05-23 22:21:38'),
+  (112, 13, 3, '2014-05-24 19:17:31'),
+  (124, 13, 4, '2014-05-24 19:23:58');
 
 -- --------------------------------------------------------
 
@@ -67,7 +72,8 @@ INSERT INTO `Follow` (`FollowId`, `FollowerId`, `FollowingId`, `UpdatedAt`) VALU
 -- Structure de la table `Retweet`
 --
 
-CREATE TABLE `Retweet` (
+DROP TABLE IF EXISTS `Retweet`;
+CREATE TABLE IF NOT EXISTS `Retweet` (
   `RetweetId` INT(11)   NOT NULL AUTO_INCREMENT,
   `TweetId`   INT(11)   NOT NULL,
   `UserId`    INT(11)   NOT NULL,
@@ -78,7 +84,8 @@ CREATE TABLE `Retweet` (
 )
   ENGINE =InnoDB
   DEFAULT CHARSET =utf8
-  AUTO_INCREMENT =12;
+  COLLATE utf8_general_ci
+  AUTO_INCREMENT =16;
 
 --
 -- Contenu de la table `Retweet`
@@ -95,7 +102,9 @@ INSERT INTO `Retweet` (`RetweetId`, `TweetId`, `UserId`, `UpdatedAt`) VALUES
   (8, 6, 10, '2014-05-23 22:18:27'),
   (9, 11, 10, '2014-05-23 22:18:38'),
   (10, 14, 10, '2014-05-23 22:20:22'),
-  (11, 15, 9, '2014-05-23 22:22:09');
+  (11, 15, 9, '2014-05-23 22:22:09'),
+  (13, 9, 13, '2014-05-24 19:18:55'),
+  (14, 21, 13, '2014-05-24 19:23:54');
 
 -- --------------------------------------------------------
 
@@ -103,7 +112,8 @@ INSERT INTO `Retweet` (`RetweetId`, `TweetId`, `UserId`, `UpdatedAt`) VALUES
 -- Structure de la table `Tweet`
 --
 
-CREATE TABLE `Tweet` (
+DROP TABLE IF EXISTS `Tweet`;
+CREATE TABLE IF NOT EXISTS `Tweet` (
   `TweetId`   INT(11)      NOT NULL AUTO_INCREMENT,
   `UserId`    INT(11)      NOT NULL,
   `Body`      VARCHAR(140) NOT NULL,
@@ -113,7 +123,8 @@ CREATE TABLE `Tweet` (
 )
   ENGINE =InnoDB
   DEFAULT CHARSET =utf8
-  AUTO_INCREMENT =18;
+  COLLATE utf8_general_ci
+  AUTO_INCREMENT =27;
 
 --
 -- Contenu de la table `Tweet`
@@ -136,7 +147,13 @@ INSERT INTO `Tweet` (`TweetId`, `UserId`, `Body`, `UpdatedAt`) VALUES
   (14, 3, 'C’est une belle phrase @michael que tu nous dis là', '2014-05-23 14:30:41'),
   (15, 10, 'Vrooooomm', '2014-05-23 22:18:17'),
   (16, 10, 'Zorba le grec', '2014-05-23 22:20:58'),
-  (17, 9, 'Salut Schumi, vivement que tu remontes sur tes skis', '2014-05-23 22:21:56');
+  (17, 9, 'Salut Schumi, vivement que tu remontes sur tes skis', '2014-05-23 22:21:56'),
+  (18, 3, 'Dernière ligne droite', '2014-05-24 09:04:10'),
+  (19, 2, 'Salut @Toto, tu as été super actif hier soir!', '2014-05-24 09:05:26'),
+  (21, 4, 'Hello @startrek', '2014-05-24 16:18:14'),
+  (22, 13, 'Salut tout le monde est surtout bonjour à @Toto', '2014-05-24 19:17:22'),
+  (23, 13, '@xavier j’adore ta dernière phrase!', '2014-05-24 19:19:19'),
+  (26, 13, 'finalement ca craint ici, je me tire band de naze!', '2014-05-24 19:23:23');
 
 -- --------------------------------------------------------
 
@@ -144,7 +161,8 @@ INSERT INTO `Tweet` (`TweetId`, `UserId`, `Body`, `UpdatedAt`) VALUES
 -- Structure de la table `User`
 --
 
-CREATE TABLE `User` (
+DROP TABLE IF EXISTS `User`;
+CREATE TABLE IF NOT EXISTS `User` (
   `UserId`    INT(11)      NOT NULL AUTO_INCREMENT,
   `UserName`  VARCHAR(45)  NOT NULL,
   `FirstName` VARCHAR(45)  NOT NULL,
@@ -159,7 +177,8 @@ CREATE TABLE `User` (
 )
   ENGINE =InnoDB
   DEFAULT CHARSET =utf8
-  AUTO_INCREMENT =11;
+  COLLATE utf8_general_ci
+  AUTO_INCREMENT =14;
 
 --
 -- Contenu de la table `User`
@@ -169,25 +188,25 @@ INSERT INTO `User` (`UserId`, `UserName`, `FirstName`, `LastName`, `Email`, `Pas
   (1, 'michael', 'michael', 'michael', 'michael@michael.be',
    '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', '0', '2014-05-20 09:26:03'),
   (2, 'rsilvestre', 'michael', 'silvestre', 'willtard@gmail.com',
-   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U2-wallpaper-430278.jpg',
-   '2014-05-22 23:46:55'),
+   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U2-wallpaper-335287.jpg',
+   '2014-05-24 20:19:34'),
   (3, 'toto', 'toto', 'toto', 'toto@toto.be', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18',
-   'U3-wallpaper-760272.jpg', '2014-05-23 21:24:25'),
+   'U3-41280.jpg', '2014-05-24 20:18:53'),
   (4, 'celine', 'Céline', 'Zoetardt', 'celine@yahoo.fr',
    '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', '0', '2014-05-22 15:23:40'),
   (5, 'divine', 'Céline', 'Zoetardt', 'celine@toto.be',
-   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U5-wallpaper-127191.jpg',
-   '2014-05-22 23:48:30'),
+   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U5-4words1024x768.jpg', '2014-05-24 20:19:17'),
   (6, 'xavier', 'xavier', 'planckaert', 'xavier@toto.be',
-   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U6-4words1024x768.jpg', '2014-05-22 23:45:47'),
-  (7, 'Luccas', 'Eric', 'Marc', 'eric@marc.be', '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', '0',
-   '2014-05-22 15:32:45'),
+   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U6-wallpaper-369.jpg', '2014-05-24 20:20:05'),
   (8, 'maxjlaurent', 'Jean-Laurent', 'Leroy', 'maxjlaurent@hotmail.com',
-   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U8-21280.jpg', '2014-05-22 23:12:24'),
+   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U8-wallpaper-22537.jpg', '2014-05-24 20:20:21'),
   (9, 'celiavrancken', 'Célia', 'Vrancken', 'celiavrancken@gmail.com',
    '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', '0', '2014-05-23 22:13:59'),
   (10, 'schumi', 'Michael', 'Schumacker', 'schumi@gmail.com',
-   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U10-download.jpeg', '2014-05-23 22:18:06');
+   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U10-41280.jpg', '2014-05-25 13:22:22'),
+  (13, 'startrek', 'star', 'trek', 'startrek@gmail.com',
+   '2cb4b1431b84ec15d35ed83bb927e27e8967d75f4bcd9cc4b25c8d879ae23e18', 'U13-wallpaper-760272.jpg',
+   '2014-05-24 20:20:48');
 
 --
 -- Contraintes pour les tables exportées

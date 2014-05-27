@@ -105,6 +105,8 @@ public class DAOFollow extends DAO implements DAOIFollow {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            this.CloseConnection();
         }
         return lstUser;
     }
@@ -124,6 +126,8 @@ public class DAOFollow extends DAO implements DAOIFollow {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            this.CloseConnection();
         }
         return lstUser;
     }
