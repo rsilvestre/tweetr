@@ -57,7 +57,7 @@
                         </c:if>
 
                         <c:if test="${sessionScope.userSession != null}">
-                            <a href="<c:url value="/LogoutAccount"/>">Déconnection</a>
+                            <a href="<c:url value="/LogoutAccount"/>">Déconnexion</a>
                         </c:if>
                     </li>
                     <li><a href="<c:url value="/About"/>">A propos</a></li>
