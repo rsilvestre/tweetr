@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebFilter(filterName = "FilterSession", urlPatterns = "/*")
 public class RestrictAccess implements Filter {
@@ -24,27 +26,33 @@ public class RestrictAccess implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        String chemin = request.getRequestURI().substring(
-                request.getContextPath().length());
+        String chemin = request.getRequestURI().substring(request.getContextPath().length());
         if (chemin.startsWith("/assets") || chemin.startsWith("/Images")) {
             chain.doFilter(request, response);
             return;
         }
 
+        if ("GET".equals(request.getMethod())) {
+            Pattern pattern = Pattern.compile("(\\/[^;]+);.*");
+            Matcher matcher = pattern.matcher(chemin);
+            if (matcher.find()) {
+                chemin = matcher.group(1);
+            }
+        }
+
         HttpSession session = request.getSession();
 
-        String subRequestURI;
-        if (session.getAttribute(USER_SESSION) == null && PageOut.containString(subRequestURI = request.getRequestURI().substring(request.getContextPath().length()))) {
-            if (PageInOut.ROOT == PageInOut.fromString(subRequestURI)) {
+        if (session.getAttribute(USER_SESSION) == null && PageOut.containString(chemin)) {
+            if (PageInOut.ROOT == PageInOut.fromString(chemin)) {
                 request.getRequestDispatcher(PageOut.HOME.toString()).forward(request, response);
             } else {
-                request.getRequestDispatcher(subRequestURI).forward(request, response);
+                request.getRequestDispatcher(chemin).forward(request, response);
             }
-        } else if (session.getAttribute(USER_SESSION) != null && PageIn.containString(subRequestURI = request.getRequestURI().substring(request.getContextPath().length()))) {
-            if (PageInOut.ROOT == PageInOut.fromString(subRequestURI)) {
+        } else if (session.getAttribute(USER_SESSION) != null && PageIn.containString(chemin)) {
+            if (PageInOut.ROOT == PageInOut.fromString(chemin)) {
                 request.getRequestDispatcher(PageIn.HOMEPAGE.toString()).forward(request, response);
             } else {
-                request.getRequestDispatcher(subRequestURI).forward(request, response);
+                request.getRequestDispatcher(chemin).forward(request, response);
             }
         } else {
             request.setAttribute(ERROR, "La page " + request.getRequestURI().substring(request.getContextPath().length()) + " n'existe pas");
