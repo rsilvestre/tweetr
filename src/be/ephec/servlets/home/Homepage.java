@@ -17,7 +17,7 @@ import java.io.IOException;
 public class Homepage extends ServletConfig {
     private static final String HOMEPAGE = "/WEB-INF/homePage.jsp";
     private static final String FORM = "form";
-    private static final String TWEETS = "tweets";;
+    private static final String TWEETS = "tweets";
 
     private DAOITweet daoITweet;
     private DAOIUser daoIUser;
